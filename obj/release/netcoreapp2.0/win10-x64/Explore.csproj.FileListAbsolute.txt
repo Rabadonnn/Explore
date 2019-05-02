@@ -1,0 +1,1 @@
+C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.csprojAssemblyReference.cache

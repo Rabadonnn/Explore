@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Background.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Crosshair.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Kutty.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform2.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform3.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/rock.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
