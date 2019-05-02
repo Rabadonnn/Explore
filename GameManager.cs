@@ -10,8 +10,8 @@ namespace Explore
 {
     public static class GameManager
     {
-        public static int Width = 1600;
-        public static int Height = 900;
+        public static int Width = 1280;
+        public static int Height = 720;
 
         public static bool isFullScreen = false;
 
@@ -62,6 +62,7 @@ namespace Explore
             assets.Add("guard", contentManager.Load<Texture2D>("Guard"));
             assets.Add("dropship", contentManager.Load<Texture2D>("Ship"));
             assets.Add("bullet", contentManager.Load<Texture2D>("Bullet"));
+            assets.Add("nuke", contentManager.Load<Texture2D>("nuke"));
         }
 
         public static void SetTextures() {

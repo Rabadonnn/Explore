@@ -11,6 +11,7 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Kutty.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Nuke.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/platform.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/platform2.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/platform3.png</File>
@@ -19,6 +20,7 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

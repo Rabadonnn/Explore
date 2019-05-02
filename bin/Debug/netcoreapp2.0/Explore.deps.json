@@ -1,0 +1,134 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "826d04ed1b412c10a6b6a8d238bde507845865ef"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "Explore/1.0.0": {
+        "dependencies": {
+          "Comora": "0.5.0",
+          "MonoGame.Content.Builder": "3.7.0.9",
+          "MonoGame.Framework.DesktopGL.Core": "3.7.0.7",
+          "Spritesheet": "1.0.1"
+        },
+        "runtime": {
+          "Explore.dll": {}
+        }
+      },
+      "Comora/0.5.0": {
+        "runtime": {
+          "lib/netstandard1.1/Comora.dll": {
+            "assemblyVersion": "0.5.0.0",
+            "fileVersion": "0.5.0.0"
+          }
+        }
+      },
+      "MonoGame.Content.Builder/3.7.0.9": {},
+      "MonoGame.Framework.DesktopGL.Core/3.7.0.7": {
+        "runtime": {
+          "lib/netstandard2.0/MonoGame.Framework.dll": {
+            "assemblyVersion": "3.7.0.7",
+            "fileVersion": "3.7.0.7"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libSDL2-2.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libopenal.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x86/native/libSDL2-2.so": {
+            "rid": "linux-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x86/native/libopenal.so": {
+            "rid": "linux-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx/native/libSDL2-2.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx/native/libopenal.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libSDL2-2.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2.0.5.0"
+          },
+          "runtimes/win-x64/native/libopenal.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libSDL2-2.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "2.0.5.0"
+          },
+          "runtimes/win-x86/native/libopenal.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Spritesheet/1.0.1": {
+        "runtime": {
+          "lib/portable-net45+win8+wpa81+monoandroid+monotouch+xamarinios+monomac+xamarinmac/Spritesheet.dll": {
+            "assemblyVersion": "1.0.6367.578",
+            "fileVersion": "1.0.6367.578"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Explore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Comora/0.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Jw6hSGlpzKCkJ3efngY1W50iTMQivXbrpQ+HFqdKL8j7ds0XKnUUjyR46nmzpK/nZbUXPb5YMz3+N6ogiMyXw==",
+      "path": "comora/0.5.0",
+      "hashPath": "comora.0.5.0.nupkg.sha512"
+    },
+    "MonoGame.Content.Builder/3.7.0.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7fUYAAlaryMgD1cC01vvvLpkjvC1TJZYNVeMBiLmRPzXmh6gAROew88Rk6XlyeE4Q1rGRT0OcTfVVVGpopgwew==",
+      "path": "monogame.content.builder/3.7.0.9",
+      "hashPath": "monogame.content.builder.3.7.0.9.nupkg.sha512"
+    },
+    "MonoGame.Framework.DesktopGL.Core/3.7.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-juPb6yv+N362liHMbYQavmlhLzufpGGvNQqcpDGEs4BzRiycBXXjhZjCwpUekx0ozLfQ+kjirnuA3/M2lc4tMQ==",
+      "path": "monogame.framework.desktopgl.core/3.7.0.7",
+      "hashPath": "monogame.framework.desktopgl.core.3.7.0.7.nupkg.sha512"
+    },
+    "Spritesheet/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HaWPrtIXw29yN/w1u1kGG0qsqvTeHf/LSb1NvpGJXYUWe0LKtz5RekAM7Fuwse1Z9Zle7i2CP8G4IAwNhxZ+XA==",
+      "path": "spritesheet/1.0.1",
+      "hashPath": "spritesheet.1.0.1.nupkg.sha512"
+    }
+  }
+}
