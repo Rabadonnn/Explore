@@ -4,6 +4,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/Bullet.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Bullet.xnb","TextureProcessor","Texture2DContent",131,597,11.04812
 "C:/Users/Mihai/Desktop/Explore/Content/Crosshair.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Crosshair.xnb","TextureProcessor","Texture2DContent",130,985,0
 "C:/Users/Mihai/Desktop/Explore/Content/Guard.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Guard.xnb","TextureProcessor","Texture2DContent",687,12373,0.0156236
+"C:/Users/Mihai/Desktop/Explore/Content/Gun.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Gun.xnb","TextureProcessor","Texture2DContent",117,597,1.329184
 "C:/Users/Mihai/Desktop/Explore/Content/Kutty.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Kutty.xnb","TextureProcessor","Texture2DContent",1160,36949,0
 "C:/Users/Mihai/Desktop/Explore/Content/Mamba.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Mamba.xnb","TextureProcessor","Texture2DContent",685,9301,0
 "C:/Users/Mihai/Desktop/Explore/Content/Nuke.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Nuke.xnb","TextureProcessor","Texture2DContent",186,1109,0.9843179

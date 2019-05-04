@@ -8,7 +8,7 @@ namespace Explore
     {
         private int width = 20;
         private int height = 20;
-        private int gravity = 100;
+        private int gravity = 300;
 
         public Nuke(Vector2 _position) : base("nuke") {
             position = _position;
@@ -16,12 +16,18 @@ namespace Explore
 
         public void Update() {
 
-            List<GameObject> obstacles = new List<GameObject>();
-            obstacles.AddRange(GameObject.GetObjects("platform"));
-            obstacles.Add(GameObject.GetObject("player"));
+            List<Rectangle> obstacles = new List<Rectangle>();
+            
+            for (int i = 0; i < GameManager.platforms.Count; i++) {
+                obstacles.Add(GameManager.platforms[i].rectangle);
+            }
+
+            for (int i = 0; i < GameManager.player.platforms.Count; i++) {
+                obstacles.Add(GameManager.player.platforms[i].rectangle);
+            } 
 
             for (int i = 0; i < obstacles.Count; i++) {
-                if (Collision.RectRect(rectangle, obstacles[i].rectangle)) {
+                if (Collision.RectRect(rectangle, obstacles[i])) {
                     isDead = true;
                 }
             }

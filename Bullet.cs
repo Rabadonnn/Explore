@@ -20,7 +20,7 @@ namespace Explore
             position.X += speed * direction * GameManager.DeltaTime;
             rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
             lifetime -= GameManager.DeltaTime;
-            if (lifetime < 0) {
+            if (lifetime <= 0 || position.X < -GameManager.Width || position.X > GameManager.Width) {
                 isDead = true;
             }
         }

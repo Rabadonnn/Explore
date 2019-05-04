@@ -63,6 +63,7 @@ namespace Explore
             assets.Add("dropship", contentManager.Load<Texture2D>("Ship"));
             assets.Add("bullet", contentManager.Load<Texture2D>("Bullet"));
             assets.Add("nuke", contentManager.Load<Texture2D>("nuke"));
+            assets.Add("gun", contentManager.Load<Texture2D>("Gun"));
         }
 
         public static void SetTextures() {
@@ -74,25 +75,25 @@ namespace Explore
             for (int i = 0; i < dropShips.Count; i++) {
                 dropShips[i].SetTexture(assets["dropship"]);
             }
+
+            // for (int i = 0; i < 500; i++) {
+            //     Enemy e = new Enemy(new Vector2(0, 0));
+            //     e.SetAnimations();
+            //     enemies.Add(e);
+            // }
         }
 
         public static void Update(GameTime _gameTime) {
             gameTime = _gameTime;
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             GameObject.UpdateList();
+
             player.Update();
 
-            foreach (DropShip ship in dropShips) {
-                ship.Update();
-            }
+            UpdateMassObjects();
 
-            for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].Update(player.Position);
-
-                if (enemies[i].isDead) {
-                    enemies.RemoveAt(i);
-                }
-            }
+            DebugUpdate();
         } 
 
         public static void Draw(SpriteBatch spriteBatch) {
@@ -101,17 +102,7 @@ namespace Explore
 
             player.Draw(spriteBatch);
 
-            for (int i = 0; i < platforms.Count; i++) {
-                platforms[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].Draw(spriteBatch);
-            }
-
-            foreach (DropShip ship in dropShips) {
-                ship.Draw(spriteBatch);
-            }
+            DrawMassObjects(spriteBatch);
 
             spriteBatch.End();
 
@@ -134,6 +125,38 @@ namespace Explore
 
         public static void Print(object obj) {
             System.Diagnostics.Debug.WriteLine(obj);
+        }
+
+        private static void DebugUpdate() {
+            //Print(GameObject.GetAllObjects().Count);
+        }
+
+        private static void UpdateMassObjects() {
+            for (int i = 0; i < dropShips.Count; i++) {
+                dropShips[i].Update();
+            }
+
+            for (int i = 0; i < enemies.Count; i++) {
+                enemies[i].Update(player.Position);
+
+                if (enemies[i].isDead) {
+                    enemies.RemoveAt(i);
+                }
+            }
+        }
+
+        private static void DrawMassObjects(SpriteBatch spriteBatch) {
+            for (int i = 0; i < platforms.Count; i++) {
+                platforms[i].Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < enemies.Count; i++) {
+                enemies[i].Draw(spriteBatch);
+            }
+
+            foreach (DropShip ship in dropShips) {
+                ship.Draw(spriteBatch);
+            }
         }
     }
 }

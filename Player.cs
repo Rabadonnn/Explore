@@ -49,6 +49,15 @@ namespace Explore
         private float initialThrowingCooldown = 0.3f;
         private float throwingCooldown;
 
+        private Texture2D gunTexture;
+        private float gunAngle;
+
+        private Vector2 gunOrigin;
+        private Vector2 gunPosition;
+        private Vector2 gunScale;
+
+        private Vector2 gunShootPoint;
+
         // Building
 
         public List<Platform> platforms;
@@ -210,9 +219,9 @@ namespace Explore
                 Vector2 mousePosition = new Vector2(Input.MouseX - GameManager.Width / 2, Input.MouseY - GameManager.Height / 2);
                 Vector2 targetPosition;
                 Game1.camera.ToWorld(ref mousePosition, out targetPosition);
-                Rock newRock = new Rock(targetPosition, position, new Vector2(24, 24));
-                newRock.SetTexture(GameManager.Assets["rock"]);
-                rocks.Add(newRock);
+                // Rock newRock = new Rock(targetPosition, position, new Vector2(24, 24));
+                // newRock.SetTexture(GameManager.Assets["rock"]);
+                // rocks.Add(newRock);
                 throwingCooldown = initialThrowingCooldown;
             } else {
                 throwingCooldown -= GameManager.DeltaTime;
@@ -292,6 +301,8 @@ namespace Explore
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].Draw(spriteBatch);
             }
+
+            spriteBatch.Draw(gunTexture, gunScale, null, color: Color.White, gunAngle, gunOrigin, gunScale, SpriteEffects.None, 0);
 
             DrawFX(spriteBatch);
         }

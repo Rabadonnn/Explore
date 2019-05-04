@@ -23,7 +23,7 @@ namespace Explore
         //Shooting
 
         private bool shooting = false;
-        private List<Bullet> bullets = new List<Bullet>();
+        private List<Bullet> bullets;
         private float initialShootingCooldown = 0.5f;
         private float shootingCooldown;
         
@@ -42,6 +42,7 @@ namespace Explore
             position = _position;
             rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
             shootingCooldown = initialShootingCooldown;
+            bullets = new List<Bullet>();
         }
 
         public void SetAnimations() {
@@ -74,6 +75,7 @@ namespace Explore
             // Collisions
 
             List<Platform> obstacles = GameManager.platforms;
+            obstacles.AddRange(GameManager.player.platforms);
 
             for (int i = 0; i < obstacles.Count; i++) {
                 if (Collision.RectRect(rectangle, obstacles[i].rectangle)) {
