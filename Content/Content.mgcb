@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:Gun.png
 
+#begin Gun2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Gun2.png
+
 #begin Kutty.png
 /importer:TextureImporter
 /processor:TextureProcessor

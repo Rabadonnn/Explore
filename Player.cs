@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Spritesheet;
-using Explore.Paritcles;
+using Explore.Particles;
 
 namespace Explore
 {
@@ -45,18 +45,24 @@ namespace Explore
 
         // Shooting
 
-        private List<Rock> rocks;
-        private float initialThrowingCooldown = 0.3f;
-        private float throwingCooldown;
+        private List<Bullet> bullets;
+
+        private float initialShootingCooldown = 0.1f;
+        private float shootingCooldown;
 
         private Texture2D gunTexture;
-        private float gunAngle;
+        private float gunAngle = 0;
 
         private Vector2 gunOrigin;
         private Vector2 gunPosition;
+        private int gunScaleFactor = 3;
         private Vector2 gunScale;
+        private int currentGunDirection = 1;
 
         private Vector2 gunShootPoint;
+
+
+        private SpriteEffects gunSpriteEffect;
 
         // Building
 
@@ -72,10 +78,11 @@ namespace Explore
 
         public Player() : base("player") {
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
-            rocks = new List<Rock>();
             platforms = new List<Platform>();
             halfWidth = width / 2;
             halfHeight = height / 2;
+
+            bullets = new List<Bullet>();
 
             SetFX();
         }
@@ -84,6 +91,8 @@ namespace Explore
 
         public void SetAnimations() {
             texture = GameManager.Assets["square"];
+
+            gunTexture = GameManager.Assets["gun2"];
 
             Texture2D spriteSheetTexture = GameManager.Assets["mamba"];
             spriteSheet = new Spritesheet.Spritesheet(spriteSheetTexture).WithGrid((16, 16));
@@ -116,29 +125,41 @@ namespace Explore
             Vector2 cameraDesiredPosition = new Vector2(position.X, position.Y - 170);
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
 
-            CheckForBuilding();
-            CheckForShooting();
+
+            if (IsBewteenBounds()) {
+                CheckForBuilding();
+            }
+
+            UpdateGun();
+
+            for (int i = 0; i < platforms.Count; i++) {
+                platforms[i].Update();
+
+                if (platforms[i].isDead) {
+                    platforms.RemoveAt(i);
+                }
+            }
 
             currentAnimation.Update(GameManager.gameTime);
             UpdateFX();
         }
         private void KeepBetweenBounds() {
-            if (position.X > GameManager.Width) {
-                position.X = GameManager.Width;
-            } else if (position.X < -GameManager.Width) {
-                position.X = -GameManager.Width;
-            } else if (position.Y < -GameManager.Height / 2) {
-                position.Y = -GameManager.Height / 2;
-            } else if (position.Y > GameManager.Height) {
-                position.Y = GameManager.Height;
+            if (position.X > GameManager.ScreenWidth) {
+                position.X = GameManager.ScreenWidth;
+            } else if (position.X < -GameManager.ScreenWidth) {
+                position.X = -GameManager.ScreenWidth;
+            } else if (position.Y < -GameManager.ScreenHeight / 2) {
+                position.Y = -GameManager.ScreenHeight / 2;
+            } else if (position.Y > GameManager.ScreenHeight) {
+                position.Y = GameManager.ScreenHeight;
             }
         }
 
         private bool IsBewteenBounds() {
-            return position.X < GameManager.Width &&
-                    position.X > -GameManager.Width &&
-                    position.Y > -GameManager.Height / 2 &&
-                    position.Y < GameManager.Height;
+            return position.X < GameManager.ScreenWidth &&
+                    position.X > -GameManager.ScreenWidth &&
+                    position.Y > -GameManager.ScreenHeight / 2 &&
+                    position.Y < GameManager.ScreenHeight;
         }
 
         private void PerformMovement() {
@@ -215,22 +236,52 @@ namespace Explore
         }
 
         private void CheckForShooting() {
-            if (Input.LeftClick && throwingCooldown <= 0) {
-                Vector2 mousePosition = new Vector2(Input.MouseX - GameManager.Width / 2, Input.MouseY - GameManager.Height / 2);
-                Vector2 targetPosition;
-                Game1.camera.ToWorld(ref mousePosition, out targetPosition);
-                // Rock newRock = new Rock(targetPosition, position, new Vector2(24, 24));
-                // newRock.SetTexture(GameManager.Assets["rock"]);
-                // rocks.Add(newRock);
-                throwingCooldown = initialThrowingCooldown;
+            if (Input.Space && shootingCooldown <= 0) {
+                Shoot();
+                shootingCooldown = initialShootingCooldown;
             } else {
-                throwingCooldown -= GameManager.DeltaTime;
+                shootingCooldown -= GameManager.DeltaTime;
+            }
+        }
+
+        private void Shoot() {
+            Bullet b = new Bullet(gunShootPoint, currentGunDirection);
+            b.SetTexture(GameManager.Assets["bullet"]);
+            bullets.Add(b);
+        }
+
+        private void UpdateGun() {
+
+            CheckForShooting();
+
+            gunAngle = 0;
+            gunOrigin = new Vector2(gunTexture.Width / 2, gunTexture.Height / 2);
+            gunScale = new Vector2(gunScaleFactor, gunScaleFactor);
+
+            int gunOffset = 30;
+            int shootPointOffset = 65;
+
+            if (direction == 1 && currentGunDirection != 1) {
+                currentGunDirection = 1;
+                gunSpriteEffect = SpriteEffects.None;
+            } else if (direction == -1 && currentGunDirection != -1) {
+                currentGunDirection = -1;
+                gunSpriteEffect = SpriteEffects.FlipHorizontally;
             }
 
-            for (int i = 0; i < rocks.Count; i++) {
-                rocks[i].Update();
-                if (rocks[i].isDead) {
-                    rocks.RemoveAt(i);
+            if (currentGunDirection == 1) {
+                gunPosition = new Vector2(position.X + gunOffset, position.Y);
+                gunShootPoint = new Vector2(position.X + shootPointOffset, position.Y);
+            } else if (currentGunDirection == -1) {
+                gunPosition = new Vector2(position.X - gunOffset, position.Y);
+                gunShootPoint = new Vector2(position.X - shootPointOffset, position.Y);
+            }
+
+            for (int i = 0; i < bullets.Count; i++) {
+                bullets[i].Update();
+
+                if (bullets[i].isDead) {
+                    bullets.RemoveAt(i);
                 }
             }
         }
@@ -243,15 +294,7 @@ namespace Explore
                 buildingCooldown = initialBuildingCooldown;
             } else {
                 buildingCooldown -= GameManager.DeltaTime;
-            }
-
-            for (int i = 0; i < platforms.Count; i++) {
-                platforms[i].Update();
-
-                if (platforms[i].isDead) {
-                    platforms.RemoveAt(i);
-                }
-            }
+            }       
         }
 
         public void Draw(SpriteBatch spriteBatch) {
@@ -294,15 +337,15 @@ namespace Explore
 
             spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
 
-            for (int i = 0; i < rocks.Count; i++) {
-                rocks[i].Draw(spriteBatch);
-            }
-
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].Draw(spriteBatch);
             }
 
-            spriteBatch.Draw(gunTexture, gunScale, null, color: Color.White, gunAngle, gunOrigin, gunScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(gunTexture, gunPosition, null, Color.White, gunAngle, gunOrigin, gunScale, gunSpriteEffect, 0);
+            
+            for (int i = 0; i < bullets.Count; i++) {
+                bullets[i].Draw(spriteBatch);
+            }
 
             DrawFX(spriteBatch);
         }
@@ -348,7 +391,7 @@ namespace Explore
         private void Reset() {
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
-            throwingCooldown = initialThrowingCooldown;
+            shootingCooldown = initialShootingCooldown;
             buildingCooldown = initialBuildingCooldown;
         }
     }

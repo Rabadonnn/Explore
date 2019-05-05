@@ -17,12 +17,12 @@ namespace Explore
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //IsMouseVisible = true;
+            IsMouseVisible = true;
             //graphics.IsFullScreen = true;
             //IsFixedTimeStep = false;
             //graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.PreferredBackBufferWidth = GameManager.Width;
-            graphics.PreferredBackBufferHeight = GameManager.Height;
+            graphics.PreferredBackBufferWidth = GameManager.ScreenWidth;
+            graphics.PreferredBackBufferHeight = GameManager.ScreenHeight;
             //graphics.ApplyChanges();
         }
 

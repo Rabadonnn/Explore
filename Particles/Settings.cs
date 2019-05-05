@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Explore.Paritcles
+namespace Explore.Particles
 {
     public class Settings
     {

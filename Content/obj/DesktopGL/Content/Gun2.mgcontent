@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/Mamba.png</SourceFile>
-  <SourceTime>2019-04-28T20:17:46.7179481+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/Mamba.xnb</DestFile>
-  <DestTime>2019-05-05T13:23:50.3013828+03:00</DestTime>
+  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/Gun2.png</SourceFile>
+  <SourceTime>2019-05-05T13:40:02.5971591+03:00</SourceTime>
+  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/Gun2.xnb</DestFile>
+  <DestTime>2019-05-05T13:41:47.0883893+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

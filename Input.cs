@@ -51,5 +51,11 @@ namespace Explore
                 return Mouse.GetState().Position.Y;
             }
         }
+
+        public static bool Space {
+            get {
+                return Keyboard.GetState().IsKeyDown(Keys.Space);
+            }
+        }
     }
 }

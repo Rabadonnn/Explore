@@ -10,8 +10,18 @@ namespace Explore
 {
     public static class GameManager
     {
-        public static int Width = 1280;
-        public static int Height = 720;
+        private static int width = 1280;
+        private static int height = 720;
+        public static int ScreenWidth {
+            get {
+                return width;
+            }
+        }
+        public static int ScreenHeight {
+            get {
+                return height;
+            }
+        }
 
         public static bool isFullScreen = false;
 
@@ -33,19 +43,43 @@ namespace Explore
         public static Player player;
 
         public static List<Platform> platforms;
-        public static List<Enemy> enemies = new List<Enemy>();
 
-        private static List<DropShip> dropShips = new List<DropShip>() {
-            new DropShip(new Vector2(-100, 0)),
-            new DropShip(new Vector2(100, 0))
-        };
+        private static Random rand = new Random();
 
         public static void Initialize() {
             assets = new Dictionary<string, Texture2D>();
             player = new Player();
-            platforms = new List<Platform>() {
-                new Platform(new Vector2(0, 400), new Vector2(1200, 15))
-            };
+            platforms = GenerateRandomMap();
+        }
+
+        private static List<Platform> GenerateRandomMap() {
+            List<Platform> result = new List<Platform>();
+
+            int minX = -GameManager.width;
+            int maxX = GameManager.width;
+
+            int platformHeight = 15;
+
+            int minPlatformWidth = 75;
+            int maxPlatformWidth = 300;
+
+            int minHeight = 100;
+            int maxHeight = 200;
+
+            for (int i = minX; i < maxX; i += 0) {
+
+                int platformWidth = rand.Next(minPlatformWidth, maxPlatformWidth);
+                int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
+
+                Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
+                
+                result.Add(platformToAdd);
+
+                i += platformWidth;
+                //i += rand.Next(platformWidth, platformWidth + 50);
+            }
+
+            return result;
         }
 
         public static void LoadAssets(ContentManager contentManager) {
@@ -64,16 +98,13 @@ namespace Explore
             assets.Add("bullet", contentManager.Load<Texture2D>("Bullet"));
             assets.Add("nuke", contentManager.Load<Texture2D>("nuke"));
             assets.Add("gun", contentManager.Load<Texture2D>("Gun"));
+            assets.Add("gun2", contentManager.Load<Texture2D>("Gun2"));
         }
 
         public static void SetTextures() {
             player.SetAnimations();
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].SetTexture(assets["square"]);
-            }
-
-            for (int i = 0; i < dropShips.Count; i++) {
-                dropShips[i].SetTexture(assets["dropship"]);
             }
 
             // for (int i = 0; i < 500; i++) {
@@ -107,7 +138,7 @@ namespace Explore
             spriteBatch.End();
 
             spriteBatch.Draw(Game1.camera.Debug);
-            DrawCrosshair(spriteBatch);
+            //DrawCrosshair(spriteBatch);
         }
 
         private static void DrawCrosshair(SpriteBatch spriteBatch) {
@@ -119,7 +150,7 @@ namespace Explore
 
         private static void DrawBackground(SpriteBatch spriteBatch) {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(assets["background_variant"], destinationRectangle: new Rectangle(0, 0, Width, Height), color: Color.White);
+            spriteBatch.Draw(assets["background_variant"], destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight), color: Color.White);
             spriteBatch.End();
         }
 
@@ -132,30 +163,12 @@ namespace Explore
         }
 
         private static void UpdateMassObjects() {
-            for (int i = 0; i < dropShips.Count; i++) {
-                dropShips[i].Update();
-            }
-
-            for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].Update(player.Position);
-
-                if (enemies[i].isDead) {
-                    enemies.RemoveAt(i);
-                }
-            }
+            
         }
 
         private static void DrawMassObjects(SpriteBatch spriteBatch) {
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < enemies.Count; i++) {
-                enemies[i].Draw(spriteBatch);
-            }
-
-            foreach (DropShip ship in dropShips) {
-                ship.Draw(spriteBatch);
             }
         }
     }

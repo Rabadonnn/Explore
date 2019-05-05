@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Explore.Paritcles
+namespace Explore.Particles
 {
     public class Particle
     {

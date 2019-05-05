@@ -23,3 +23,5 @@ c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.AssemblyInfoInput
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.AssemblyInfo.cs
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.dll
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.pdb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun2.xnb
