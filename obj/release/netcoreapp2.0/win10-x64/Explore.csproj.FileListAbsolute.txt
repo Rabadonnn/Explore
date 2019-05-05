@@ -28,3 +28,4 @@ C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.Assem
 C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.AssemblyInfo.cs
 C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.dll
 C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.pdb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\Consolas.xnb

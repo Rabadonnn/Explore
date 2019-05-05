@@ -60,9 +60,9 @@ namespace Explore
         private int currentGunDirection = 1;
 
         private Vector2 gunShootPoint;
-
-
         private SpriteEffects gunSpriteEffect;
+
+        private int ammo;
 
         // Building
 
@@ -77,6 +77,8 @@ namespace Explore
             halfHeight = height / 2;
 
             bullets = new List<Bullet>();
+
+            Reset();
         }
 
         // Create all animations from spritesheet
@@ -226,7 +228,9 @@ namespace Explore
 
         private void CheckForShooting() {
             if (Input.Space && shootingCooldown <= 0) {
-                Shoot();
+                if (ammo > 0) {
+                    Shoot();
+                }
                 shootingCooldown = initialShootingCooldown;
             } else {
                 shootingCooldown -= GameManager.DeltaTime;
@@ -237,6 +241,7 @@ namespace Explore
             Bullet b = new Bullet(gunShootPoint, currentGunDirection);
             b.SetTexture(GameManager.Assets["bullet"]);
             bullets.Add(b);
+            ammo--;
         }
 
         private void UpdateGun() {
@@ -337,12 +342,17 @@ namespace Explore
             }
         }
 
+        public void DrawUI(SpriteBatch spriteBatch) {
+            spriteBatch.DrawString(GameManager.consolasFont, "Bullets: " + ammo.ToString(), new Vector2(10, 10), Color.White);
+        }
+
 
         private void Reset() {
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
             shootingCooldown = initialShootingCooldown;
             buildingCooldown = initialBuildingCooldown;
+            ammo = 100;
         }
     }
 }

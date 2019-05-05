@@ -48,6 +48,7 @@ namespace Explore
                 return assets;
             }
         }
+        public static SpriteFont consolasFont;
 
         public static Player player;
 
@@ -98,6 +99,9 @@ namespace Explore
         }
 
         public static void LoadAssets(ContentManager contentManager) {
+
+            consolasFont = contentManager.Load<SpriteFont>("Consolas");
+
             assets.Add("square", contentManager.Load<Texture2D>("Square"));
             assets.Add("mamba", contentManager.Load<Texture2D>("Mamba"));
             assets.Add("crosshair", contentManager.Load<Texture2D>("Crosshair"));
@@ -165,7 +169,11 @@ namespace Explore
 
         private static void DrawBackground(SpriteBatch spriteBatch) {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+           
             spriteBatch.Draw(assets["background_variant"], destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight), color: Color.White);
+           
+            player.DrawUI(spriteBatch);
+
             spriteBatch.End();
         }
 
