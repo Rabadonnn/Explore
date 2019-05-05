@@ -70,12 +70,6 @@ namespace Explore
         private float initialBuildingCooldown = 0.17f;
         private float buildingCooldown;
 
-        // FX
-
-        private Settings walkEffectSettings;
-        private ParticleSystem walkEffect;
-
-
         public Player() : base("player") {
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
             platforms = new List<Platform>();
@@ -83,8 +77,6 @@ namespace Explore
             halfHeight = height / 2;
 
             bullets = new List<Bullet>();
-
-            SetFX();
         }
 
         // Create all animations from spritesheet
@@ -112,8 +104,6 @@ namespace Explore
             idleAnimLeft.Start(Repeat.Mode.Loop);
             runningAnimationLeft.Start(Repeat.Mode.Loop);
             currentAnimation.Start(Repeat.Mode.Loop);
-
-            walkEffect.SetTexture(GameManager.Assets["square"]);
         }
 
         public void Update() {
@@ -126,9 +116,9 @@ namespace Explore
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
 
 
-            if (IsBewteenBounds()) {
-                CheckForBuilding();
-            }
+            // if (IsBewteenBounds()) {
+            //     CheckForBuilding();
+            // }
 
             UpdateGun();
 
@@ -141,7 +131,6 @@ namespace Explore
             }
 
             currentAnimation.Update(GameManager.gameTime);
-            UpdateFX();
         }
         private void KeepBetweenBounds() {
             if (position.X > GameManager.ScreenWidth) {
@@ -258,8 +247,8 @@ namespace Explore
             gunOrigin = new Vector2(gunTexture.Width / 2, gunTexture.Height / 2);
             gunScale = new Vector2(gunScaleFactor, gunScaleFactor);
 
-            int gunOffset = 30;
-            int shootPointOffset = 65;
+            int gunOffset = 45;
+            int shootPointOffset = 80;
 
             if (direction == 1 && currentGunDirection != 1) {
                 currentGunDirection = 1;
@@ -346,45 +335,6 @@ namespace Explore
             for (int i = 0; i < bullets.Count; i++) {
                 bullets[i].Draw(spriteBatch);
             }
-
-            DrawFX(spriteBatch);
-        }
-
-        private void SetFX() {
-            walkEffectSettings = new Settings() {
-                number_per_frame = 3,
-                lifespan = 0.35f,
-                accX = new Vector2(28, 95),
-                accY = new Vector2(-35, -6),
-                velocity = new Vector2(88, 29),
-                speed = 500
-            };
-            walkEffect = new ParticleSystem(walkEffectSettings, new Rectangle(rectangle.Left, rectangle.Bottom, 1, 1));
-            walkEffect.enabled = false;
-        }
-
-        private void UpdateFX() {
-            walkEffect.Update();
-            if (direction == 1) {
-                walkEffect.rectangle = new Rectangle(rectangle.Left, rectangle.Bottom, 1, 1);
-                if (walkEffect.settings.accX.X > 0 && walkEffect.settings.accY.X > 0) {
-                    walkEffect.settings.accX *= -1;
-                    walkEffect.settings.accY *= -1;
-                    walkEffect.settings.velocity *= -1;
-                }
-            }
-            else if (direction == -1) {
-                walkEffect.rectangle = new Rectangle(rectangle.Right, rectangle.Bottom, 1, 1);
-                if (walkEffect.settings.accX.X < 0 && walkEffect.settings.accY.X < 0) {
-                    walkEffect.settings.accX *= -1;
-                    walkEffect.settings.accY *= -1;
-                    walkEffect.settings.velocity *= -1;
-                }
-            } 
-        }
-
-        private void DrawFX(SpriteBatch spriteBatch) {
-            walkEffect.Draw(spriteBatch);
         }
 
 

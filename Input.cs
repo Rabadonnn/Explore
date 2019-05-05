@@ -6,22 +6,22 @@ namespace Explore
     {
         public static bool Up {
             get {
-                return Keyboard.GetState().IsKeyDown(Keys.W);
+                return Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.Up);
             }
         }
         public static bool Down {
             get {
-                return Keyboard.GetState().IsKeyDown(Keys.S);
+                return Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.Down);
             }
         }
         public static bool Right {
             get {
-                return Keyboard.GetState().IsKeyDown(Keys.D);
+                return Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right);
             }
         }
         public static bool Left {
             get {
-                return Keyboard.GetState().IsKeyDown(Keys.A);
+                return Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Left);
             }
         }
         public static bool RightClick {

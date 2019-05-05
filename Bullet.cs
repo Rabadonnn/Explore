@@ -30,6 +30,15 @@ namespace Explore
                 if (lifetime <= 0) {
                     isDead = true;
                 }
+
+
+                System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
+
+                for (int i = 0; i < platforms.Count; i++) {
+                    if (Collision.RectRect(rectangle, platforms[i].rectangle)) {
+                        isDead = true;
+                    }
+                }
             }
         }
 

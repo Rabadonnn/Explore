@@ -14,5 +14,21 @@ namespace Explore.Particles
         public Vector2 accY = new Vector2(-7, -2);
         public float gravity = 0.1f;
         public Color color = new Color(255, 255, 255);
+
+        private void SwapValues(object a, object b) {
+            var t = a;
+            a = b;
+            b = t;
+        }
+
+        public void CheckValues() {
+            if (accX.X > accX.Y) {
+                SwapValues(accX.X, accX.Y);
+            }
+
+            if (accY.X > accY.Y) {
+                SwapValues(accY.X, accY.Y);
+            }
+        }
     }
 }

@@ -1,3 +1,12 @@
+/* 
+-------Comments:
+
+publish: 
+----  dotnet publish -c release -r win10-x64
+
+*/
+
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -69,14 +78,20 @@ namespace Explore
             for (int i = minX; i < maxX; i += 0) {
 
                 int platformWidth = rand.Next(minPlatformWidth, maxPlatformWidth);
+
+                i += platformWidth / 2;
+
                 int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
 
                 Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
                 
                 result.Add(platformToAdd);
 
-                i += platformWidth;
-                //i += rand.Next(platformWidth, platformWidth + 50);
+                if (rand.Next(100) < 35) {
+                    i += rand.Next(30, 100);
+                } 
+
+                i += platformWidth / 2;
             }
 
             return result;
@@ -173,5 +188,3 @@ namespace Explore
         }
     }
 }
-
-//dotnet publish -c release -r win10-x64

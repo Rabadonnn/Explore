@@ -21,6 +21,7 @@ namespace Explore.Particles
         }
 
         public void Update() {
+            settings.CheckValues();
             if (enabled) {
                 for (int i = 0; i < settings.number_per_frame; i++) {
                     Vector2 pos = new Vector2(rand.Next(rectangle.Left, rectangle.Right), rand.Next(rectangle.Top, rectangle.Bottom));
