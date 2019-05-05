@@ -20,7 +20,7 @@ namespace Explore
             IsMouseVisible = true;
             //graphics.IsFullScreen = true;
             //IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferredBackBufferWidth = GameManager.ScreenWidth;
             graphics.PreferredBackBufferHeight = GameManager.ScreenHeight;
             //graphics.ApplyChanges();

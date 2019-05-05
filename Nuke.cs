@@ -27,7 +27,7 @@ namespace Explore
             } 
 
             for (int i = 0; i < obstacles.Count; i++) {
-                if (Collision.RectRect(rectangle, obstacles[i])) {
+                if (Helper.RectRect(rectangle, obstacles[i])) {
                     isDead = true;
                 }
             }

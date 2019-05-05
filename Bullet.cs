@@ -35,7 +35,7 @@ namespace Explore
                 System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
 
                 for (int i = 0; i < platforms.Count; i++) {
-                    if (Collision.RectRect(rectangle, platforms[i].rectangle)) {
+                    if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
                         isDead = true;
                     }
                 }

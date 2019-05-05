@@ -161,43 +161,28 @@ namespace Explore
             // Check collision with all platforms in game
             
             for (int i = 0; i < platforms.Count; i++) {
-                if (Collision.RectRect(rectangle, platforms[i].rectangle)) {
 
-                    Rectangle obs = platforms[i].rectangle;
+                Rectangle obs = platforms[i].rectangle;
                     
-                    // Best collision algorithm
+                string collision = Helper.RectangleCollision(rectangle, obs);
 
-                    float w = 0.5f * (rectangle.Width + obs.Width);
-                    float h = 0.5f * (rectangle.Height + obs.Height);
-                    float dx = rectangle.Center.X - obs.Center.X;
-                    float dy = rectangle.Center.Y - obs.Center.Y;
-
-                    if (Math.Abs(dx) <= w && Math.Abs(dy) <= h) {
-
-                        // Collision
-                        float wy = w * dy;
-                        float hx = h * dx;
-
-                        if (wy > hx) {
-                            if (wy > -hx) {
-                                // Collision on top
-                                position.Y = obs.Bottom + halfHeight;
-                                velocity.Y = gravity;
-                            } else {
-                                // On left
-                                position.X = obs.Left - halfWidth;
-                            }
-                        } else {
-                            if (wy > -hx) {
-                                // on right
-                                position.X = obs.Right + halfWidth;
-                            } else {
-                                // on bottom
-                                isGrounded = true;
-                                position.Y = obs.Top - halfHeight;
-                            }
-                        }
-                    }
+                if (collision != "false") {
+                    switch (collision) {
+                        case "top":
+                            position.Y = obs.Bottom + halfHeight;
+                            velocity.Y = gravity;
+                            break;
+                        case "bottom":
+                            isGrounded = true;
+                            position.Y = obs.Top - halfHeight;
+                            break;
+                        case "left":
+                            position.X = obs.Left - halfWidth;
+                            break;
+                        case "right":
+                            position.X = obs.Right + halfWidth;
+                            break;
+                    } 
                 }
             }
         
