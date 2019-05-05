@@ -4,23 +4,23 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Background.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Crosshair.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Gun.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Gun2.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Kutty.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Nuke.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/platform.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/platform2.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/platform3.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/rock.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Background.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Crosshair.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Gun.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Gun2.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Kutty.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Nuke.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform2.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/platform3.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/rock.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

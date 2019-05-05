@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/Square.png</SourceFile>
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/Square.png</SourceFile>
   <SourceTime>2019-04-28T14:32:22.2799589+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/Square.xnb</DestFile>
-  <DestTime>2019-05-05T20:27:06.0350634+03:00</DestTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/Square.xnb</DestFile>
+  <DestTime>2019-05-05T20:50:11.7959207+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
