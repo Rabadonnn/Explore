@@ -12,9 +12,12 @@ namespace Explore
 
         private float lifetime = 1;
 
-        public Bullet(Vector2 _position, int direction) : base("bullet") {
+        private string tag;
+
+        public Bullet(Vector2 _position, int direction, string _tag) : base("bullet") {
             position = _position;
             speed *= direction;
+            tag = _tag;
         }
 
         public void Update() {

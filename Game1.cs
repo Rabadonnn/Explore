@@ -28,7 +28,6 @@ namespace Explore
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             camera = new Camera(graphics.GraphicsDevice);
             GameManager.Initialize();
             base.Initialize();
@@ -37,7 +36,6 @@ namespace Explore
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            // TODO: use this.Content to load your game content here
             camera.LoadContent();
             GameManager.LoadAssets(this.Content);
             GameManager.SetTextures();
@@ -45,7 +43,6 @@ namespace Explore
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
             camera.Debug.IsVisible = Keyboard.GetState().IsKeyDown(Keys.F1);
             camera.Update(gameTime);
             GameManager.Update(gameTime);

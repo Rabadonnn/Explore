@@ -25,3 +25,7 @@ C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.Assem
 C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.AssemblyInfo.cs
 C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.dll
 C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.pdb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Consolas.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Gun.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Gun2.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Nuke.xnb

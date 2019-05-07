@@ -56,10 +56,21 @@ namespace Explore
 
         private static Random rand = new Random();
 
+
+
+        private static List<BaseShip> baseShips;
+
         public static void Initialize() {
             assets = new Dictionary<string, Texture2D>();
             player = new Player();
             platforms = GenerateRandomMap();
+
+            
+            baseShips = new List<BaseShip>() {
+                new BaseShip(new Vector2(0, 0)),
+                new BaseShip(new Vector2(0, 0)),
+                new BaseShip(new Vector2(0, 0))
+            };
         }
 
         private static List<Platform> GenerateRandomMap() {
@@ -70,11 +81,13 @@ namespace Explore
 
             int platformHeight = 15;
 
-            int minPlatformWidth = 75;
-            int maxPlatformWidth = 300;
+            int minPlatformWidth = 200;
+            int maxPlatformWidth = 500;
 
             int minHeight = 100;
             int maxHeight = 200;
+
+            int heightBefore = 21021;
 
             for (int i = minX; i < maxX; i += 0) {
 
@@ -83,6 +96,12 @@ namespace Explore
                 i += platformWidth / 2;
 
                 int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
+
+                if (Math.Abs(heightToPlacePlatform - heightBefore) < 20) {
+                    heightToPlacePlatform = heightBefore;
+                } else {
+                    heightBefore = heightToPlacePlatform;
+                }
 
                 Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
                 
@@ -118,6 +137,7 @@ namespace Explore
             assets.Add("nuke", contentManager.Load<Texture2D>("nuke"));
             assets.Add("gun", contentManager.Load<Texture2D>("Gun"));
             assets.Add("gun2", contentManager.Load<Texture2D>("Gun2"));
+            assets.Add("launcher", contentManager.Load<Texture2D>("RocketLauncher"));
         }
 
         public static void SetTextures() {
@@ -126,11 +146,9 @@ namespace Explore
                 platforms[i].SetTexture(assets["square"]);
             }
 
-            // for (int i = 0; i < 500; i++) {
-            //     Enemy e = new Enemy(new Vector2(0, 0));
-            //     e.SetAnimations();
-            //     enemies.Add(e);
-            // }
+            for (int i = 0; i < baseShips.Count; i++) {
+                baseShips[i].SetTexture(assets["dropship"]);
+            }
         }
 
         public static void Update(GameTime _gameTime) {
@@ -186,12 +204,18 @@ namespace Explore
         }
 
         private static void UpdateMassObjects() {
-            
+            for (int i = 0; i < baseShips.Count; i++) {
+                baseShips[i].Update();
+            }
         }
 
         private static void DrawMassObjects(SpriteBatch spriteBatch) {
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < baseShips.Count; i++) {
+                baseShips[i].Draw(spriteBatch);
             }
         }
     }
