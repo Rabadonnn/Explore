@@ -20,7 +20,7 @@ namespace Explore
 
         public BaseShip(Vector2 _position) {
 
-            health = 3;
+            health = 1;
 
             position = _position;
             rand = new Random();

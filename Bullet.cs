@@ -59,7 +59,7 @@ namespace Explore
         public Rocket(Vector2 _position, string _tag) : base(_position, _tag) {
             position = _position;
             tag = _tag;
-            speed = 800;
+            speed = 1000;
 
             width = 12;
             height = 20;
