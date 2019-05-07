@@ -98,11 +98,8 @@ namespace Explore
                 int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
 
                 if (Math.Abs(heightToPlacePlatform - heightBefore) < 20) {
-                    heightToPlacePlatform = heightBefore;
-                } else {
-                    heightBefore = heightToPlacePlatform;
-                }
-
+                    heightToPlacePlatform = rand.Next(minHeight, maxHeight);
+                } 
                 Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
                 
                 result.Add(platformToAdd);
@@ -138,6 +135,7 @@ namespace Explore
             assets.Add("gun", contentManager.Load<Texture2D>("Gun"));
             assets.Add("gun2", contentManager.Load<Texture2D>("Gun2"));
             assets.Add("launcher", contentManager.Load<Texture2D>("RocketLauncher"));
+            assets.Add("rpg_ammo", contentManager.Load<Texture2D>("RPG_ammo"));
         }
 
         public static void SetTextures() {
@@ -205,7 +203,11 @@ namespace Explore
 
         private static void UpdateMassObjects() {
             for (int i = 0; i < baseShips.Count; i++) {
-                baseShips[i].Update();
+                if (baseShips[i].isDead) {
+                    baseShips.RemoveAt(i);
+                } else {
+                    baseShips[i].Update();
+                }
             }
         }
 

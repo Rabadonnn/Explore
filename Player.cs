@@ -9,6 +9,8 @@ namespace Explore
 {
     public class Player : GameObject
     {
+        
+        #region Variables
 
         private int health;
         private int score;
@@ -49,6 +51,15 @@ namespace Explore
 
         // Shooting
 
+        private enum Gun {
+            Launcher,
+            HandGun
+        };
+
+        private Gun currentGun = Gun.HandGun;
+
+        // HandGun
+
         private List<Bullet> bullets;
         public List<Bullet> Bullets {
             get {
@@ -56,8 +67,8 @@ namespace Explore
             }
         }
 
-        private float initialShootingCooldown = 0.1f;
-        private float shootingCooldown;
+        private float handGunInitialShootingCooldown = 0.1f;
+        private float handGunShootingCooldown;
 
         private Texture2D gunTexture;
         private float gunAngle = 0;
@@ -71,9 +82,18 @@ namespace Explore
         private Vector2 gunShootPoint;
         private SpriteEffects gunSpriteEffect;
 
-        private int ammo;
+        private int handGunAmmo;
 
         // Rocket
+
+        private List<Rocket> rockets;
+        public List<Rocket> Rockets {
+            get {
+                return rockets;
+            }
+        }
+
+        private Vector2 rocketLauncherPosition;
 
         private float rocketInitialCooldown = 1f;
         private float rocketCooldown;
@@ -84,19 +104,17 @@ namespace Explore
 
         private int currentRocketLauncherDirection = 1;
 
-        private int rockets;
+        private int rocketsCount;
+
+        #endregion
 
         public Player() : base("player") {
-            rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
-            halfWidth = width / 2;
-            halfHeight = height / 2;
-
-            bullets = new List<Bullet>();
-
             Reset();
         }
 
         // Create all animations from spritesheet
+
+        #region Animation
 
         public void SetAnimations() {
             texture = GameManager.Assets["square"];
@@ -125,19 +143,24 @@ namespace Explore
             currentAnimation.Start(Repeat.Mode.Loop);
         }
 
+        #endregion
+
         public void Update() {
-            if (Input.Respawn) {
+            if (Input.Respawn || health < 0) {
                 Reset();
             }
+
             PerformMovement();
+
+            UpdateGuns();
 
             Vector2 cameraDesiredPosition = new Vector2(position.X, position.Y - 170);
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
 
-            UpdateHandGun();
-            UpdateRocketLauncher();
             currentAnimation.Update(GameManager.gameTime);
         }
+
+        #region Movement
 
         private void PerformMovement() {
             isGrounded = false;
@@ -196,28 +219,76 @@ namespace Explore
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
         }
 
-        private void CheckForShooting() {
-            if (Input.Space && shootingCooldown <= 0) {
-                if (ammo > 0) {
-                    Shoot();
-                }
-                shootingCooldown = initialShootingCooldown;
-            } else {
-                shootingCooldown -= GameManager.DeltaTime;
-            }
-        }
+        #endregion
 
-        private void Shoot() {
-            Bullet b = new Bullet(gunShootPoint, currentGunDirection, "player");
-            b.SetTexture(GameManager.Assets["bullet"]);
-            bullets.Add(b);
-            ammo--;
-        }
+        #region Shooting
 
-        private void UpdateHandGun() {
+        private void UpdateGuns() {
 
             CheckForShooting();
 
+            if (Input.E && currentGun != Gun.HandGun) {
+                currentGun = Gun.HandGun;
+            } else if (Input.Q && currentGun != Gun.Launcher) {
+                currentGun = Gun.Launcher;
+            }
+
+            if (currentGun == Gun.HandGun) {
+                UpdateHandGun();
+            } else if (currentGun == Gun.Launcher) {
+                UpdateRocketLauncher();
+            }
+
+            for (int i = 0; i < bullets.Count; i++) {
+                if (bullets[i].isDead) {
+                    bullets.RemoveAt(i);
+                } else {
+                    bullets[i].Update();
+                }
+            }
+
+            for (int i = 0; i < rockets.Count; i++) {
+                if (rockets[i].isDead) {
+                    rockets.RemoveAt(i);
+                } else {
+                    rockets[i].Update();
+                }
+            }
+
+        }
+
+
+        private void CheckForShooting() {
+            if (Input.Space && currentGun == Gun.HandGun && handGunShootingCooldown <= 0 && handGunAmmo > 0) {
+                ShootHandGun();
+                handGunShootingCooldown = handGunInitialShootingCooldown;
+            } else {
+                handGunShootingCooldown -= GameManager.DeltaTime;
+            }
+
+            if (Input.Space && currentGun == Gun.Launcher && rocketCooldown <= 0 && rocketsCount > 0) {
+                LaunchRocket();
+                rocketCooldown = rocketInitialCooldown;
+            } else {
+                rocketCooldown -= GameManager.DeltaTime;
+            }
+        }
+
+        private void ShootHandGun() {
+            Bullet b = new Bullet(gunShootPoint, currentGunDirection, "player");
+            b.SetTexture(GameManager.Assets["bullet"]);
+            bullets.Add(b);
+            handGunAmmo--;
+        }
+
+        private void LaunchRocket() {
+            Rocket r = new Rocket(rocketLauncherShootPoint, "player");
+            r.SetTexture(GameManager.Assets["rpg_ammo"]);
+            rockets.Add(r);
+            rocketsCount--;
+        }
+
+        private void UpdateHandGun() {
             gunAngle = 0;
             gunOrigin = new Vector2(gunTexture.Width / 2, gunTexture.Height / 2);
             gunScale = new Vector2(gunScaleFactor, gunScaleFactor);
@@ -228,24 +299,17 @@ namespace Explore
             if (direction == 1 && currentGunDirection != 1) {
                 currentGunDirection = 1;
                 gunSpriteEffect = SpriteEffects.None;
-                gunOffset *= -1;
-                shootPointOffset *= -1;
             } else if (direction == -1 && currentGunDirection != -1) {
                 currentGunDirection = -1;
                 gunSpriteEffect = SpriteEffects.FlipHorizontally;
-                gunOffset *= -1;
-                shootPointOffset *= -1;
             }
 
-            gunPosition = new Vector2(position.X - gunOffset, position.Y);
-            gunShootPoint = new Vector2(position.X - shootPointOffset, position.Y);
-
-            for (int i = 0; i < bullets.Count; i++) {
-                bullets[i].Update();
-
-                if (bullets[i].isDead) {
-                    bullets.RemoveAt(i);
-                }
+            if (currentGunDirection == 1) {
+                gunPosition = new Vector2(position.X + gunOffset, position.Y);
+                gunShootPoint = new Vector2(position.X + shootPointOffset, position.Y);
+            } else if (currentGunDirection == -1) {
+                gunPosition = new Vector2(position.X - gunOffset, position.Y);
+                gunShootPoint = new Vector2(position.X - shootPointOffset, position.Y);
             }
         }
 
@@ -253,13 +317,24 @@ namespace Explore
             
             int offset = 30;
 
-            Vector2 shootPointOffset = new Vector2(offset, rocketLauncherTexture.Height * rocketLauncherScale.Y);
+            rocketLauncherScale = new Vector2(1.4f, 1.4f);
 
             if (direction == 1 && currentRocketLauncherDirection != 1) {
-                offset *= -1;
                 currentRocketLauncherDirection = 1;
+            } else if (direction == -1 && currentRocketLauncherDirection != -1) {
+                currentRocketLauncherDirection = -1;
+            }
+
+            if (currentRocketLauncherDirection == 1) {
+                rocketLauncherPosition = new Vector2(position.X + offset, position.Y);
+                rocketLauncherShootPoint = new Vector2(position.X + offset, position.Y + rocketLauncherTexture.Height / 2);
+            } else if (currentRocketLauncherDirection == -1) {
+                rocketLauncherPosition = new Vector2(position.X - offset, position.Y);
+                rocketLauncherShootPoint = new Vector2(position.X - offset, position.Y + rocketLauncherTexture.Height / 2);
             }
         }
+
+        #endregion
 
         public void Hit(int damage) {
             health -= damage;
@@ -268,6 +343,8 @@ namespace Explore
         public void ScoreUp(int amount) {
             score += amount;
         }
+
+        #region  Draw
 
         public void Draw(SpriteBatch spriteBatch) {
             Vector2 scale = new Vector2(scaleFactor, scaleFactor);
@@ -305,26 +382,45 @@ namespace Explore
 
             spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
 
-            spriteBatch.Draw(gunTexture, gunPosition, null, Color.White, gunAngle, gunOrigin, gunScale, gunSpriteEffect, 0);
-            
+            if (currentGun == Gun.HandGun) {
+                spriteBatch.Draw(gunTexture, gunPosition, null, Color.White, gunAngle, gunOrigin, gunScale, gunSpriteEffect, 0);
+            } else if (currentGun == Gun.Launcher) {
+                spriteBatch.Draw(rocketLauncherTexture, rocketLauncherPosition, null, Color.White, 0, new Vector2(rocketLauncherTexture.Width / 2, rocketLauncherTexture.Height / 2), rocketLauncherScale, SpriteEffects.None, 0);
+            }
+      
             for (int i = 0; i < bullets.Count; i++) {
                 bullets[i].Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < rockets.Count; i++) {
+                rockets[i].Draw(spriteBatch);
             }
         }
 
         public void DrawUI(SpriteBatch spriteBatch) {
-            spriteBatch.DrawString(GameManager.consolasFont, "Bullets: " + ammo.ToString(), new Vector2(10, 10), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 30), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "Score: " + score.ToString(), new Vector2(10, 50), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Bullets: " + handGunAmmo.ToString(), new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Rockets: " + rocketsCount.ToString(), new Vector2(10, 30), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 50), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Score: " + score.ToString(), new Vector2(10, 70), Color.White);
         }
 
+        #endregion
 
         private void Reset() {
+            rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
+            halfWidth = width / 2;
+            halfHeight = height / 2;
+
+            bullets = new List<Bullet>();
+
+            rockets = new List<Rocket>();
+
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
-            ammo = 100;
+            handGunAmmo = 100;
             health = 5;
             score = 0;
+            rocketsCount = 10;
         }
     }
 }

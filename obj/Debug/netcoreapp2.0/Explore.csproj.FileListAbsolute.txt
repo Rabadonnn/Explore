@@ -26,3 +26,5 @@ c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.pdb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun2.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Consolas.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketLauncher.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RPG_ammo.xnb

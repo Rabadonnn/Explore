@@ -8,16 +8,20 @@ namespace Explore
 {
     public class BaseShip : GameObject {
 
+        private int health;
+
         private Vector2 checkPoint;
         private Random rand;
         private Vector2 scale = new Vector2(2, 2);
 
         private int baseEnemyDropChance = 50;
 
-
         private List<BaseEnemy> baseEnemies;
 
         public BaseShip(Vector2 _position) {
+
+            health = 3;
+
             position = _position;
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
@@ -44,6 +48,25 @@ namespace Explore
                 } else {
                     baseEnemies.RemoveAt(i);
                 }
+            }
+
+            int rectangleX = (int)(position.X - (texture.Width / 2) * scale.X);
+            int rectangleY = (int)(position.Y - (texture.Height / 2) * scale.Y);
+            int rectangleW = (int)(texture.Width * scale.X);
+            int rectangleH = (int)(texture.Height * scale.Y);
+            rectangle = new Rectangle(rectangleX, rectangleY, rectangleH, rectangleH);
+
+            List<Rocket> rockets = GameManager.player.Rockets;
+
+            for (int i = 0; i < rockets.Count; i++) {
+                if (Helper.RectRect(rectangle, rockets[i].rectangle)) {
+                    health--;
+                    rockets[i].isDead = true;
+                }
+            }
+
+            if (health < 0) {
+                isDead = true;
             }
         }
 

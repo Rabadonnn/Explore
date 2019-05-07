@@ -57,5 +57,17 @@ namespace Explore
                 return Keyboard.GetState().IsKeyDown(Keys.Space);
             }
         }
+        
+        public static bool Q {
+            get {
+                return Keyboard.GetState().IsKeyDown(Keys.Q);
+            }
+        }
+
+        public static bool E {
+            get {
+                return Keyboard.GetState().IsKeyDown(Keys.E);
+            }
+        }
     }
 }
