@@ -39,7 +39,7 @@ namespace Explore
             Objects.Add(this);
         }
         
-        public void SetTexture(Texture2D _texture) {
+        public virtual void SetTexture(Texture2D _texture) {
             texture = _texture;
         }
 

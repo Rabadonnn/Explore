@@ -28,3 +28,5 @@ c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun2.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Consolas.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketLauncher.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RPG_ammo.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\AmmoDrop.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\HealthDrop.xnb

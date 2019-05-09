@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Mihai/Desktop/Explore/Content/AmmoDrop.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/AmmoDrop.xnb","TextureProcessor","Texture2DContent",126,1109,1.526112
 "C:/Users/Mihai/Desktop/Explore/Content/Background.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Background.xnb","TextureProcessor","Texture2DContent",8490,131157,0.7702329
 "C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/BackgroundVariant.xnb","TextureProcessor","Texture2DContent",7089,131157,0.1832594
 "C:/Users/Mihai/Desktop/Explore/Content/Bullet.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Bullet.xnb","TextureProcessor","Texture2DContent",135,597,0.004999
@@ -7,6 +8,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/Guard.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Guard.xnb","TextureProcessor","Texture2DContent",687,12373,0.0156261
 "C:/Users/Mihai/Desktop/Explore/Content/Gun.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Gun.xnb","TextureProcessor","Texture2DContent",117,597,0.0155834
 "C:/Users/Mihai/Desktop/Explore/Content/Gun2.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Gun2.xnb","TextureProcessor","Texture2DContent",93,341,0.0312474
+"C:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/HealthDrop.xnb","TextureProcessor","Texture2DContent",167,1109,0.010176
 "C:/Users/Mihai/Desktop/Explore/Content/Kutty.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Kutty.xnb","TextureProcessor","Texture2DContent",1160,36949,0.0156236
 "C:/Users/Mihai/Desktop/Explore/Content/Mamba.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Mamba.xnb","TextureProcessor","Texture2DContent",685,9301,0.0079958
 "C:/Users/Mihai/Desktop/Explore/Content/Nuke.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Nuke.xnb","TextureProcessor","Texture2DContent",186,1109,0.005001

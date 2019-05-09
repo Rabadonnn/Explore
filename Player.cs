@@ -344,6 +344,14 @@ namespace Explore
             score += amount;
         }
 
+        public void GiveHealth(int amount) {
+            health += amount;
+        }
+
+        public void GiveHandGunAmmo(int amount) {
+            handGunAmmo += amount;
+        }
+
         #region  Draw
 
         public void Draw(SpriteBatch spriteBatch) {

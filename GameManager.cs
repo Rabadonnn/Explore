@@ -56,8 +56,6 @@ namespace Explore
 
         private static Random rand = new Random();
 
-
-
         private static List<BaseShip> baseShips;
 
         public static void Initialize() {
@@ -71,6 +69,8 @@ namespace Explore
                 new BaseShip(new Vector2(0, 0)),
                 new BaseShip(new Vector2(0, 0))
             };
+
+            DropManager.Initialize();
         }
 
         private static List<Platform> GenerateRandomMap() {
@@ -136,6 +136,8 @@ namespace Explore
             assets.Add("gun2", contentManager.Load<Texture2D>("Gun2"));
             assets.Add("launcher", contentManager.Load<Texture2D>("RocketLauncher"));
             assets.Add("rpg_ammo", contentManager.Load<Texture2D>("RPG_ammo"));
+            assets.Add("ammo_drop", contentManager.Load<Texture2D>("AmmoDrop"));
+            assets.Add("health_drop", contentManager.Load<Texture2D>("HealthDrop"));
         }
 
         public static void SetTextures() {
@@ -159,6 +161,8 @@ namespace Explore
 
             UpdateMassObjects();
 
+            DropManager.Update();
+
             DebugUpdate();
         } 
 
@@ -169,6 +173,8 @@ namespace Explore
             player.Draw(spriteBatch);
 
             DrawMassObjects(spriteBatch);
+
+            DropManager.Draw(spriteBatch);
 
             spriteBatch.End();
 
