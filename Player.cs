@@ -196,15 +196,15 @@ namespace Explore
                             position.Y = obs.Bottom + halfHeight;
                             velocity.Y = gravity;
                             break;
+                        case Helper.Collision.Left:
+                            position.X = obs.Left - halfWidth;
+                            continue;
+                        case Helper.Collision.Right:
+                            position.X = obs.Right + halfWidth;
+                            continue;
                         case Helper.Collision.Bottom:
                             isGrounded = true;
                             position.Y = obs.Top - halfHeight;
-                            break;
-                        case Helper.Collision.Left:
-                            position.X = obs.Left - halfWidth;
-                            break;
-                        case Helper.Collision.Right:
-                            position.X = obs.Right + halfWidth;
                             break;
                     } 
                 }

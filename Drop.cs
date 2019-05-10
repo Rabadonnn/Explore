@@ -144,7 +144,7 @@ namespace Explore
 
         private static Vector2 NewDropPosition() {
 
-            Vector2 result = new Vector2(rand.Next(-GameManager.ScreenWidth, GameManager.ScreenWidth), rand.Next(-GameManager.ScreenHeight, 0));
+            Vector2 result = new Vector2(rand.Next(-GameManager.ScreenWidth, GameManager.ScreenWidth), -GameManager.ScreenHeight);
             
             List<Platform> platforms = GameManager.platforms;
 
