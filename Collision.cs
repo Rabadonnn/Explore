@@ -5,6 +5,14 @@ namespace Explore
 {
     public static class Helper
     {
+        public enum Collision {
+            Top,
+            Bottom,
+            Left,
+            Right,
+            NoCollision
+        };
+
         public static bool RectRect(Rectangle r1, Rectangle r2) {
             if (r1.X + r1.Width >= r2.X && r1.X <= r2.X + r2.Width &&
                 r1.Y + r1.Height >= r2.Y && r1.Y <= r2.Y + r2.Height) {
@@ -14,8 +22,8 @@ namespace Explore
             }
         }
 
-        public static string RectangleCollision(Rectangle r1, Rectangle r2) {
-            string result;
+        public static Collision RectangleCollision(Rectangle r1, Rectangle r2) {
+            Collision result;
 
             float w = 0.5f * (r1.Width + r2.Width);
                 float h = 0.5f * (r1.Height + r2.Height);
@@ -23,30 +31,25 @@ namespace Explore
                 float dy = r1.Center.Y - r2.Center.Y;
 
                 if (Math.Abs(dx) <= w && Math.Abs(dy) <= h) {
-
-                    // Collision
                     float wy = w * dy;
                     float hx = h * dx;
 
                     if (wy > hx) {
                         if (wy > -hx) {
-                            // Collision on top
-                            result = "top";
+                           result = Collision.Top;
                         } else {
-                            // On left
-                            result = "left";
+                            result = Collision.Left;
                         }
                     } else {
                         if (wy > -hx) {
-                            // on right
-                            result = "right";
+                            result = Collision.Right;
                         } else {
-                            // on bottom
-                            result = "bottom";
+                            result = Collision.Bottom;
                         }
                     }
+
                 } else {
-                    result = "false";
+                    result = Collision.NoCollision;
                 }
 
             return result;

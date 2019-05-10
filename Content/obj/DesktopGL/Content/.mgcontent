@@ -16,6 +16,7 @@
     <File>c:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png</File>
     <File>c:/Users/Mihai/Desktop/Explore/Content/Kutty.png</File>
     <File>c:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
+    <File>c:/Users/Mihai/Desktop/Explore/Content/Mine.png</File>
     <File>c:/Users/Mihai/Desktop/Explore/Content/Nuke.png</File>
     <File>c:/Users/Mihai/Desktop/Explore/Content/platform.png</File>
     <File>c:/Users/Mihai/Desktop/Explore/Content/platform2.png</File>
@@ -27,6 +28,7 @@
     <File>c:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

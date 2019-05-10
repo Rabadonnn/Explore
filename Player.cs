@@ -58,6 +58,8 @@ namespace Explore
 
         private Gun currentGun = Gun.HandGun;
 
+        private int currentGunDirection = 1;
+
         // HandGun
 
         private List<Bullet> bullets;
@@ -77,7 +79,6 @@ namespace Explore
         private Vector2 gunPosition;
         private int gunScaleFactor = 3;
         private Vector2 gunScale;
-        private int currentGunDirection = 1;
 
         private Vector2 gunShootPoint;
         private SpriteEffects gunSpriteEffect;
@@ -102,9 +103,21 @@ namespace Explore
         private Vector2 rocketLauncherScale;
         private Vector2 rocketLauncherShootPoint;
 
-        private int currentRocketLauncherDirection = 1;
-
         private int rocketsCount;
+
+        // Mines
+
+        private List<Mine> mines;
+        public List<Mine> Mines {
+            get {
+                return mines;
+            }
+        }
+
+        private float initialMineCooldown = 2f;
+        private float mineCooldown;
+
+        private int mineCount;
 
         #endregion
 
@@ -171,23 +184,26 @@ namespace Explore
             for (int i = 0; i < platforms.Count; i++) {
 
                 Rectangle obs = platforms[i].rectangle;
-                    
-                string collision = Helper.RectangleCollision(rectangle, obs);
 
-                if (collision != "false") {
-                    switch (collision) {
-                        case "top":
+                if (Helper.RectangleCollision(rectangle, obs) != Helper.Collision.NoCollision) {
+
+                    
+                    Point leftCorner = new Point(rectangle.Bottom, rectangle.Left);
+                    Point rightCorner = new Point(rectangle.Bottom, rectangle.Right);
+
+                    switch (Helper.RectangleCollision(rectangle, obs)) {
+                        case Helper.Collision.Top:
                             position.Y = obs.Bottom + halfHeight;
                             velocity.Y = gravity;
                             break;
-                        case "bottom":
+                        case Helper.Collision.Bottom:
                             isGrounded = true;
                             position.Y = obs.Top - halfHeight;
                             break;
-                        case "left":
+                        case Helper.Collision.Left:
                             position.X = obs.Left - halfWidth;
                             break;
-                        case "right":
+                        case Helper.Collision.Right:
                             position.X = obs.Right + halfWidth;
                             break;
                     } 
@@ -255,6 +271,14 @@ namespace Explore
                 }
             }
 
+            for (int i = 0; i < mines.Count; i++) {
+                if (mines[i].isDead) {
+                    mines.RemoveAt(i);
+                } else {
+                    mines[i].Update();
+                }
+            }
+
         }
 
 
@@ -272,6 +296,13 @@ namespace Explore
             } else {
                 rocketCooldown -= GameManager.DeltaTime;
             }
+
+            if (Input.V && mineCooldown <= 0 && mineCount > 0) {
+                ThrowMine();
+                mineCooldown = initialMineCooldown;
+            } else {
+                mineCooldown -= GameManager.DeltaTime;
+            }
         }
 
         private void ShootHandGun() {
@@ -286,6 +317,13 @@ namespace Explore
             r.SetTexture(GameManager.Assets["rpg_ammo"]);
             rockets.Add(r);
             rocketsCount--;
+        }
+
+        private void ThrowMine() {
+            Mine m = new Mine(new Vector2(position.X, rectangle.Top), currentGunDirection);
+            m.SetAnimations();
+            mines.Add(m);
+            mineCount--;
         }
 
         private void UpdateHandGun() {
@@ -319,20 +357,21 @@ namespace Explore
 
             rocketLauncherScale = new Vector2(1.4f, 1.4f);
 
-            if (direction == 1 && currentRocketLauncherDirection != 1) {
-                currentRocketLauncherDirection = 1;
-            } else if (direction == -1 && currentRocketLauncherDirection != -1) {
-                currentRocketLauncherDirection = -1;
+            if (direction == 1 && currentGunDirection != 1) {
+                currentGunDirection = 1;
+            } else if (direction == -1 && currentGunDirection != -1) {
+                currentGunDirection = -1;
             }
 
-            if (currentRocketLauncherDirection == 1) {
+            if (currentGunDirection == 1) {
                 rocketLauncherPosition = new Vector2(position.X + offset, position.Y);
                 rocketLauncherShootPoint = new Vector2(position.X + offset, position.Y + rocketLauncherTexture.Height / 2);
-            } else if (currentRocketLauncherDirection == -1) {
+            } else if (currentGunDirection == -1) {
                 rocketLauncherPosition = new Vector2(position.X - offset, position.Y);
                 rocketLauncherShootPoint = new Vector2(position.X - offset, position.Y + rocketLauncherTexture.Height / 2);
             }
         }
+
 
         #endregion
 
@@ -403,13 +442,18 @@ namespace Explore
             for (int i = 0; i < rockets.Count; i++) {
                 rockets[i].Draw(spriteBatch);
             }
+
+            for (int i = 0; i < mines.Count; i++) {
+                mines[i].Draw(spriteBatch);
+            }
         }
 
         public void DrawUI(SpriteBatch spriteBatch) {
             spriteBatch.DrawString(GameManager.consolasFont, "Bullets: " + handGunAmmo.ToString(), new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(GameManager.consolasFont, "Rockets: " + rocketsCount.ToString(), new Vector2(10, 30), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 50), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "Score: " + score.ToString(), new Vector2(10, 70), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Mines: " + mineCount.ToString(), new Vector2(10, 50), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 70), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Score: " + score.ToString(), new Vector2(10, 90), Color.White);
         }
 
         #endregion
@@ -423,12 +467,15 @@ namespace Explore
 
             rockets = new List<Rocket>();
 
+            mines = new List<Mine>();
+
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
             handGunAmmo = 100;
             health = 5;
             score = 0;
             rocketsCount = 10;
+            mineCount = 5;
         }
     }
 }

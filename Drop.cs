@@ -25,9 +25,9 @@ namespace Explore
                 for (int i = 0; i < platforms.Count; i++) {
                     Rectangle obs = platforms[i].rectangle;
 
-                    string collision = Helper.RectangleCollision(rectangle, obs);
+                    Helper.Collision collision = Helper.RectangleCollision(rectangle, obs);
 
-                    if (collision == "bottom") {
+                    if (collision == Helper.Collision.Bottom) {
                         position.Y = obs.Top - width / 2;
                         isGrounded = true;
                     }
@@ -92,8 +92,8 @@ namespace Explore
         private static List<HealthDrop> healthDrops;
         private static List<AmmoDrop> ammoDrops;
 
-        private static float initialDropCooldown = 1f;
-        private static float dropCooldown;
+        private static float initialDropCooldown = 15f;
+        private static float dropCooldown = 5f;
 
         public static void Initialize() {
             healthDrops = new List<HealthDrop>();
@@ -144,22 +144,17 @@ namespace Explore
 
         private static Vector2 NewDropPosition() {
 
-            bool foundPosition = false;
-
             Vector2 result = new Vector2(rand.Next(-GameManager.ScreenWidth, GameManager.ScreenWidth), rand.Next(-GameManager.ScreenHeight, 0));
             
             List<Platform> platforms = GameManager.platforms;
 
             for (int i = 0; i < platforms.Count; i++) {
-                if (foundPosition) {
-                    break;
-                } else {
-                    if (result.X > platforms[i].rectangle.Left &&
-                        result.X < platforms[i].rectangle.Right && 
-                        result.Y < platforms[i].rectangle.Top) {
-                            return result;
-                        }
-                }
+                
+                if (result.X > platforms[i].rectangle.Left &&
+                    result.X < platforms[i].rectangle.Right && 
+                    result.Y < platforms[i].rectangle.Top) {
+                        return result;
+                    }
             }
 
             return new Vector2();

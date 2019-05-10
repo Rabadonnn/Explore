@@ -138,6 +138,7 @@ namespace Explore
             assets.Add("rpg_ammo", contentManager.Load<Texture2D>("RPG_ammo"));
             assets.Add("ammo_drop", contentManager.Load<Texture2D>("AmmoDrop"));
             assets.Add("health_drop", contentManager.Load<Texture2D>("HealthDrop"));
+            assets.Add("mine", contentManager.Load<Texture2D>("Mine"));
         }
 
         public static void SetTextures() {
@@ -212,7 +213,7 @@ namespace Explore
                 if (baseShips[i].isDead) {
                     baseShips.RemoveAt(i);
                 } else {
-                    baseShips[i].Update();
+                    //baseShips[i].Update();
                 }
             }
         }

@@ -69,5 +69,11 @@ namespace Explore
                 return Keyboard.GetState().IsKeyDown(Keys.E);
             }
         }
+
+        public static bool V {
+            get {
+                return Keyboard.GetState().IsKeyDown(Keys.V);
+            }
+        }
     }
 }

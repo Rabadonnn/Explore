@@ -40,22 +40,20 @@ namespace Explore
             for (int i = 0; i < platforms.Count; i++) {
                 Rectangle obs = platforms[i].rectangle;
                 
-                string collision = Helper.RectangleCollision(rectangle, obs);
-
-                if (collision != "false") {
-                    switch (collision) {
-                        case "top":
+                if (Helper.RectangleCollision(rectangle, obs) != Helper.Collision.NoCollision) {
+                    switch (Helper.RectangleCollision(rectangle, obs)) {
+                        case Helper.Collision.Top:
                             position.Y = obs.Bottom + height / 2;
                             velocity.Y = gravity;
                             break;
-                        case "bottom":
+                        case Helper.Collision.Bottom:
                             isGrounded = true;
                             position.Y = obs.Top - height / 2;
                             break;
-                        case "left":
+                        case Helper.Collision.Left:
                             position.X = obs.Left - width / 2;
                             break;
-                        case "right":
+                        case Helper.Collision.Right:
                             position.X = obs.Right + width / 2;
                             break;
                     } 
@@ -87,6 +85,21 @@ namespace Explore
                 }
             }
             return false;
+        }
+
+        protected bool CollisionWithMine() {
+            List<Mine> mines = GameManager.player.Mines;
+            for (int i = 0; i < mines.Count; i++) {
+                if (Helper.RectRect(rectangle, mines[i].rectangle) && mines[i].IsPlaced) {
+                    mines[i].Explode();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected void ApplyMineKnockBack(int amount) {
+            velocity = new Vector2(amount * -direction, -amount);
         }
 
         protected void UpdateBullets() {
@@ -211,6 +224,11 @@ namespace Explore
 
             if (CollisionWithPlayerBullet()) {
                 health--;
+            }
+
+            if (CollisionWithMine()) {
+                isDead = true;
+                //ApplyMineKnockBack(200);
             }
 
             currentAnimation.Update(GameManager.gameTime);

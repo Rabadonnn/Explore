@@ -11,6 +11,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/HealthDrop.xnb","TextureProcessor","Texture2DContent",167,1109,0.010176
 "C:/Users/Mihai/Desktop/Explore/Content/Kutty.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Kutty.xnb","TextureProcessor","Texture2DContent",1160,36949,0.0156236
 "C:/Users/Mihai/Desktop/Explore/Content/Mamba.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Mamba.xnb","TextureProcessor","Texture2DContent",685,9301,0.0079958
+"C:/Users/Mihai/Desktop/Explore/Content/Mine.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Mine.xnb","TextureProcessor","Texture2DContent",179,2005,1.531165
 "C:/Users/Mihai/Desktop/Explore/Content/Nuke.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Nuke.xnb","TextureProcessor","Texture2DContent",186,1109,0.005001
 "C:/Users/Mihai/Desktop/Explore/Content/platform.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/platform.xnb","TextureProcessor","Texture2DContent",845,2133,0.0169895
 "C:/Users/Mihai/Desktop/Explore/Content/platform2.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/platform2.xnb","TextureProcessor","Texture2DContent",691,2133,0.0109952
