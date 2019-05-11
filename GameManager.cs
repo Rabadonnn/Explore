@@ -79,6 +79,15 @@ namespace Explore
 
         private static List<BaseShip> baseShips;
 
+        // Game Continuity
+
+        private static int waveNumber = 0;
+        public static int WaveNumver {
+            get {
+                return waveNumber;
+            }
+        }
+
         //---------UI
 
         private static Button playButton;
@@ -182,6 +191,8 @@ namespace Explore
             assets.Add("rpg_ammo", contentManager.Load<Texture2D>("RPG_ammo"));
             assets.Add("ammo_drop", contentManager.Load<Texture2D>("AmmoDrop"));
             assets.Add("health_drop", contentManager.Load<Texture2D>("HealthDrop"));
+            assets.Add("mines_drop", contentManager.Load<Texture2D>("MinesDrop"));
+            assets.Add("rockets_drop", contentManager.Load<Texture2D>("RocketsDrop"));
             assets.Add("mine", contentManager.Load<Texture2D>("Mine"));
         }
 
@@ -236,6 +247,8 @@ namespace Explore
                 DropManager.Update();
                 DebugUpdate();
 
+                ManageWaves();
+
             } else if (isPaused) {
                 menuButton.Update();
                 resumeButton.Update();
@@ -262,6 +275,17 @@ namespace Explore
             }
         }
 
+        private static void ManageWaves() {
+            if (baseShips.Count == 0) {
+                for (int i = 0; i < waveNumber + 3; i++) {
+                    BaseShip b = new BaseShip(new Vector2(rand.Next(LeftBound, RightBound), -300));
+                    b.SetTexture(assets["dropship"]);
+                    baseShips.Add(b);
+                }
+                waveNumber++;
+            }
+        }
+
         public static void DrawScreens(SpriteBatch spriteBatch) {
             DrawBackground(spriteBatch);
 
@@ -276,7 +300,6 @@ namespace Explore
                     break;
             }
 
-            
             spriteBatch.Draw(Game1.camera.Debug);
         }
 
@@ -320,6 +343,8 @@ namespace Explore
                 menuButton.Draw(spriteBatch);
                 resumeButton.Draw(spriteBatch);
             }
+
+            Helper.DrawString(spriteBatch, consolasFontBig, "Wave: " + (waveNumber + 1).ToString(), Color.White, new Rectangle(width / 2 - 50, 10, 100, 40));
 
             spriteBatch.End();
         }

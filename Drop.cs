@@ -45,7 +45,6 @@ namespace Explore
     }
 
     public class HealthDrop : Drop {
-
         private int healthToGive;
 
         public HealthDrop(Vector2 _position) : base(_position) {
@@ -64,9 +63,7 @@ namespace Explore
         }
     }
 
-    public class AmmoDrop : Drop
-    {
-
+    public class AmmoDrop : Drop {
         private int ammoToGive;
 
         public AmmoDrop(Vector2 _position) : base(_position) {
@@ -85,12 +82,52 @@ namespace Explore
         }
     }
 
+    public class MinesDrop : Drop {
+        private int minesToGive;
+        
+        public MinesDrop(Vector2 _position) : base(_position) {
+            minesToGive = 2;
+        }
+
+        public void SetTexture() {
+            texture = GameManager.Assets["mines_drop"];
+        }
+
+        protected override void OnPlayerPickup() {
+            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
+                GameManager.player.GiveMines(minesToGive);
+                isDead = true;
+            }
+        }
+    }
+
+    public class RocketsDrop : Drop {
+        private int rocketsToGive;
+        
+        public RocketsDrop(Vector2 _position) : base(_position) {
+            rocketsToGive = 3;
+        }
+
+        public void SetTexture() {
+            texture = GameManager.Assets["rockets_drop"];
+        }
+
+        protected override void OnPlayerPickup() {
+            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
+                GameManager.player.GiveRockets(rocketsToGive);
+                isDead = true;
+            }
+        }
+    }
+
     public static class DropManager {
 
         private static System.Random rand;
 
         private static List<HealthDrop> healthDrops;
         private static List<AmmoDrop> ammoDrops;
+        private static List<MinesDrop> minesDrops;
+        private static List<RocketsDrop> rocketsDrops;
 
         private static float initialDropCooldown = 25f;
         private static float dropCooldown = 5f;
@@ -98,6 +135,8 @@ namespace Explore
         public static void Initialize() {
             healthDrops = new List<HealthDrop>();
             ammoDrops = new List<AmmoDrop>();
+            minesDrops = new List<MinesDrop>();
+            rocketsDrops = new List<RocketsDrop>();
 
             rand = new System.Random();
 
@@ -107,16 +146,31 @@ namespace Explore
         public static void Update() {
 
             if (dropCooldown <= 0) {
+
                 Vector2 positionToDrop = NewDropPosition();
 
-                if (rand.Next(100) < 50) {
-                    HealthDrop hd = new HealthDrop(positionToDrop);
-                    hd.SetTexture();
-                    healthDrops.Add(hd);
+                int randInt = rand.Next(100);
+
+                if (randInt < 40) {
+                    if (randInt < 20) {
+                        MinesDrop d = new MinesDrop(positionToDrop);
+                        d.SetTexture();
+                        minesDrops.Add(d);
+                    } else {
+                        RocketsDrop d = new RocketsDrop(positionToDrop);
+                        d.SetTexture();
+                        rocketsDrops.Add(d);
+                    }
                 } else {
-                    AmmoDrop ad = new AmmoDrop(positionToDrop);
-                    ad.SetTexture();
-                    ammoDrops.Add(ad);
+                    if (randInt < 70) {
+                        HealthDrop d = new HealthDrop(positionToDrop);
+                        d.SetTexture();
+                        healthDrops.Add(d);
+                    } else {
+                        AmmoDrop d = new AmmoDrop(positionToDrop);
+                        d.SetTexture();
+                        ammoDrops.Add(d);
+                    }
                 }
 
                 dropCooldown = initialDropCooldown;

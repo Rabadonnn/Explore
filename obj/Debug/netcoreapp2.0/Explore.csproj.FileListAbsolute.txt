@@ -32,3 +32,5 @@ c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\AmmoDrop.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\HealthDrop.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Mine.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\ConsolasBig.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\MinesDrop.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketsDrop.xnb

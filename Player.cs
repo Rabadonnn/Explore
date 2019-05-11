@@ -386,6 +386,14 @@ namespace Explore
             handGunAmmo += amount;
         }
 
+        public void GiveMines(int amount) {
+            mineCount += amount;
+        }
+
+        public void GiveRockets(int amount) {
+            rocketsCount += amount;
+        }
+
         #region  Draw
 
         public void Draw(SpriteBatch spriteBatch) {
