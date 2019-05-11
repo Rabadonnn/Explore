@@ -185,13 +185,8 @@ namespace Explore
 
                 Rectangle obs = platforms[i].rectangle;
 
-                if (Helper.RectangleCollision(rectangle, obs) != Helper.Collision.NoCollision) {
-
-                    
-                    Point leftCorner = new Point(rectangle.Bottom, rectangle.Left);
-                    Point rightCorner = new Point(rectangle.Bottom, rectangle.Right);
-
-                    switch (Helper.RectangleCollision(rectangle, obs)) {
+                if (Helper.RectRectExtended(rectangle, obs) != Helper.Collision.NoCollision) {
+                    switch (Helper.RectRectExtended(rectangle, obs)) {
                         case Helper.Collision.Top:
                             position.Y = obs.Bottom + halfHeight;
                             velocity.Y = gravity;

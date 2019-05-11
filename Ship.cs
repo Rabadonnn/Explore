@@ -109,7 +109,8 @@ namespace Explore
         }
 
         private Vector2 MakeNewCheckPoint() {
-            return new Vector2(rand.Next(-GameManager.ScreenWidth, GameManager.ScreenWidth), rand.Next(-GameManager.ScreenHeight, 0));
+            float x = rand.Next((int)GameManager.player.Position.X - 500, (int)GameManager.player.Position.X + 500);
+            return new Vector2(x, rand.Next(-GameManager.ScreenHeight, 0));
         }
     }
 }

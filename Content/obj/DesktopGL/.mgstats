@@ -4,6 +4,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/BackgroundVariant.xnb","TextureProcessor","Texture2DContent",7089,131157,0.1832594
 "C:/Users/Mihai/Desktop/Explore/Content/Bullet.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Bullet.xnb","TextureProcessor","Texture2DContent",135,597,0.004999
 "C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Consolas.xnb","FontDescriptionProcessor","SpriteFontContent",2011,21521,7.651274
+"C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/ConsolasBig.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21521,1.705184
 "C:/Users/Mihai/Desktop/Explore/Content/Crosshair.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Crosshair.xnb","TextureProcessor","Texture2DContent",130,985,0.0156245
 "C:/Users/Mihai/Desktop/Explore/Content/Guard.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Guard.xnb","TextureProcessor","Texture2DContent",687,12373,0.0156261
 "C:/Users/Mihai/Desktop/Explore/Content/Gun.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Gun.xnb","TextureProcessor","Texture2DContent",117,597,0.0155834

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Comora;
-using Comora.Diagnostics;
 
 namespace Explore
 {
@@ -45,7 +44,12 @@ namespace Explore
         {
             camera.Debug.IsVisible = Keyboard.GetState().IsKeyDown(Keys.F1);
             camera.Update(gameTime);
-            GameManager.Update(gameTime);
+            GameManager.UpdateScreens(gameTime);
+
+            if (GameManager.ExitButtonPressed()) {
+                Exit();
+            }
+
             base.Update(gameTime);
         }
 
@@ -53,7 +57,7 @@ namespace Explore
         {
             GraphicsDevice.Clear(Color.Black);
 
-            GameManager.Draw(spriteBatch);
+            GameManager.DrawScreens(spriteBatch);
 
             base.Draw(gameTime);
         }

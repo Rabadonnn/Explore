@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Explore
@@ -19,6 +20,29 @@ namespace Explore
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        public static Collision RectRectExtended(Rectangle r1, Rectangle r2) {
+
+            if (Helper.RectRect(r1, r2)) {
+                if (r1.Center.Y < r2.Center.Y) {
+                    // Collision on bottom
+                    return Collision.Bottom;
+                } else if (r1.Center.Y > r2.Center.Y) {
+                    // Collision on Top
+                    return Collision.Top;
+                } else if (r1.Center.X > r2.Center.X) {
+                    // Collision on Right
+                    return Collision.Right;
+                } else if (r1.Center.X < r2.Center.X) {
+                    // Collision On Left
+                    return Collision.Left;
+                } else {
+                    return Collision.NoCollision;
+                }
+            } else {
+                return Collision.NoCollision;
             }
         }
 
@@ -61,6 +85,33 @@ namespace Explore
 
         public static float MapValue(float value, float start1, float stop1, float start2, float stop2) {
             return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+        }
+
+        static public void DrawString(SpriteBatch spriteBatch, SpriteFont font, string strToDraw, Color _color, Rectangle boundaries)
+        {
+            Vector2 size = font.MeasureString(strToDraw);
+
+            float xScale = (boundaries.Width / size.X);
+            float yScale = (boundaries.Height / size.Y);
+
+            // Taking the smaller scaling value will result in the text always fitting in the boundaires.
+            float scale = Math.Min(xScale, yScale);
+
+            // Figure out the location to absolutely-center it in the boundaries rectangle.
+            int strWidth = (int)Math.Round(size.X * scale);
+            int strHeight = (int)Math.Round(size.Y * scale);
+            Vector2 position = new Vector2();
+            position.X = (((boundaries.Width - strWidth) / 2) + boundaries.X);
+            position.Y = (((boundaries.Height - strHeight) / 2) + boundaries.Y);
+
+            // A bunch of settings where we just want to use reasonable defaults.
+            float rotation = 0.0f;
+            Vector2 spriteOrigin = new Vector2(0, 0);
+            float spriteLayer = 0.0f; // all the way in the front
+            SpriteEffects spriteEffects = new SpriteEffects();
+
+            // Draw the string to the sprite batch!
+            spriteBatch.DrawString(font, strToDraw, position, _color, rotation, spriteOrigin, scale, spriteEffects, spriteLayer);
         }
     }
 }

@@ -68,6 +68,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Consolas.spritefont
 
+#begin ConsolasBig.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ConsolasBig.spritefont
+
 #begin Crosshair.png
 /importer:TextureImporter
 /processor:TextureProcessor

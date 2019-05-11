@@ -40,8 +40,8 @@ namespace Explore
             for (int i = 0; i < platforms.Count; i++) {
                 Rectangle obs = platforms[i].rectangle;
                 
-                if (Helper.RectangleCollision(rectangle, obs) != Helper.Collision.NoCollision) {
-                    switch (Helper.RectangleCollision(rectangle, obs)) {
+                if (Helper.RectRectExtended(rectangle, obs) != Helper.Collision.NoCollision) {
+                    switch (Helper.RectRectExtended(rectangle, obs)) {
                         case Helper.Collision.Top:
                             position.Y = obs.Bottom + height / 2;
                             velocity.Y = gravity;

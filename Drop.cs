@@ -25,7 +25,7 @@ namespace Explore
                 for (int i = 0; i < platforms.Count; i++) {
                     Rectangle obs = platforms[i].rectangle;
 
-                    Helper.Collision collision = Helper.RectangleCollision(rectangle, obs);
+                    Helper.Collision collision = Helper.RectRectExtended(rectangle, obs);
 
                     if (collision == Helper.Collision.Bottom) {
                         position.Y = obs.Top - width / 2;
@@ -92,7 +92,7 @@ namespace Explore
         private static List<HealthDrop> healthDrops;
         private static List<AmmoDrop> ammoDrops;
 
-        private static float initialDropCooldown = 15f;
+        private static float initialDropCooldown = 25f;
         private static float dropCooldown = 5f;
 
         public static void Initialize() {
@@ -144,7 +144,8 @@ namespace Explore
 
         private static Vector2 NewDropPosition() {
 
-            Vector2 result = new Vector2(rand.Next(-GameManager.ScreenWidth, GameManager.ScreenWidth), -GameManager.ScreenHeight);
+            float resultX = rand.Next((int)GameManager.player.Position.X - 500, (int)GameManager.player.Position.X + 500);
+            Vector2 result = new Vector2(resultX, -GameManager.ScreenHeight);
             
             List<Platform> platforms = GameManager.platforms;
 

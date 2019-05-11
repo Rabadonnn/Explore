@@ -19,6 +19,13 @@ namespace Explore
 {
     public static class GameManager
     {
+        public enum Screens {
+            MainScreen,
+            GameScreen
+        }
+
+        public static Screens currentScreen = Screens.MainScreen;
+
         private static int width = 1280;
         private static int height = 720;
         public static int ScreenWidth {
@@ -29,6 +36,18 @@ namespace Explore
         public static int ScreenHeight {
             get {
                 return height;
+            }
+        }
+
+        public static int LeftBound {
+            get {
+                return -2000;
+            }
+        }
+
+        public static int RightBound {
+            get {
+                return 2000;
             }
         }
 
@@ -48,7 +67,9 @@ namespace Explore
                 return assets;
             }
         }
+
         public static SpriteFont consolasFont;
+        public static SpriteFont consolasFontBig;
 
         public static Player player;
 
@@ -58,8 +79,17 @@ namespace Explore
 
         private static List<BaseShip> baseShips;
 
-        public static void Initialize() {
-            assets = new Dictionary<string, Texture2D>();
+        //---------UI
+
+        private static Button playButton;
+        private static Button pauseButton;
+        private static Button exitButton;
+        private static Button menuButton;
+        private static Button resumeButton;
+
+        private static bool isPaused = false;
+
+        private static void Reset() {
             player = new Player();
             platforms = GenerateRandomMap();
 
@@ -73,11 +103,25 @@ namespace Explore
             DropManager.Initialize();
         }
 
+        public static void Initialize() {
+            assets = new Dictionary<string, Texture2D>();
+
+            int buttonWidth = 100;
+
+            playButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50), "Play");
+            pauseButton = new Button(new Rectangle(width - 100, 25, 75, 50), "Pause");
+            exitButton = new Button(new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2), "Exit");
+            menuButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50), "MainMenu");
+            resumeButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2, buttonWidth, 50), "Resume");
+
+            Reset();
+        }
+
         private static List<Platform> GenerateRandomMap() {
             List<Platform> result = new List<Platform>();
 
-            int minX = -GameManager.width;
-            int maxX = GameManager.width;
+            int minX = LeftBound;
+            int maxX = RightBound;
 
             int platformHeight = 15;
 
@@ -117,6 +161,7 @@ namespace Explore
         public static void LoadAssets(ContentManager contentManager) {
 
             consolasFont = contentManager.Load<SpriteFont>("Consolas");
+            consolasFontBig = contentManager.Load<SpriteFont>("ConsolasBig");
 
             assets.Add("square", contentManager.Load<Texture2D>("Square"));
             assets.Add("mamba", contentManager.Load<Texture2D>("Mamba"));
@@ -150,25 +195,102 @@ namespace Explore
             for (int i = 0; i < baseShips.Count; i++) {
                 baseShips[i].SetTexture(assets["dropship"]);
             }
+
+            playButton.SetFonts();
+            pauseButton.SetFonts();
+            menuButton.SetFonts();
+            exitButton.SetFonts();
+            resumeButton.SetFonts();
         }
 
-        public static void Update(GameTime _gameTime) {
+        public static void UpdateScreens(GameTime _gameTime) {
             gameTime = _gameTime;
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            GameObject.UpdateList();
+            switch (currentScreen) {
+                case Screens.MainScreen:
+                    UpdateMainScreen();
+                    break; 
 
-            player.Update();
-
-            UpdateMassObjects();
-
-            DropManager.Update();
-
-            DebugUpdate();
+                case Screens.GameScreen:
+                    UpdateGameScreen();
+                    break; 
+            }
         } 
 
-        public static void Draw(SpriteBatch spriteBatch) {
+        private static void UpdateMainScreen() {
+            playButton.Update();
+            exitButton.Update();
+        }
+
+        private static void UpdateGameScreen() {
+            if (!isPaused) {
+                GameObject.UpdateList();
+                player.Update();
+                UpdateMassObjects();
+                DropManager.Update();
+                DebugUpdate();
+
+            } else if (isPaused) {
+                menuButton.Update();
+                resumeButton.Update();
+
+                if (resumeButton.Clicked()) {
+                    isPaused = false;
+                }
+
+                if (menuButton.Clicked()) {
+                    isPaused = false;
+                    currentScreen = Screens.MainScreen;
+                }
+            }
+
+            pauseButton.Update();
+
+            if (pauseButton.Clicked() && !isPaused) {
+                isPaused = true;
+            }
+        }
+
+        public static void DrawScreens(SpriteBatch spriteBatch) {
             DrawBackground(spriteBatch);
+
+            switch (currentScreen) {
+
+                case Screens.MainScreen:
+                    DrawMainScreen(spriteBatch);
+                    break;
+                
+                case Screens.GameScreen:
+                    DrawGameScreen(spriteBatch);
+                    break;
+            }
+
+            
+            spriteBatch.Draw(Game1.camera.Debug);
+        }
+
+        private static void DrawMainScreen(SpriteBatch spriteBatch) {
+
+            spriteBatch.Begin();
+
+            string title = "No To Dead Yes to Everything";
+            Helper.DrawString(spriteBatch, consolasFontBig, title, Color.Yellow, new Rectangle(width / 2 - 300, 100, 600, 50));
+
+            playButton.Draw(spriteBatch);
+            exitButton.Draw(spriteBatch);
+
+            if (playButton.Clicked()) {
+                currentScreen = Screens.GameScreen;
+            }
+
+            spriteBatch.End();
+        }
+
+        private static void DrawGameScreen(SpriteBatch spriteBatch) {
+   
+            // Game
+
             spriteBatch.Begin(Game1.camera, samplerState: SamplerState.PointClamp);
 
             player.Draw(spriteBatch);
@@ -179,14 +301,20 @@ namespace Explore
 
             spriteBatch.End();
 
-            spriteBatch.Draw(Game1.camera.Debug);
-            //DrawCrosshair(spriteBatch);
-        }
+            // Player HUD
 
-        private static void DrawCrosshair(SpriteBatch spriteBatch) {
-            Rectangle crosshairRectangle = new Rectangle((int)Input.MouseX - 16, (int)Input.MouseY - 16, 32, 32);
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            spriteBatch.Draw(assets["crosshair"], destinationRectangle: crosshairRectangle, color: Color.White);
+            spriteBatch.Begin();
+
+            player.DrawUI(spriteBatch);
+
+            if (!isPaused) {
+                pauseButton.Draw(spriteBatch);
+            } else if (isPaused) {
+                spriteBatch.Draw(assets["square"], new Rectangle(0, 0, width, height), Color.Black * 0.3f);
+                menuButton.Draw(spriteBatch);
+                resumeButton.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
         }
 
@@ -195,8 +323,6 @@ namespace Explore
            
             spriteBatch.Draw(assets["background_variant"], destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight), color: Color.White);
            
-            player.DrawUI(spriteBatch);
-
             spriteBatch.End();
         }
 
@@ -213,7 +339,7 @@ namespace Explore
                 if (baseShips[i].isDead) {
                     baseShips.RemoveAt(i);
                 } else {
-                    //baseShips[i].Update();
+                    baseShips[i].Update();
                 }
             }
         }
@@ -225,6 +351,14 @@ namespace Explore
 
             for (int i = 0; i < baseShips.Count; i++) {
                 baseShips[i].Draw(spriteBatch);
+            }
+        }
+
+        public static bool ExitButtonPressed() {
+            if (exitButton.Clicked()) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
