@@ -112,8 +112,7 @@ namespace Explore
             pauseButton = new Button(new Rectangle(width - 100, 25, 75, 50), "Pause");
             exitButton = new Button(new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2), "Exit");
             menuButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50), "MainMenu");
-            resumeButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2, buttonWidth, 50), "Resume");
-
+            resumeButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 , buttonWidth, 50), "Resume");
             Reset();
         }
 
@@ -221,6 +220,12 @@ namespace Explore
         private static void UpdateMainScreen() {
             playButton.Update();
             exitButton.Update();
+
+            
+            if (playButton.Clicked()) {
+                currentScreen = Screens.GameScreen;
+                exitButton.active = false;
+            }
         }
 
         private static void UpdateGameScreen() {
@@ -235,19 +240,24 @@ namespace Explore
                 menuButton.Update();
                 resumeButton.Update();
 
-                if (resumeButton.Clicked()) {
-                    isPaused = false;
-                }
-
                 if (menuButton.Clicked()) {
                     isPaused = false;
                     currentScreen = Screens.MainScreen;
+                    exitButton.active = true;
+                }
+
+                if (resumeButton.Clicked()) {
+                    isPaused = false;
                 }
             }
 
             pauseButton.Update();
 
             if (pauseButton.Clicked() && !isPaused) {
+                isPaused = true;
+            }
+
+            if (Input.Esc && !isPaused) {
                 isPaused = true;
             }
         }
@@ -279,10 +289,6 @@ namespace Explore
 
             playButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
-
-            if (playButton.Clicked()) {
-                currentScreen = Screens.GameScreen;
-            }
 
             spriteBatch.End();
         }

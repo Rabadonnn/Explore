@@ -20,6 +20,8 @@ namespace Explore
         private SpriteFont hoverFont;
 
         private bool alreadyClicked;
+
+        public bool active = true;
         
         public Button(Rectangle _rectangle, string _text) {
             rectangle = _rectangle;
@@ -55,7 +57,7 @@ namespace Explore
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            Helper.DrawString(spriteBatch, currentFont, currentText, currentColor, rectangle);
+            Helper.DrawString(spriteBatch, hoverFont, text, currentColor, rectangle);
         }
 
         private bool IsHovered {
@@ -69,7 +71,7 @@ namespace Explore
         }
 
         public bool Clicked() {
-            if (IsHovered && Input.LeftClick && !alreadyClicked) {
+            if (IsHovered && Input.LeftClick && !alreadyClicked && active) {
                 alreadyClicked = true;
                 return true;
             } else {

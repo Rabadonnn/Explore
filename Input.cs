@@ -81,5 +81,11 @@ namespace Explore
                 return Mouse.GetState().LeftButton == ButtonState.Released;
             }
         }
+
+        public static bool Esc {
+            get {
+                return Keyboard.GetState().IsKeyDown(Keys.Escape);
+            }
+        }
     }
 }
