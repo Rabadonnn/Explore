@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</SourceFile>
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</SourceFile>
   <SourceTime>2019-05-11T10:56:00.9986935+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/ConsolasBig.xnb</DestFile>
-  <DestTime>2019-05-12T12:37:04.7043156+03:00</DestTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/ConsolasBig.xnb</DestFile>
+  <DestTime>2019-05-12T14:31:10.7625515+03:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
