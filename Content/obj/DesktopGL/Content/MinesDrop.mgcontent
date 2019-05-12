@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/MinesDrop.png</SourceFile>
+  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/MinesDrop.png</SourceFile>
   <SourceTime>2019-05-11T18:31:16.6739181+03:00</SourceTime>
-  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/MinesDrop.xnb</DestFile>
-  <DestTime>2019-05-12T17:09:38.1864391+03:00</DestTime>
+  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/MinesDrop.xnb</DestFile>
+  <DestTime>2019-05-12T21:10:49.4351143+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

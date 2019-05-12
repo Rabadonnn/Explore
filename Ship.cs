@@ -16,8 +16,6 @@ namespace Explore
 
         private int baseEnemyDropChance = 50;
 
-        private List<BaseEnemy> baseEnemies;
-
         public BaseShip(Vector2 _position) {
 
             health = 1;
@@ -26,7 +24,10 @@ namespace Explore
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
 
-            baseEnemies = new List<BaseEnemy>();
+        }
+
+        public void SetTexture() {
+            texture = GameManager.Assets["dropship"];
         }
 
         public void Update() {
@@ -41,14 +42,6 @@ namespace Explore
                 position = Vector2.Lerp(position, checkPoint, 0.01f);
             }
 
-
-            for (int i = 0; i < baseEnemies.Count; i++) {
-                if (!baseEnemies[i].isDead) {
-                    baseEnemies[i].Update();
-                } else {
-                    baseEnemies.RemoveAt(i);
-                }
-            }
 
             int rectangleX = (int)(position.X - (texture.Width / 2) * scale.X);
             int rectangleY = (int)(position.Y - (texture.Height / 2) * scale.Y);
@@ -72,10 +65,6 @@ namespace Explore
 
         public void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
-        
-            for (int i = 0; i < baseEnemies.Count; i++) {
-                baseEnemies[i].Draw(spriteBatch);
-            }
         }
 
         private void Drop() {
@@ -84,7 +73,7 @@ namespace Explore
             if (randInt < baseEnemyDropChance) {
                 BaseEnemy e = new BaseEnemy(position);
                 e.SetAnimations();
-                baseEnemies.Add(e);
+                WaveManager.AddBaseEnemy(e);
             }
         }
 

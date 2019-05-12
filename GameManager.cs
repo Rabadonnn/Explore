@@ -80,16 +80,6 @@ namespace Explore
 
         private static Random rand = new Random();
 
-        private static List<BaseShip> baseShips;
-
-        // Game Continuity
-
-        private static int waveNumber;
-        public static int WaveNumver {
-            get {
-                return waveNumber;
-            }
-        }
 
         //---------UI
 
@@ -102,6 +92,7 @@ namespace Explore
         private static Button optionsButton;
         private static Button resumeButton;
         private static Button backButton;
+        private static Button replayButton;
 
         private static Dictionary<string, Button> resolutionButtons;
         private static Dictionary<string, Point> resolutions;
@@ -111,20 +102,12 @@ namespace Explore
         private static void Reset() {
             platforms = GenerateRandomMap();
 
-            
-            baseShips = new List<BaseShip>() {
-                new BaseShip(new Vector2(0, 0)),
-                new BaseShip(new Vector2(0, 0)),
-                new BaseShip(new Vector2(0, 0))
-            };
-
-            waveNumber = 0;
-
             DropManager.Initialize();
 
             SetTextures();
 
             player.Reset();
+            WaveManager.Init();
         }
 
 
@@ -162,6 +145,8 @@ namespace Explore
 
             player = new Player();
 
+            WaveManager.Init();
+
             MakeRectanglesForButtons();
 
             playButton = new Button(buttonRectangles["play"], "Play");
@@ -171,6 +156,7 @@ namespace Explore
             resumeButton = new Button(buttonRectangles["resume"], "Resume");
             backButton = new Button(buttonRectangles["back"], "Back");
             optionsButton = new Button(buttonRectangles["options"], "Options");
+            replayButton = new Button(buttonRectangles["play"], "Replay");
 
             resolutionButtons = new Dictionary<string, Button>() {
                 {
@@ -212,15 +198,6 @@ namespace Explore
             };
 
             platforms = GenerateRandomMap();
-
-            
-            baseShips = new List<BaseShip>() {
-                new BaseShip(new Vector2(0, 0)),
-                new BaseShip(new Vector2(0, 0)),
-                new BaseShip(new Vector2(0, 0))
-            };
-
-            waveNumber = 0;
 
             DropManager.Initialize();
         }
@@ -272,19 +249,11 @@ namespace Explore
 
             assets.Add("square", contentManager.Load<Texture2D>("Square"));
             assets.Add("mamba", contentManager.Load<Texture2D>("Mamba"));
-            assets.Add("crosshair", contentManager.Load<Texture2D>("Crosshair"));
-            assets.Add("background", contentManager.Load<Texture2D>("Background"));
-            assets.Add("kutty", contentManager.Load<Texture2D>("Kutty"));
-            assets.Add("rock", contentManager.Load<Texture2D>("rock"));
-            assets.Add("platform", contentManager.Load<Texture2D>("platform"));
-            assets.Add("platform2", contentManager.Load<Texture2D>("platform2"));
             assets.Add("platform3", contentManager.Load<Texture2D>("platform3"));
             assets.Add("background_variant", contentManager.Load<Texture2D>("BackgroundVariant"));
             assets.Add("guard", contentManager.Load<Texture2D>("Guard"));
             assets.Add("dropship", contentManager.Load<Texture2D>("Ship"));
             assets.Add("bullet", contentManager.Load<Texture2D>("Bullet"));
-            assets.Add("nuke", contentManager.Load<Texture2D>("nuke"));
-            assets.Add("gun", contentManager.Load<Texture2D>("Gun"));
             assets.Add("gun2", contentManager.Load<Texture2D>("Gun2"));
             assets.Add("launcher", contentManager.Load<Texture2D>("RocketLauncher"));
             assets.Add("rpg_ammo", contentManager.Load<Texture2D>("RPG_ammo"));
@@ -301,10 +270,6 @@ namespace Explore
                 platforms[i].SetTexture(assets["square"]);
             }
 
-            for (int i = 0; i < baseShips.Count; i++) {
-                baseShips[i].SetTexture(assets["dropship"]);
-            }
-
             playButton.SetFonts();
             pauseButton.SetFonts();
             menuButton.SetFonts();
@@ -312,6 +277,7 @@ namespace Explore
             resumeButton.SetFonts();
             optionsButton.SetFonts();
             backButton.SetFonts();
+            replayButton.SetFonts();
 
             foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
                 entry.Value.SetFonts();
@@ -363,15 +329,23 @@ namespace Explore
         private static void UpdateGameScreen() {
             if (!isPaused) {
                 GameObject.UpdateList();
-                player.Update();
-                UpdateMassObjects();
-                DropManager.Update();
-                DebugUpdate();
-
-                ManageWaves();
-
+        
                 if (player.isDead) {
-                    Reset();
+                    replayButton.active = true;
+                    replayButton.Update();
+
+                    if (replayButton.Clicked()) {
+                        Reset();
+                        replayButton.active = false;
+                    }
+                } else {
+                    player.Update();
+
+                    DropManager.Update();
+
+                    WaveManager.Update();
+
+                    DebugUpdate();
                 }
             } else if (isPaused) {
                 menuButton.Update();
@@ -416,17 +390,6 @@ namespace Explore
             }
         }
 
-        private static void ManageWaves() {
-            if (baseShips.Count == 0) {
-                for (int i = 0; i < waveNumber + 3; i++) {
-                    BaseShip b = new BaseShip(new Vector2(rand.Next(LeftBound, RightBound), -300));
-                    b.SetTexture(assets["dropship"]);
-                    baseShips.Add(b);
-                }
-                waveNumber++;
-            }
-        }
-
         public static void DrawScreens(SpriteBatch spriteBatch) {
             DrawBackground(spriteBatch);
 
@@ -453,7 +416,7 @@ namespace Explore
             spriteBatch.Begin();
 
             string title = "No To Death Yes to Everything";
-            Helper.DrawString(spriteBatch, consolasFontBig, title, Color.Yellow, new Rectangle(width / 2 - 300, 100, 600, 50));
+            Helper.DrawString(spriteBatch, consolasFontBig, title, Color.Yellow, new Rectangle(width / 2 - 300, 100, 600, 100));
 
             playButton.Draw(spriteBatch);
             optionsButton.Draw(spriteBatch);
@@ -470,9 +433,11 @@ namespace Explore
 
             player.Draw(spriteBatch);
 
-            DrawMassObjects(spriteBatch);
+            DrawPlatforms(spriteBatch);
 
             DropManager.Draw(spriteBatch);
+
+            WaveManager.Draw(spriteBatch);
 
             spriteBatch.End();
 
@@ -484,13 +449,17 @@ namespace Explore
 
             if (!isPaused) {
                 pauseButton.Draw(spriteBatch);
+
+                if (player.isDead) {
+                    replayButton.Draw(spriteBatch);
+                }
             } else if (isPaused) {
                 spriteBatch.Draw(assets["square"], new Rectangle(0, 0, width, height), Color.Black * 0.3f);
                 menuButton.Draw(spriteBatch);
                 resumeButton.Draw(spriteBatch);
             }
 
-            Helper.DrawString(spriteBatch, consolasFontBig, "Wave: " + (waveNumber + 1).ToString(), Color.White, new Rectangle(width / 2 - 50, 10, 100, 40));
+            Helper.DrawString(spriteBatch, consolasFontBig, "Wave: " + (WaveManager.WaveNumber + 1).ToString(), Color.White, new Rectangle(width / 2 - 50, 10, 100, 40));
 
             spriteBatch.End();
         }
@@ -503,9 +472,12 @@ namespace Explore
                 entry.Value.Draw(spriteBatch);
             }
 
-            spriteBatch.DrawString(consolasFont, "A - Left, D - Right, W - Jump \n" + 
+            spriteBatch.DrawString(consolasFont, 
+            "A - Left, D - Right, W - Jump \n" + 
             "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
-            "With the HandGun you hit ground enemies and with the RPG UFOs.", new Vector2(width / 2, height / 2 - 150), Color.White);
+            "V -  Place Mine \n" +
+            "With the HandGun you hit ground enemies and with the RPG UFOs.", 
+            new Vector2(width / 2 - 300, height / 2 - 150), Color.White);
 
             backButton.Draw(spriteBatch);
 
@@ -528,23 +500,9 @@ namespace Explore
             //Print(GameObject.GetAllObjects().Count);
         }
 
-        private static void UpdateMassObjects() {
-            for (int i = 0; i < baseShips.Count; i++) {
-                if (baseShips[i].isDead) {
-                    baseShips.RemoveAt(i);
-                } else {
-                    baseShips[i].Update();
-                }
-            }
-        }
-
-        private static void DrawMassObjects(SpriteBatch spriteBatch) {
+        private static void DrawPlatforms(SpriteBatch spriteBatch) {
             for (int i = 0; i < platforms.Count; i++) {
                 platforms[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < baseShips.Count; i++) {
-                baseShips[i].Draw(spriteBatch);
             }
         }
 
@@ -582,6 +540,7 @@ namespace Explore
                 resumeButton.UpdateRectangle(buttonRectangles["resume"]);
                 optionsButton.UpdateRectangle(buttonRectangles["options"]);
                 backButton.UpdateRectangle(buttonRectangles["back"]);
+                replayButton.UpdateRectangle(buttonRectangles["play"]);
                 
                 graphics.ApplyChanges();
             }
