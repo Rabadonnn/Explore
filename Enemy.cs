@@ -214,7 +214,6 @@ namespace Explore
             position += velocity * GameManager.DeltaTime;
 
             if (position.Y > GameManager.ScreenHeight || health < 0) {
-                GameManager.player.ScoreUp(scoreValue);
                 isDead = true;
             } 
 

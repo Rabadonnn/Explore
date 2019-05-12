@@ -4,7 +4,7 @@
 publish: 
 ----  dotnet publish -c release -r win10-x64
 
-Just Win motherFucker
+Just Win MotherFucker
 
 */
 
@@ -23,7 +23,8 @@ namespace Explore
     {
         public enum Screens {
             MainScreen,
-            GameScreen
+            GameScreen,
+            OptionsScreen
         }
 
         public static Screens currentScreen = Screens.MainScreen;
@@ -83,7 +84,7 @@ namespace Explore
 
         // Game Continuity
 
-        private static int waveNumber = 0;
+        private static int waveNumber;
         public static int WaveNumver {
             get {
                 return waveNumber;
@@ -98,7 +99,9 @@ namespace Explore
         private static Button pauseButton;
         private static Button exitButton;
         private static Button menuButton;
+        private static Button optionsButton;
         private static Button resumeButton;
+        private static Button backButton;
 
         private static Dictionary<string, Button> resolutionButtons;
         private static Dictionary<string, Point> resolutions;
@@ -106,7 +109,6 @@ namespace Explore
         private static bool isPaused = false;
 
         private static void Reset() {
-            player = new Player();
             platforms = GenerateRandomMap();
 
             
@@ -116,8 +118,16 @@ namespace Explore
                 new BaseShip(new Vector2(0, 0))
             };
 
+            waveNumber = 0;
+
             DropManager.Initialize();
+
+            SetTextures();
+
+            player.Reset();
         }
+
+
 
         private static void MakeRectanglesForButtons() {
             int buttonWidth = 100;
@@ -130,19 +140,27 @@ namespace Explore
                     "pause", new Rectangle(width - 100, 25, 75, 50)
                 },
                 {
-                    "exit", new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2)
+                    "exit", new Rectangle(width / 2 - buttonWidth, height / 2 + 100, 200, buttonWidth / 2)
                 },
                 {
                     "menu", new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50)
                 },
                 {
                     "resume", new Rectangle(width / 2 - buttonWidth / 2, height / 2 , buttonWidth, 50)
+                },
+                {
+                    "back", new Rectangle(width - 100, 25, 75, 50)
+                },
+                {
+                    "options", new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2)
                 }
             };
         }
 
         public static void Initialize() {
             assets = new Dictionary<string, Texture2D>();
+
+            player = new Player();
 
             MakeRectanglesForButtons();
 
@@ -151,6 +169,8 @@ namespace Explore
             exitButton = new Button(buttonRectangles["exit"], "Exit");
             menuButton = new Button(buttonRectangles["menu"], "MainMenu");
             resumeButton = new Button(buttonRectangles["resume"], "Resume");
+            backButton = new Button(buttonRectangles["back"], "Back");
+            optionsButton = new Button(buttonRectangles["options"], "Options");
 
             resolutionButtons = new Dictionary<string, Button>() {
                 {
@@ -191,7 +211,18 @@ namespace Explore
                 }
             };
 
-            Reset();
+            platforms = GenerateRandomMap();
+
+            
+            baseShips = new List<BaseShip>() {
+                new BaseShip(new Vector2(0, 0)),
+                new BaseShip(new Vector2(0, 0)),
+                new BaseShip(new Vector2(0, 0))
+            };
+
+            waveNumber = 0;
+
+            DropManager.Initialize();
         }
 
         private static List<Platform> GenerateRandomMap() {
@@ -202,7 +233,7 @@ namespace Explore
 
             int platformHeight = 15;
 
-            int minPlatformWidth = 200;
+            int minPlatformWidth = 350;
             int maxPlatformWidth = 500;
 
             int minHeight = 100;
@@ -225,9 +256,8 @@ namespace Explore
                 
                 result.Add(platformToAdd);
 
-                if (rand.Next(100) < 35) {
-                    i += rand.Next(30, 100);
-                } 
+                i += rand.Next(50, 100);
+                
 
                 i += platformWidth / 2;
             }
@@ -280,6 +310,8 @@ namespace Explore
             menuButton.SetFonts();
             exitButton.SetFonts();
             resumeButton.SetFonts();
+            optionsButton.SetFonts();
+            backButton.SetFonts();
 
             foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
                 entry.Value.SetFonts();
@@ -298,24 +330,33 @@ namespace Explore
                 case Screens.GameScreen:
                     UpdateGameScreen();
                     break; 
+                
+                case Screens.OptionsScreen:
+                    UpdateOptionsScreen();
+                    break;
             }
         } 
 
         private static void UpdateMainScreen() {
             playButton.Update();
+            optionsButton.Update();
             exitButton.Update();
-
-            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
-                entry.Value.Update();
-            }
 
             if (playButton.Clicked()) {
                 exitButton.active = false;
 
-                foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
-                    entry.Value.active = false;
-                }
                 currentScreen = Screens.GameScreen;
+            }
+
+            if (optionsButton.Clicked()) {
+                exitButton.active = false;
+
+                foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                    entry.Value.active = true;
+                }
+
+                backButton.active = true;
+                currentScreen = Screens.OptionsScreen;
             }
         }
 
@@ -329,6 +370,9 @@ namespace Explore
 
                 ManageWaves();
 
+                if (player.isDead) {
+                    Reset();
+                }
             } else if (isPaused) {
                 menuButton.Update();
                 resumeButton.Update();
@@ -337,10 +381,6 @@ namespace Explore
                     isPaused = false;
                     currentScreen = Screens.MainScreen;
                     exitButton.active = true;
-
-                    foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
-                        entry.Value.active = true;
-                    }
                 }
 
                 if (resumeButton.Clicked()) {
@@ -356,6 +396,23 @@ namespace Explore
 
             if (Input.Esc && !isPaused) {
                 isPaused = true;
+            }
+        }
+
+        private static void UpdateOptionsScreen() {
+            backButton.Update();
+
+            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                entry.Value.Update();
+            }
+
+            if (backButton.Clicked()) {
+                backButton.active = false;
+                foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                    entry.Value.active = false;
+                }
+                exitButton.active = true;
+                currentScreen = Screens.MainScreen;
             }
         }
 
@@ -382,6 +439,10 @@ namespace Explore
                 case Screens.GameScreen:
                     DrawGameScreen(spriteBatch);
                     break;
+
+                case Screens.OptionsScreen:
+                    DrawOptionsScreen(spriteBatch);
+                    break;
             }
 
             spriteBatch.Draw(Game1.camera.Debug);
@@ -391,15 +452,12 @@ namespace Explore
 
             spriteBatch.Begin();
 
-            string title = "No To Dead Yes to Everything";
+            string title = "No To Death Yes to Everything";
             Helper.DrawString(spriteBatch, consolasFontBig, title, Color.Yellow, new Rectangle(width / 2 - 300, 100, 600, 50));
 
             playButton.Draw(spriteBatch);
+            optionsButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
-
-            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
-                entry.Value.Draw(spriteBatch);
-            }
 
             spriteBatch.End();
         }
@@ -433,6 +491,23 @@ namespace Explore
             }
 
             Helper.DrawString(spriteBatch, consolasFontBig, "Wave: " + (waveNumber + 1).ToString(), Color.White, new Rectangle(width / 2 - 50, 10, 100, 40));
+
+            spriteBatch.End();
+        }
+
+        private static void DrawOptionsScreen(SpriteBatch spriteBatch) {
+
+            spriteBatch.Begin();
+
+            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                entry.Value.Draw(spriteBatch);
+            }
+
+            spriteBatch.DrawString(consolasFont, "A - Left, D - Right, W - Jump \n" + 
+            "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
+            "With the HandGun you hit ground enemies and with the RPG UFOs.", new Vector2(width / 2, height / 2 - 150), Color.White);
+
+            backButton.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -505,6 +580,8 @@ namespace Explore
                 menuButton.UpdateRectangle(buttonRectangles["menu"]);
                 exitButton.UpdateRectangle(buttonRectangles["exit"]);
                 resumeButton.UpdateRectangle(buttonRectangles["resume"]);
+                optionsButton.UpdateRectangle(buttonRectangles["options"]);
+                backButton.UpdateRectangle(buttonRectangles["back"]);
                 
                 graphics.ApplyChanges();
             }

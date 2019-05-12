@@ -13,7 +13,6 @@ namespace Explore
         #region Variables
 
         private int health;
-        private int score;
 
         // Movement
 
@@ -159,8 +158,8 @@ namespace Explore
         #endregion
 
         public void Update() {
-            if (Input.Respawn || health < 0) {
-                Reset();
+            if (health < 1) {
+                isDead = true;
             }
 
             PerformMovement();
@@ -228,6 +227,10 @@ namespace Explore
             position += velocity * GameManager.DeltaTime;
 
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
+
+            if (position.Y > 350) {
+                isDead = true;
+            }
         }
 
         #endregion
@@ -374,10 +377,6 @@ namespace Explore
             health -= damage;
         }
 
-        public void ScoreUp(int amount) {
-            score += amount;
-        }
-
         public void GiveHealth(int amount) {
             health += amount;
         }
@@ -456,12 +455,11 @@ namespace Explore
             spriteBatch.DrawString(GameManager.consolasFont, "Rockets: " + rocketsCount.ToString(), new Vector2(10, 30), Color.White);
             spriteBatch.DrawString(GameManager.consolasFont, "Mines: " + mineCount.ToString(), new Vector2(10, 50), Color.White);
             spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 70), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "Score: " + score.ToString(), new Vector2(10, 90), Color.White);
         }
 
         #endregion
 
-        private void Reset() {
+        public void Reset() {
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
             halfWidth = width / 2;
             halfHeight = height / 2;
@@ -476,9 +474,10 @@ namespace Explore
             velocity = new Vector2(0, 0);
             handGunAmmo = 100;
             health = 5;
-            score = 0;
             rocketsCount = 10;
             mineCount = 5;
+
+            isDead = false;
         }
     }
 }
