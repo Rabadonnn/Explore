@@ -31,3 +31,9 @@ C:\Users\Mihai\Desktop\Explore\obj\release\netcoreapp2.0\win10-x64\Explore.pdb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\Consolas.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\RocketLauncher.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\RPG_ammo.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\AmmoDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\ConsolasBig.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\HealthDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\Mine.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\MinesDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\RocketsDrop.xnb

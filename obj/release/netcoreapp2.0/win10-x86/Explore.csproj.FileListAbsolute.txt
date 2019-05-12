@@ -31,3 +31,9 @@ C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Gun2.
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Nuke.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RocketLauncher.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RPG_ammo.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\AmmoDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\ConsolasBig.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\HealthDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Mine.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\MinesDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RocketsDrop.xnb

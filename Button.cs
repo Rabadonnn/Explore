@@ -56,6 +56,10 @@ namespace Explore
             }
         }
 
+        public void UpdateRectangle(Rectangle _rectangle) {
+            rectangle = _rectangle;
+        }
+
         public void Draw(SpriteBatch spriteBatch) {
             Helper.DrawString(spriteBatch, hoverFont, text, currentColor, rectangle);
         }

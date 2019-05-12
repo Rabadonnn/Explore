@@ -4,6 +4,8 @@
 publish: 
 ----  dotnet publish -c release -r win10-x64
 
+Just Win motherFucker
+
 */
 
 
@@ -90,11 +92,16 @@ namespace Explore
 
         //---------UI
 
+        private static Dictionary<string, Rectangle> buttonRectangles;
+
         private static Button playButton;
         private static Button pauseButton;
         private static Button exitButton;
         private static Button menuButton;
         private static Button resumeButton;
+
+        private static Dictionary<string, Button> resolutionButtons;
+        private static Dictionary<string, Point> resolutions;
 
         private static bool isPaused = false;
 
@@ -112,16 +119,78 @@ namespace Explore
             DropManager.Initialize();
         }
 
+        private static void MakeRectanglesForButtons() {
+            int buttonWidth = 100;
+
+            buttonRectangles = new Dictionary<string, Rectangle>() {
+                {
+                    "play", new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50)
+                },
+                {
+                    "pause", new Rectangle(width - 100, 25, 75, 50)
+                },
+                {
+                    "exit", new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2)
+                },
+                {
+                    "menu", new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50)
+                },
+                {
+                    "resume", new Rectangle(width / 2 - buttonWidth / 2, height / 2 , buttonWidth, 50)
+                }
+            };
+        }
+
         public static void Initialize() {
             assets = new Dictionary<string, Texture2D>();
 
-            int buttonWidth = 100;
+            MakeRectanglesForButtons();
 
-            playButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50), "Play");
-            pauseButton = new Button(new Rectangle(width - 100, 25, 75, 50), "Pause");
-            exitButton = new Button(new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2), "Exit");
-            menuButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 - 100, buttonWidth, 50), "MainMenu");
-            resumeButton = new Button(new Rectangle(width / 2 - buttonWidth / 2, height / 2 , buttonWidth, 50), "Resume");
+            playButton = new Button(buttonRectangles["play"], "Play");
+            pauseButton = new Button(buttonRectangles["pause"], "Pause");
+            exitButton = new Button(buttonRectangles["exit"], "Exit");
+            menuButton = new Button(buttonRectangles["menu"], "MainMenu");
+            resumeButton = new Button(buttonRectangles["resume"], "Resume");
+
+            resolutionButtons = new Dictionary<string, Button>() {
+                {
+                    "fullscreen", new Button(new Rectangle(100, height / 2 - 100, 100, 50), "FullScreen")
+                },
+                {
+                    "1920x1080", new Button(new Rectangle(100, height / 2 - 50, 100, 50), "1920x1080")
+                }, 
+                {
+                    "1600x900", new Button(new Rectangle(100, height / 2, 100, 50), "1600x900")
+                }, 
+                {
+                    "1280x720", new Button(new Rectangle(100, height / 2 + 50, 100, 50), "1280x720")
+                },
+                {
+                    "1024x768", new Button(new Rectangle(100, height / 2 + 100, 100, 50), "1024x768")
+                },
+                {
+                    "800x600", new Button(new Rectangle(100, height / 2 + 150, 100, 50), "800x600")
+                }
+            };
+
+            resolutions = new Dictionary<string, Point>() {
+                {
+                    "1920x1080", new Point(1920, 1080)
+                }, 
+                {
+                    "1600x900", new Point(1600, 900)
+                },
+                {
+                    "1280x720", new Point(1280, 720)
+                },
+                {
+                    "1024x768", new Point(1024, 768)
+                },
+                {
+                    "800x600", new Point(800, 600)
+                }
+            };
+
             Reset();
         }
 
@@ -211,6 +280,10 @@ namespace Explore
             menuButton.SetFonts();
             exitButton.SetFonts();
             resumeButton.SetFonts();
+
+            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                entry.Value.SetFonts();
+            }
         }
 
         public static void UpdateScreens(GameTime _gameTime) {
@@ -232,10 +305,17 @@ namespace Explore
             playButton.Update();
             exitButton.Update();
 
-            
+            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                entry.Value.Update();
+            }
+
             if (playButton.Clicked()) {
-                currentScreen = Screens.GameScreen;
                 exitButton.active = false;
+
+                foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                    entry.Value.active = false;
+                }
+                currentScreen = Screens.GameScreen;
             }
         }
 
@@ -257,6 +337,10 @@ namespace Explore
                     isPaused = false;
                     currentScreen = Screens.MainScreen;
                     exitButton.active = true;
+
+                    foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                        entry.Value.active = true;
+                    }
                 }
 
                 if (resumeButton.Clicked()) {
@@ -312,6 +396,10 @@ namespace Explore
 
             playButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
+
+            foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
+                entry.Value.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
         }
@@ -382,6 +470,43 @@ namespace Explore
 
             for (int i = 0; i < baseShips.Count; i++) {
                 baseShips[i].Draw(spriteBatch);
+            }
+        }
+
+        public static void CheckForResolutionChanges(GraphicsDeviceManager graphics) {
+            if (resolutionButtons["fullscreen"].Clicked()) {
+                if (graphics.IsFullScreen) {
+                    graphics.IsFullScreen = false;
+                } else if (!graphics.IsFullScreen) {
+                    graphics.IsFullScreen = true;
+                }
+                graphics.ApplyChanges();
+
+            } 
+
+            foreach (KeyValuePair <string, Button> entry in resolutionButtons) {
+                if (entry.Value.Clicked()) {
+                    ChangeResolution(graphics, resolutions[entry.Key]);
+                }
+            }
+        }
+
+        private static void ChangeResolution(GraphicsDeviceManager graphics, Point size) {
+            if (graphics.PreferredBackBufferWidth != size.X && graphics.PreferredBackBufferHeight != size.Y) {
+                graphics.PreferredBackBufferWidth = size.X;
+                graphics.PreferredBackBufferHeight = size.Y;
+                width = size.X;
+                height = size.Y;
+
+                MakeRectanglesForButtons();
+
+                playButton.UpdateRectangle(buttonRectangles["play"]);
+                pauseButton.UpdateRectangle(buttonRectangles["pause"]);
+                menuButton.UpdateRectangle(buttonRectangles["menu"]);
+                exitButton.UpdateRectangle(buttonRectangles["exit"]);
+                resumeButton.UpdateRectangle(buttonRectangles["resume"]);
+                
+                graphics.ApplyChanges();
             }
         }
 

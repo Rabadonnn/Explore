@@ -50,6 +50,8 @@ namespace Explore
                 Exit();
             }
 
+            GameManager.CheckForResolutionChanges(graphics);
+
             base.Update(gameTime);
         }
 
@@ -61,5 +63,7 @@ namespace Explore
 
             base.Draw(gameTime);
         }
+
+        
     }
 }
