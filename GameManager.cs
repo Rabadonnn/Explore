@@ -452,6 +452,9 @@ namespace Explore
 
                 if (player.isDead) {
                     replayButton.Draw(spriteBatch);
+
+                    Helper.DrawString(spriteBatch, consolasFontBig, "Enmies Killed: " + player.EnemiesKilled.ToString(), Color.White, new Rectangle(width / 2 - 100, height / 2, 200, 50));
+                    Helper.DrawString(spriteBatch, consolasFontBig, "Ships Destoryed: " + player.ShipsDestroyed.ToString(), Color.White, new Rectangle(width / 2 - 100, height / 2 + 75, 200, 50));
                 }
             } else if (isPaused) {
                 spriteBatch.Draw(assets["square"], new Rectangle(0, 0, width, height), Color.Black * 0.3f);

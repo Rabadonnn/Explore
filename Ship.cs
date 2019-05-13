@@ -9,6 +9,7 @@ namespace Explore
     public class BaseShip : GameObject {
 
         private int health;
+        private int previousHealth;
 
         private Vector2 checkPoint;
         private Random rand;
@@ -16,14 +17,18 @@ namespace Explore
 
         private int baseEnemyDropChance = 50;
 
+        private Color color;
+
         public BaseShip(Vector2 _position) {
 
-            health = 1;
+            health = 10;
+            previousHealth = health;
 
             position = _position;
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
 
+            color = Color.White;
         }
 
         public void SetTexture() {
@@ -53,13 +58,27 @@ namespace Explore
 
             for (int i = 0; i < rockets.Count; i++) {
                 if (Helper.RectRect(rectangle, rockets[i].rectangle)) {
-                    health--;
+                    health -= 5;
                     rockets[i].isDead = true;
                 }
             }
 
-            if (health < 0) {
+            for (int i = 0; i < GameManager.player.Bullets.Count; i++) {
+                if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
+                    health -= 2;
+                    GameManager.player.Bullets[i].isDead = true;
+                }
+            }
+
+            if (health < previousHealth) {
+                color = Color.Red;
+            } else {
+                color = Color.Red;
+            }
+
+            if (health < 1) {
                 isDead = true;
+                GameManager.player.DestroyedShip();
             }
         }
 

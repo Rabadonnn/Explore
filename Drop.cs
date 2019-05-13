@@ -10,8 +10,10 @@ namespace Explore
         protected int height = 32;
         protected int gravity = 10;
         protected bool isGrounded = false;
+        protected System.Random rand;
         public Drop(Vector2 _position) : base("drop") {
             position = _position;
+            rand = new System.Random();
         }
 
         public void Update() {
@@ -48,7 +50,7 @@ namespace Explore
         private int healthToGive;
 
         public HealthDrop(Vector2 _position) : base(_position) {
-            healthToGive = 3;
+            healthToGive = rand.Next(3, 6);
         }
         
         public void SetTexture() {
@@ -67,7 +69,7 @@ namespace Explore
         private int ammoToGive;
 
         public AmmoDrop(Vector2 _position) : base(_position) {
-            ammoToGive = 30;
+            ammoToGive = rand.Next(15, 45);
         }
 
         public void SetTexture() {
@@ -86,7 +88,7 @@ namespace Explore
         private int minesToGive;
         
         public MinesDrop(Vector2 _position) : base(_position) {
-            minesToGive = 2;
+            minesToGive = rand.Next(2, 5);
         }
 
         public void SetTexture() {
@@ -105,7 +107,7 @@ namespace Explore
         private int rocketsToGive;
         
         public RocketsDrop(Vector2 _position) : base(_position) {
-            rocketsToGive = 3;
+            rocketsToGive = rand.Next(4, 6);
         }
 
         public void SetTexture() {
@@ -129,8 +131,8 @@ namespace Explore
         private static List<MinesDrop> minesDrops;
         private static List<RocketsDrop> rocketsDrops;
 
-        private static float initialDropCooldown = 25f;
-        private static float dropCooldown = 5f;
+        private static float initialDropCooldown = 15f;
+        private static float dropCooldown;
 
         public static void Initialize() {
             healthDrops = new List<HealthDrop>();
@@ -151,28 +153,24 @@ namespace Explore
 
                 int randInt = rand.Next(100);
 
-                if (randInt < 40) {
-                    if (randInt < 20) {
-                        MinesDrop d = new MinesDrop(positionToDrop);
-                        d.SetTexture();
-                        minesDrops.Add(d);
-                    } else {
-                        RocketsDrop d = new RocketsDrop(positionToDrop);
-                        d.SetTexture();
-                        rocketsDrops.Add(d);
-                    }
+                if (randInt < 25) {
+                    MinesDrop md = new MinesDrop(positionToDrop);
+                    md.SetTexture();
+                    minesDrops.Add(md);
+                } else if (randInt < 50) {
+                    RocketsDrop rd = new RocketsDrop(positionToDrop);
+                    rd.SetTexture();
+                    rocketsDrops.Add(rd);
+                } else if (randInt < 75) {
+                    HealthDrop hd = new HealthDrop(positionToDrop);
+                    hd.SetTexture();
+                    healthDrops.Add(hd);
                 } else {
-                    if (randInt < 70) {
-                        HealthDrop d = new HealthDrop(positionToDrop);
-                        d.SetTexture();
-                        healthDrops.Add(d);
-                    } else {
-                        AmmoDrop d = new AmmoDrop(positionToDrop);
-                        d.SetTexture();
-                        ammoDrops.Add(d);
-                    }
+                    AmmoDrop d = new AmmoDrop(positionToDrop);
+                    d.SetTexture();
+                    ammoDrops.Add(d);
                 }
-
+                
                 dropCooldown = initialDropCooldown;
 
             } else {
@@ -194,6 +192,48 @@ namespace Explore
                     ammoDrops[i].Update();
                 }
             }
+
+            for (int  i = 0; i < rocketsDrops.Count; i++) {
+                if (rocketsDrops[i].isDead) {
+                    rocketsDrops.RemoveAt(i);
+                } else {
+                    rocketsDrops[i].Update();
+                }
+            }
+
+            for (int i = 0; i < minesDrops.Count; i++) {
+                if (minesDrops[i].isDead) {
+                    minesDrops.RemoveAt(i);
+                } else {
+                    minesDrops[i].Update();
+                }
+            }
+        }
+
+        public static void EndOfWaveDrop() {
+            Vector2 positionToDrop = NewDropPosition();
+
+            MinesDrop md = new MinesDrop(positionToDrop);
+            md.SetTexture();
+            minesDrops.Add(md);
+
+            positionToDrop = NewDropPosition();
+
+            RocketsDrop rd = new RocketsDrop(positionToDrop);
+            rd.SetTexture();
+            rocketsDrops.Add(rd);
+
+            positionToDrop = NewDropPosition();
+
+            HealthDrop hd = new HealthDrop(positionToDrop);
+            hd.SetTexture();
+            healthDrops.Add(hd);
+
+            positionToDrop = NewDropPosition();
+        
+            AmmoDrop d = new AmmoDrop(positionToDrop);
+            d.SetTexture();
+            ammoDrops.Add(d);
         }
 
         private static Vector2 NewDropPosition() {
@@ -222,6 +262,14 @@ namespace Explore
 
             for (int i = 0; i < ammoDrops.Count; i++) {
                 ammoDrops[i].Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < rocketsDrops.Count; i++) {
+                rocketsDrops[i].Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < minesDrops.Count; i++) {
+                minesDrops[i].Draw(spriteBatch);
             }
         }
     }

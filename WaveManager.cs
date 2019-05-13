@@ -60,10 +60,12 @@ namespace Explore
         }
 
         private static void UpdateWaves() {
-            if (baseShips.Count == 0 && baseEnemies.Count == 0) {
-                for (int i = 0; i < waveNumber + rand.Next(waveNumber); i++) {
+            if (baseShips.Count == 0) {
+                waveNumber++;
+                for (int i = 0; i < 3 + rand.Next(waveNumber); i++) {
                     NewShip(new Vector2(rand.Next(-300, 300), 0));
                 }
+                DropManager.EndOfWaveDrop();
             }
         }
 

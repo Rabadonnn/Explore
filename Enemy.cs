@@ -12,6 +12,8 @@ namespace Explore
         protected int health;
         protected int scoreValue;
 
+        protected Color color = Color.White;
+
         // Movement
 
         protected int width;
@@ -87,21 +89,22 @@ namespace Explore
             return false;
         }
 
+        protected void ApplyKnockBack(Vector2 knockBack) {
+            velocity = knockBack;
+        }
+
         protected bool CollisionWithMine() {
             List<Mine> mines = GameManager.player.Mines;
             for (int i = 0; i < mines.Count; i++) {
-                if (Helper.RectRect(rectangle, mines[i].rectangle) && mines[i].IsPlaced) {
+                if (Helper.RectRect(rectangle, mines[i].rectangle) && mines[i].IsPlaced ) {
                     mines[i].Explode();
+                    return true;
+                } else if (Helper.Distance(new Vector2(mines[i].rectangle.Center.X, mines[i].rectangle.Center.Y), position) < 75 && mines[i].exploded) {
                     return true;
                 }
             }
             return false;
         }
-
-        protected void ApplyMineKnockBack(int amount) {
-            velocity = new Vector2(amount * -direction, -amount);
-        }
-
         protected void UpdateBullets() {
             for (int i = 0; i < bullets.Count; i++) {
                 if (bullets[i].isDead) {
@@ -142,11 +145,14 @@ namespace Explore
 
         private int jumpForce = -300;
 
+        private int previousHealth;
+
         public BaseEnemy(Vector2 _position){
             position = _position;
             rectangle = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);
 
             health = 3;
+            previousHealth = health;
 
             width = 32;
             height = 48;
@@ -210,11 +216,11 @@ namespace Explore
                 }
             }
             
-
             position += velocity * GameManager.DeltaTime;
 
             if (position.Y > GameManager.ScreenHeight || health < 0) {
                 isDead = true;
+                GameManager.player.KilledEnemy();
             } 
 
             CheckForShooting();
@@ -223,11 +229,11 @@ namespace Explore
 
             if (CollisionWithPlayerBullet()) {
                 health--;
+                ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
             }
 
             if (CollisionWithMine()) {
                 isDead = true;
-                //ApplyMineKnockBack(200);
             }
 
             currentAnimation.Update(GameManager.gameTime);
@@ -237,6 +243,12 @@ namespace Explore
                     GameManager.player.Hit(damage);
                     bullets[i].isDead = true;
                 }
+            }
+
+            if (previousHealth < health) {
+                color = Color.Red;
+            } else {
+                color = Color.White;
             }
         }
 
@@ -262,7 +274,7 @@ namespace Explore
                 currentAnimation = runAnim_Left;
             }
 
-            spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
+            spriteBatch.Draw(currentAnimation, position, color, 0, scale, 0);
 
             DrawBullets(spriteBatch);
         }

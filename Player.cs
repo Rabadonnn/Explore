@@ -14,6 +14,19 @@ namespace Explore
 
         private int health;
 
+        private int enemiesKilled;
+        public int EnemiesKilled {
+            get {
+                return enemiesKilled;
+            }
+        }
+        private int shipsDestroyed;
+        public int ShipsDestroyed {
+            get {
+                return shipsDestroyed;
+            }
+        }
+
         // Movement
 
         public Vector2 Position {
@@ -377,6 +390,13 @@ namespace Explore
             health -= damage;
         }
 
+        public void KilledEnemy() {
+            enemiesKilled++;
+        }
+        public void DestroyedShip() {
+            shipsDestroyed++;
+        }
+
         public void GiveHealth(int amount) {
             health += amount;
         }
@@ -476,6 +496,9 @@ namespace Explore
             health = 5;
             rocketsCount = 10;
             mineCount = 5;
+
+            enemiesKilled = 0;
+            shipsDestroyed = 0;
 
             isDead = false;
         }

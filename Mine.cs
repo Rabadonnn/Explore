@@ -10,6 +10,8 @@ namespace Explore
         private int width = 32;
         private int height = 20;
 
+        public bool exploded = false;
+
         private Vector2 velocity;
 
         private bool placed;
@@ -69,6 +71,7 @@ namespace Explore
 
         public void Explode() {
             isDead = true;
+            exploded = true;
         }
 
         public void Draw(SpriteBatch spriteBatch) {
