@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Explore.Particles;
 
 namespace Explore
 {
@@ -50,12 +51,15 @@ namespace Explore
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public virtual void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
     }
 
     public class Rocket : Bullet {
+
+        private ParticleSystem fx;
+
         public Rocket(Vector2 _position, string _tag) : base(_position, _tag) {
             position = _position;
             tag = _tag;
@@ -63,6 +67,20 @@ namespace Explore
 
             width = 12;
             height = 20;
+
+            fx = new ParticleSystem(new Settings() {
+                number_per_frame = 3,
+                size = 3,
+                speed = 600,
+                lifespan = 0.07f,
+                accX = new Vector2(-1, 1),
+                accY = new Vector2(2, 20)
+            }, rectangle);
+        }
+
+        public override void SetTexture(Texture2D _texture) {
+            texture = _texture;
+            fx.SetTexture(GameManager.Assets["square"]);
         }
 
         public override void Update() {
@@ -87,6 +105,15 @@ namespace Explore
                     }
                 }
             }
+
+            fx.rectangle = new Rectangle(rectangle.X, rectangle.Bottom, rectangle.Width, 10);
+
+            fx.Update();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(texture, rectangle, Color.White);
+            fx.Draw(spriteBatch);
         }
     }
 }
