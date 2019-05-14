@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</SourceFile>
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</SourceFile>
   <SourceTime>2019-05-07T18:03:35.2472522+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/RPG_ammo.xnb</DestFile>
-  <DestTime>2019-05-13T18:20:39.7368204+03:00</DestTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/RPG_ammo.xnb</DestFile>
+  <DestTime>2019-05-14T17:30:12.3360252+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

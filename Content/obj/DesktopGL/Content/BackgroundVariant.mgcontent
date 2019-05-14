@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</SourceFile>
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</SourceFile>
   <SourceTime>2019-04-30T14:48:53.8520662+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/BackgroundVariant.xnb</DestFile>
-  <DestTime>2019-05-13T18:20:39.1182206+03:00</DestTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/BackgroundVariant.xnb</DestFile>
+  <DestTime>2019-05-14T17:30:08.6577757+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
