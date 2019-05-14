@@ -84,11 +84,35 @@ namespace Explore
         }
 
         public override void Update() {
+            
+
+            fx.rectangle = new Rectangle(rectangle.X, rectangle.Bottom, rectangle.Width, 10);
+
+            fx.Update();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(texture, rectangle, Color.White);
+            fx.Draw(spriteBatch);
+        }
+    }
+
+    public class Bomb : Bullet {
+        public Bomb(Vector2 _position) : base(_position, "ship") {
+            position = _position;
+            speed = 850;
+        }
+
+        public void SetTexture() {
+            
+        }
+
+        public override void Update() {
             if (!isDead) {
 
                 rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
                
-                position.Y -= speed * GameManager.DeltaTime;
+                position.Y += speed * GameManager.DeltaTime;
 
                 lifetime -= GameManager.DeltaTime;
 
@@ -105,15 +129,6 @@ namespace Explore
                     }
                 }
             }
-
-            fx.rectangle = new Rectangle(rectangle.X, rectangle.Bottom, rectangle.Width, 10);
-
-            fx.Update();
-        }
-
-        public override void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(texture, rectangle, Color.White);
-            fx.Draw(spriteBatch);
         }
     }
 }

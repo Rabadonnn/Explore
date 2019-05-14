@@ -8,34 +8,28 @@ namespace Explore
 {
     public class BaseShip : GameObject {
 
-        private int health;
-        private int previousHealth;
+        protected int health;
 
-        private Vector2 checkPoint;
-        private Random rand;
-        private Vector2 scale = new Vector2(2, 2);
+        protected Vector2 checkPoint;
+        protected Random rand;
+        protected Vector2 scale = new Vector2(2, 2);
 
-        private int baseEnemyDropChance = 50;
-
-        private Color color;
+        protected int baseEnemyDropChance = 50;
 
         public BaseShip(Vector2 _position) {
 
             health = 10;
-            previousHealth = health;
 
             position = _position;
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
-
-            color = Color.White;
         }
 
-        public void SetTexture() {
+        public virtual void SetTexture() {
             texture = GameManager.Assets["dropship"];
         }
 
-        public void Update() {
+        public virtual void Update() {
             if (Helper.Distance(position, checkPoint) < 25) {
                 checkPoint = MakeNewCheckPoint();
 
@@ -47,12 +41,7 @@ namespace Explore
                 position = Vector2.Lerp(position, checkPoint, 0.01f);
             }
 
-
-            int rectangleX = (int)(position.X - (texture.Width / 2) * scale.X);
-            int rectangleY = (int)(position.Y - (texture.Height / 2) * scale.Y);
-            int rectangleW = (int)(texture.Width * scale.X);
-            int rectangleH = (int)(texture.Height * scale.Y);
-            rectangle = new Rectangle(rectangleX, rectangleY, rectangleH, rectangleH);
+            UpdateRectangle();
 
             List<Rocket> rockets = GameManager.player.Rockets;
 
@@ -70,19 +59,21 @@ namespace Explore
                 }
             }
 
-            if (health < previousHealth) {
-                color = Color.Red;
-            } else {
-                color = Color.Red;
-            }
-
             if (health < 1) {
                 isDead = true;
                 GameManager.player.DestroyedShip();
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        protected void UpdateRectangle() {
+            int rectangleX = (int)(position.X - (texture.Width / 2) * scale.X);
+            int rectangleY = (int)(position.Y - (texture.Height / 2) * scale.Y);
+            int rectangleW = (int)(texture.Width * scale.X);
+            int rectangleH = (int)(texture.Height * scale.Y);
+            rectangle = new Rectangle(rectangleX, rectangleY, rectangleH, rectangleH);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
         }
 
@@ -96,7 +87,7 @@ namespace Explore
             }
         }
 
-        private bool IsAbovePlatform() {
+        protected bool IsAbovePlatform() {
             bool result = false;
 
             List<Platform> platforms = GameManager.platforms;
@@ -116,9 +107,59 @@ namespace Explore
             return result;
         }
 
-        private Vector2 MakeNewCheckPoint() {
+        protected Vector2 MakeNewCheckPoint() {
             float x = rand.Next((int)GameManager.player.Position.X - 500, (int)GameManager.player.Position.X + 500);
             return new Vector2(x, rand.Next(-GameManager.ScreenHeight, 0));
+        }
+    }
+
+    public class BombShip : BaseShip {
+        
+        private float initialDropCooldown = 5f;
+        private float dropCooldown = 0;
+
+        private List<Bomb> bombs;
+
+        public BombShip(Vector2 _position) : base(_position) {
+            health = 2;
+            position = _position;
+            rand = new Random();
+            bombs = new List<Bomb>();
+        }
+
+        public override void Update() {
+            if (!isDead) {
+                UpdateRectangle();
+                checkPoint.X = GameManager.player.Position.X - position.X;
+                checkPoint.Y = GameManager.player.Position.Y - position.Y;
+
+                position = Vector2.Lerp(position, checkPoint, 0.015f);
+
+                if (dropCooldown <= 0) {
+                    DropBomb();
+                    dropCooldown = initialDropCooldown;
+                } else {
+                    dropCooldown -= GameManager.DeltaTime;
+                }
+            }
+
+            for (int i = 0; i < bombs.Count; i++) {
+                bombs[i].Update();
+            }
+        }
+
+        private void DropBomb() {
+            Bomb b = new Bomb(position);
+            b.SetTexture();
+            bombs.Add(b);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
+        
+            for (int i = 0; i < bombs.Count; i++) {
+                bombs[i].Draw(spriteBatch);
+            }
         }
     }
 }
