@@ -56,7 +56,7 @@ namespace Explore
         }
     }
 
-    public class Rocket : Bullet {
+public class Rocket : Bullet {
 
         private ParticleSystem fx;
 
@@ -65,8 +65,8 @@ namespace Explore
             tag = _tag;
             speed = 1000;
 
-            width = 32;
-            height = 32;
+            width = 12;
+            height = 20;
 
             fx = new ParticleSystem(new Settings() {
                 number_per_frame = 3,
@@ -115,8 +115,7 @@ namespace Explore
             spriteBatch.Draw(texture, rectangle, Color.White);
             fx.Draw(spriteBatch);
         }
-    }
-
+}
     public class Bomb : Bullet {
         public Bomb(Vector2 _position) : base(_position, "ship") {
             position = _position;

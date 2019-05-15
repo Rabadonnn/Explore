@@ -27,7 +27,7 @@ namespace Explore
             OptionsScreen
         }
 
-        public static Screens currentScreen = Screens.GameScreen;
+        public static Screens currentScreen = Screens.MainScreen;
 
         private static int width = 1280;
         private static int height = 720;
