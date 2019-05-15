@@ -84,7 +84,7 @@ namespace Explore
 
             if (bombShipCooldown <= 0) {
                 NewBombShip();
-                bombShipCooldown = 0;
+                bombShipCooldown = initalBombShipCooldown;
             } else {
                 bombShipCooldown -= GameManager.DeltaTime;
             }

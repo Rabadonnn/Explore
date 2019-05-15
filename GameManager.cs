@@ -249,7 +249,6 @@ namespace Explore
 
             assets.Add("square", contentManager.Load<Texture2D>("Square"));
             assets.Add("mamba", contentManager.Load<Texture2D>("Mamba"));
-            assets.Add("platform3", contentManager.Load<Texture2D>("platform3"));
             assets.Add("background_variant", contentManager.Load<Texture2D>("BackgroundVariant"));
             assets.Add("guard", contentManager.Load<Texture2D>("Guard"));
             assets.Add("dropship", contentManager.Load<Texture2D>("Ship"));
@@ -262,6 +261,8 @@ namespace Explore
             assets.Add("mines_drop", contentManager.Load<Texture2D>("MinesDrop"));
             assets.Add("rockets_drop", contentManager.Load<Texture2D>("RocketsDrop"));
             assets.Add("mine", contentManager.Load<Texture2D>("Mine"));
+            assets.Add("bombship", contentManager.Load<Texture2D>("BombShip"));
+            assets.Add("bomb", contentManager.Load<Texture2D>("Bomb"));
         }
 
         public static void SetTextures() {

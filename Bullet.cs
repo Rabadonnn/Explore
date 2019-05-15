@@ -65,8 +65,8 @@ namespace Explore
             tag = _tag;
             speed = 1000;
 
-            width = 12;
-            height = 20;
+            width = 32;
+            height = 32;
 
             fx = new ParticleSystem(new Settings() {
                 number_per_frame = 3,
@@ -84,7 +84,27 @@ namespace Explore
         }
 
         public override void Update() {
-            
+            if (!isDead) {
+
+                rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+               
+                position.Y -= speed * GameManager.DeltaTime;
+
+                lifetime -= GameManager.DeltaTime;
+
+                if (lifetime <= 0) {
+                    isDead = true;
+                }
+
+
+                System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
+
+                for (int i = 0; i < platforms.Count; i++) {
+                    if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
+                        isDead = true;
+                    }
+                }
+            }
 
             fx.rectangle = new Rectangle(rectangle.X, rectangle.Bottom, rectangle.Width, 10);
 
@@ -104,7 +124,7 @@ namespace Explore
         }
 
         public void SetTexture() {
-            
+            texture = GameManager.Assets["bomb"];
         }
 
         public override void Update() {
@@ -119,7 +139,6 @@ namespace Explore
                 if (lifetime <= 0) {
                     isDead = true;
                 }
-
 
                 System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
 

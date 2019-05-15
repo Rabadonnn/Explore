@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 
-
 namespace Explore
 {
     public class BaseShip : GameObject {
@@ -43,6 +42,20 @@ namespace Explore
 
             UpdateRectangle();
 
+            CheckCollisions();
+
+            CheckLife();
+        }
+
+        protected void CheckLife() {
+            if (health < 1) {
+                isDead = true;
+                GameManager.player.DestroyedShip();
+            }
+        }
+        
+
+        protected void CheckCollisions() {
             List<Rocket> rockets = GameManager.player.Rockets;
 
             for (int i = 0; i < rockets.Count; i++) {
@@ -57,11 +70,6 @@ namespace Explore
                     health -= 2;
                     GameManager.player.Bullets[i].isDead = true;
                 }
-            }
-
-            if (health < 1) {
-                isDead = true;
-                GameManager.player.DestroyedShip();
             }
         }
 
@@ -117,34 +125,59 @@ namespace Explore
         
         private float initialDropCooldown = 5f;
         private float dropCooldown = 0;
+        private int width = 62;
+        private int height = 48;
 
         private List<Bomb> bombs;
+
+        private int speed;
+        private int direction;
 
         public BombShip(Vector2 _position) : base(_position) {
             health = 2;
             position = _position;
             rand = new Random();
             bombs = new List<Bomb>();
+            speed = 600;
+            direction = 0;
+            checkPoint = MakeNewCheckPoint();
+        }
+
+        public override void SetTexture() {
+            texture = GameManager.Assets["bombship"];
         }
 
         public override void Update() {
             if (!isDead) {
-                UpdateRectangle();
-                checkPoint.X = GameManager.player.Position.X - position.X;
-                checkPoint.Y = GameManager.player.Position.Y - position.Y;
+                
+                if (Helper.Distance(position, checkPoint) < 30) {
+                    checkPoint = new Vector2(GameManager.player.Position.X, rand.Next(-GameManager.ScreenHeight, 0));
+                }
 
-                position = Vector2.Lerp(position, checkPoint, 0.015f);
+                position = Vector2.Lerp(position, checkPoint, 0.02f);
 
                 if (dropCooldown <= 0) {
-                    DropBomb();
-                    dropCooldown = initialDropCooldown;
+                    if (Helper.Distance(position, GameManager.player.Position) < 70) {
+                        DropBomb();
+                        dropCooldown = initialDropCooldown;
+                    }
                 } else {
                     dropCooldown -= GameManager.DeltaTime;
                 }
+
+                rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+            
+                CheckCollisions();
+                CheckLife();
             }
 
             for (int i = 0; i < bombs.Count; i++) {
                 bombs[i].Update();
+
+                if (Helper.RectRect(GameManager.player.rectangle, bombs[i].rectangle)) {
+                    GameManager.player.Hit(rand.Next(2, 4));
+                    bombs[i].isDead = true;
+                }
             }
         }
 
@@ -155,7 +188,7 @@ namespace Explore
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, rectangle, Color.White);
         
             for (int i = 0; i < bombs.Count; i++) {
                 bombs[i].Draw(spriteBatch);

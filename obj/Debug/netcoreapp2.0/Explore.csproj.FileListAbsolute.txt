@@ -1,15 +1,7 @@
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Background.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\BackgroundVariant.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Bullet.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Crosshair.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Guard.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Kutty.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Mamba.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Nuke.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\platform.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\platform2.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\platform3.xnb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\rock.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Ship.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Square.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Explore.deps.json
@@ -23,7 +15,6 @@ c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.AssemblyInfoInput
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.AssemblyInfo.cs
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.dll
 c:\Users\Mihai\Desktop\Explore\obj\Debug\netcoreapp2.0\Explore.pdb
-c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Gun2.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Consolas.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketLauncher.xnb
@@ -34,3 +25,5 @@ c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Mine.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\ConsolasBig.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\MinesDrop.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketsDrop.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Bomb.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\BombShip.xnb
