@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Explore.Particles;
+using System.Collections.Generic;
+using System;
 
 namespace Explore
 {
@@ -14,6 +16,8 @@ namespace Explore
         protected float lifetime = 1;
 
         protected string tag;
+
+        protected Random rand = new Random();
 
         public Bullet(Vector2 _position, int direction, string _tag) : base("bullet") {
             position = _position;
@@ -41,12 +45,20 @@ namespace Explore
                 }
 
 
-                System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
+                List<Platform> platforms = GameManager.platforms;
 
                 for (int i = 0; i < platforms.Count; i++) {
                     if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
                         isDead = true;
                     }
+                }
+            }
+        }
+        protected void CheckForPlatformCollision() {
+            for (int i = 0; i < GameManager.platforms.Count; i++) {
+                if (Helper.RectRect(rectangle, GameManager.platforms[i].rectangle)) {
+                    isDead = true;
+                    Explosions.Explosion(position);
                 }
             }
         }
@@ -69,18 +81,24 @@ public class Rocket : Bullet {
             height = 20;
 
             fx = new ParticleSystem(new Settings() {
-                number_per_frame = 3,
-                size = 3,
+                number_per_frame = rand.Next(5),
+                size = new Point(2, 5),
                 speed = 600,
                 lifespan = 0.07f,
                 accX = new Vector2(-1, 1),
-                accY = new Vector2(2, 20)
+                accY = new Vector2(2, 20),
+                color = new List<Color>() {
+                    Color.Red,
+                    Color.Orange,
+                    Color.Yellow,
+                    Color.White
+                }
             }, rectangle);
         }
 
         public override void SetTexture(Texture2D _texture) {
             texture = _texture;
-            fx.SetTexture(GameManager.Assets["square"]);
+            fx.SetTexture();
         }
 
         public override void Update() {
@@ -96,14 +114,7 @@ public class Rocket : Bullet {
                     isDead = true;
                 }
 
-
-                System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
-
-                for (int i = 0; i < platforms.Count; i++) {
-                    if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
-                        isDead = true;
-                    }
-                }
+                CheckForPlatformCollision();
             }
 
             fx.rectangle = new Rectangle(rectangle.X, rectangle.Bottom, rectangle.Width, 10);
@@ -115,7 +126,8 @@ public class Rocket : Bullet {
             spriteBatch.Draw(texture, rectangle, Color.White);
             fx.Draw(spriteBatch);
         }
-}
+    }
+
     public class Bomb : Bullet {
         public Bomb(Vector2 _position) : base(_position, "ship") {
             position = _position;
@@ -141,13 +153,7 @@ public class Rocket : Bullet {
                     isDead = true;
                 }
 
-                System.Collections.Generic.List<Platform> platforms = GameManager.platforms;
-
-                for (int i = 0; i < platforms.Count; i++) {
-                    if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
-                        isDead = true;
-                    }
-                }
+                CheckForPlatformCollision();
             }
         }
     }

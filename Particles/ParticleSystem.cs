@@ -14,26 +14,55 @@ namespace Explore.Particles
         private List<Particle> particles;
         private Random rand = new Random();
 
+        private bool oneTime = false;
+        private float lifetime;
+
         public ParticleSystem(Settings _settings, Rectangle _rectangle) {
             settings = _settings;
             rectangle = _rectangle;
             particles = new List<Particle>();
+            if (settings.oneTime) {
+                lifetime = settings.lifespan;
+                oneTime = true;
+            }
         }
 
         public void Update() {
             settings.CheckValues();
             if (enabled) {
-                for (int i = 0; i < settings.number_per_frame; i++) {
-                    Vector2 pos = new Vector2(rand.Next(rectangle.Left, rectangle.Right), rand.Next(rectangle.Top, rectangle.Bottom));
-                    Particle particleToAdd = new Particle(settings, pos);
-                    particles.Add(particleToAdd);
-                }
 
-                for (int i = 0; i < particles.Count; i++) {
-                    particles[i].Update();
+                if (oneTime) {
+                    if (lifetime >= 0) {
+                        for (int i = 0; i < settings.number_per_frame; i++) {
+                            Vector2 pos = new Vector2(rand.Next(rectangle.Left, rectangle.Right), rand.Next(rectangle.Top, rectangle.Bottom));
+                            Particle particleToAdd = new Particle(settings, pos);
+                            particles.Add(particleToAdd);
+                        }
 
-                    if (particles[i].IsDead) {
-                        particles.RemoveAt(i);
+                        for (int i = 0; i < particles.Count; i++) {
+                            particles[i].Update();
+
+                            if (particles[i].IsDead) {
+                                particles.RemoveAt(i);
+                            }
+                        }
+                        lifetime -= GameManager.DeltaTime;
+                    } else {
+                        enabled = false;
+                    }
+                } else {
+                    for (int i = 0; i < settings.number_per_frame; i++) {
+                        Vector2 pos = new Vector2(rand.Next(rectangle.Left, rectangle.Right), rand.Next(rectangle.Top, rectangle.Bottom));
+                        Particle particleToAdd = new Particle(settings, pos);
+                        particles.Add(particleToAdd);
+                    }
+
+                    for (int i = 0; i < particles.Count; i++) {
+                        particles[i].Update();
+
+                        if (particles[i].IsDead) {
+                            particles.RemoveAt(i);
+                        }
                     }
                 }
             }
@@ -42,6 +71,10 @@ namespace Explore.Particles
 
         public void SetTexture(Texture2D _texture) {
             texture = _texture;
+        }
+
+        public void SetTexture() {
+            texture = GameManager.Assets["square"];
         }
 
         public void Draw(SpriteBatch spriteBatch) {

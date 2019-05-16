@@ -42,7 +42,7 @@ namespace Explore
                     switch (Helper.RectRectExtended(rectangle, obs)) {
                         case Helper.Collision.Top:
                             position.Y = obs.Bottom + height / 2;
-                            velocity.Y = gravity;
+                            velocity.Y = 10 * gravity;
                             break;
                         case Helper.Collision.Bottom:
                             isGrounded = true;
@@ -79,6 +79,7 @@ namespace Explore
                 
                 if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
                     GameManager.player.Bullets[i].isDead = true;
+                    Explosions.Explosion(position);
                     return true;
                 }
             }
@@ -124,7 +125,7 @@ namespace Explore
     public class BaseEnemy : Enemy
     {
         private int damage = 1;
-        private int range = 250;
+        private int range = 350;
 
         private Vector2 target;
 

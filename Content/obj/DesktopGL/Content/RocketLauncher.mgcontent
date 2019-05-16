@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png</SourceFile>
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png</SourceFile>
   <SourceTime>2019-05-08T19:54:03.0792757+03:00</SourceTime>
-  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/RocketLauncher.xnb</DestFile>
-  <DestTime>2019-05-15T17:27:26.7529814+03:00</DestTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/RocketLauncher.xnb</DestFile>
+  <DestTime>2019-05-16T18:05:11.2864385+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

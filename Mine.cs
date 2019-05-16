@@ -73,6 +73,7 @@ namespace Explore
         public void Explode() {
             isDead = true;
             exploded = true;
+            Explosions.MineExplosion(position);
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

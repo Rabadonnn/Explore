@@ -31,8 +31,8 @@ namespace Explore.Particles
             velocity = settings.velocity;
             speed = settings.speed;
             lifespan = settings.lifespan;
-            color = settings.color;
-            size = settings.size;
+            color = settings.color[rand.Next(settings.color.Count)];
+            size = rand.Next((int)settings.size.X, (int)settings.size.Y);
             gravity = settings.gravity;
         }
 

@@ -133,8 +133,8 @@ namespace Explore
 
         // Shield
 
-        private int shieldStrength = 10;
-        private float shieldLifeTime = 10f;
+        private int shieldStrength = 4;
+        private float shieldLifeTime = 5f;
 
         private Shield shield = new Shield();
 
@@ -218,10 +218,6 @@ namespace Explore
     
             shield.Update(new Vector2(position.X, position.Y - 8));
 
-            if (!shield.Active) {
-                shield.Start();
-            }
-
             Vector2 cameraDesiredPosition = new Vector2(position.X, position.Y - 170);
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
 
@@ -281,6 +277,7 @@ namespace Explore
             velocity.X = direction * speed;
 
             position += velocity * GameManager.DeltaTime;
+            shield.Update(position);
 
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
 

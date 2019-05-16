@@ -61,6 +61,7 @@ namespace Explore
             for (int i = 0; i < rockets.Count; i++) {
                 if (Helper.RectRect(rectangle, rockets[i].rectangle)) {
                     health -= 5;
+                    Explosions.BigExplosion(position);
                     rockets[i].isDead = true;
                 }
             }
@@ -68,6 +69,7 @@ namespace Explore
             for (int i = 0; i < GameManager.player.Bullets.Count; i++) {
                 if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
                     health -= 2;
+                    Explosions.BigExplosion(position);
                     GameManager.player.Bullets[i].isDead = true;
                 }
             }

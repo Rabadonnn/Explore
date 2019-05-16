@@ -4,25 +4,25 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/AmmoDrop.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Bomb.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/BombShip.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Gun2.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Mine.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/MinesDrop.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/RocketsDrop.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Shield.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
-    <File>c:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/AmmoDrop.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/BackgroundVariant.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Bomb.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/BombShip.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Gun2.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Mamba.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Mine.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/MinesDrop.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/RocketsDrop.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Shield.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

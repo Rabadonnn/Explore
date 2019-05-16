@@ -27,7 +27,7 @@ namespace Explore
             OptionsScreen
         }
 
-        public static Screens currentScreen = Screens.GameScreen;
+        public static Screens currentScreen = Screens.MainScreen;
 
         private static int width = 1280;
         private static int height = 720;
@@ -210,11 +210,11 @@ namespace Explore
 
             int platformHeight = 15;
 
-            int minPlatformWidth = 350;
-            int maxPlatformWidth = 500;
+            int minPlatformWidth = 500;
+            int maxPlatformWidth = 800;
 
-            int minHeight = 100;
-            int maxHeight = 200;
+            int minHeight = 150;
+            int maxHeight = 250;
 
             int heightBefore = 21021;
 
@@ -227,13 +227,13 @@ namespace Explore
                 int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
 
                 if (Math.Abs(heightToPlacePlatform - heightBefore) < 20) {
-                    heightToPlacePlatform = rand.Next(minHeight, maxHeight);
+                    heightToPlacePlatform = heightBefore;
                 } 
                 Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
                 
                 result.Add(platformToAdd);
 
-                i += rand.Next(50, 100);
+                i += rand.Next(75, 100);
                 
 
                 i += platformWidth / 2;
@@ -347,6 +347,8 @@ namespace Explore
 
                     WaveManager.Update();
 
+                    Explosions.Update();
+
                     DebugUpdate();
                 }
             } else if (isPaused) {
@@ -441,6 +443,8 @@ namespace Explore
 
             WaveManager.Draw(spriteBatch);
 
+            Explosions.Draw(spriteBatch);
+
             spriteBatch.End();
 
             // Player HUD
@@ -481,7 +485,8 @@ namespace Explore
             "A - Left, D - Right, W - Jump \n" + 
             "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
             "V -  Place Mine \n" +
-            "With the HandGun you hit ground enemies and with the RPG UFOs.", 
+            "With the HandGun you hit ground enemies and with the RPG UFOs. \n\n\n" + 
+            "Facut pentru Explore-IT 2019 - Mihai Solomon", 
             new Vector2(width / 2 - 300, height / 2 - 150), Color.White);
 
             backButton.Draw(spriteBatch);

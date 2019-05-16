@@ -1,14 +1,7 @@
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Background.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\BackgroundVariant.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Bullet.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Crosshair.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Guard.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Kutty.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Mamba.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\platform.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\platform2.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\platform3.xnb
-C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\rock.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Ship.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\Content\Square.xnb
 C:\Users\Mihai\Desktop\Explore\bin\Release\netcoreapp2.0\win10-x86\hostpolicy.dll
@@ -26,9 +19,7 @@ C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.Assem
 C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.dll
 C:\Users\Mihai\Desktop\Explore\obj\Release\netcoreapp2.0\win10-x86\Explore.pdb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Consolas.xnb
-C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Gun.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Gun2.xnb
-C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Nuke.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RocketLauncher.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RPG_ammo.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\AmmoDrop.xnb
@@ -37,3 +28,6 @@ C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Healt
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Mine.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\MinesDrop.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\RocketsDrop.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Bomb.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\BombShip.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x86\Content\Shield.xnb
