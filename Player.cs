@@ -336,6 +336,7 @@ namespace Explore
         private void CheckForShooting() {
             if (Input.Space && currentGun == Gun.HandGun && handGunShootingCooldown <= 0 && handGunAmmo > 0) {
                 ShootHandGun();
+                SoundManager.Shoot();
                 handGunShootingCooldown = handGunInitialShootingCooldown;
             } else {
                 handGunShootingCooldown -= GameManager.DeltaTime;
@@ -343,6 +344,7 @@ namespace Explore
 
             if (Input.Space && currentGun == Gun.Launcher && rocketCooldown <= 0 && rocketsCount > 0) {
                 LaunchRocket();
+                //SoundManager.LaunchRocket();
                 rocketCooldown = rocketInitialCooldown;
             } else {
                 rocketCooldown -= GameManager.DeltaTime;

@@ -28,3 +28,5 @@ c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketsDrop.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Bomb.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\BombShip.xnb
 c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Shield.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\Shoot.xnb
+c:\Users\Mihai\Desktop\Explore\bin\Debug\netcoreapp2.0\Content\RocketShoot.xnb

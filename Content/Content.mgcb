@@ -183,6 +183,12 @@
 /processorParam:TextureFormat=Color
 /build:RocketsDrop.png
 
+#begin RocketShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:RocketShoot.wav
+
 #begin RPG_ammo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -218,6 +224,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Ship.png
+
+#begin Shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Shoot.wav
 
 #begin Square.png
 /importer:TextureImporter

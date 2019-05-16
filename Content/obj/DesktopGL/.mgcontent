@@ -19,12 +19,16 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/MinesDrop.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/RocketsDrop.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/RocketShoot.wav</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Shield.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/Shoot.wav</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -11,8 +11,8 @@ Just Win MotherFucker
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using Comora;
 using System;
 using System.Collections.Generic;
@@ -70,6 +70,7 @@ namespace Explore
                 return assets;
             }
         }
+
 
         public static SpriteFont consolasFont;
         public static SpriteFont consolasFontBig;
@@ -264,6 +265,8 @@ namespace Explore
             assets.Add("bombship", contentManager.Load<Texture2D>("BombShip"));
             assets.Add("bomb", contentManager.Load<Texture2D>("Bomb"));
             assets.Add("shield", contentManager.Load<Texture2D>("Shield"));
+
+            SoundManager.LoadSounds(contentManager);
         }
 
         public static void SetTextures() {
