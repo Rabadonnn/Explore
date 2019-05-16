@@ -73,5 +73,9 @@ namespace Explore
                 }
             }
         }
+
+        public abstract void Update();
+
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

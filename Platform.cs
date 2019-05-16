@@ -18,7 +18,7 @@ namespace Explore
             position = _position;
         }
 
-        public void Update() {
+        public override void Update() {
             lifeTime -= GameManager.DeltaTime;
 
             if (lifeTime <= 0) {
@@ -26,7 +26,7 @@ namespace Explore
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture: texture, destinationRectangle: rectangle, color: Color.DarkGray);
         }
     }

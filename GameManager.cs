@@ -27,7 +27,7 @@ namespace Explore
             OptionsScreen
         }
 
-        public static Screens currentScreen = Screens.MainScreen;
+        public static Screens currentScreen = Screens.GameScreen;
 
         private static int width = 1280;
         private static int height = 720;
@@ -263,6 +263,7 @@ namespace Explore
             assets.Add("mine", contentManager.Load<Texture2D>("Mine"));
             assets.Add("bombship", contentManager.Load<Texture2D>("BombShip"));
             assets.Add("bomb", contentManager.Load<Texture2D>("Bomb"));
+            assets.Add("shield", contentManager.Load<Texture2D>("Shield"));
         }
 
         public static void SetTextures() {

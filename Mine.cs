@@ -45,7 +45,7 @@ namespace Explore
             animation.Start(Repeat.Mode.LoopWithReverse);
         }
 
-        public void Update() {
+        public override void Update() {
 
             if (!placed) {
                 rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
@@ -75,7 +75,7 @@ namespace Explore
             exploded = true;
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(animation, position, null, 0, new Vector2(2, 2), 0);
         }
     }

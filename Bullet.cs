@@ -26,7 +26,7 @@ namespace Explore
             tag = _tag;
         }
 
-        public virtual void Update() {
+        public override void Update() {
 
             if (!isDead) {
 
@@ -51,7 +51,7 @@ namespace Explore
             }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
     }
@@ -120,6 +120,8 @@ public class Rocket : Bullet {
         public Bomb(Vector2 _position) : base(_position, "ship") {
             position = _position;
             speed = 850;
+            width = 32;
+            height = 32;
         }
 
         public void SetTexture() {

@@ -47,36 +47,24 @@ namespace Explore
         }
 
         public static Collision RectangleCollision(Rectangle r1, Rectangle r2) {
-            Collision result;
+            Rectangle temp = Rectangle.Intersect(r1, r2);
 
-            float w = 0.5f * (r1.Width + r2.Width);
-                float h = 0.5f * (r1.Height + r2.Height);
-                float dx = r1.Center.X - r2.Center.X;
-                float dy = r1.Center.Y - r2.Center.Y;
+            if (temp.Width == 0 && temp.Height == 0) {
+                return Collision.NoCollision;
+            }
 
-                if (Math.Abs(dx) <= w && Math.Abs(dy) <= h) {
-                    float wy = w * dy;
-                    float hx = h * dx;
+            if (temp.Y == r1.Y) {
+                return Collision.Top;
+            } else if (temp.Y + temp.Height == r1.Y + r1.Height) {
+                return Collision.Bottom;
+            } else if (temp.X == r1.X) {
+                return Collision.Left;
+            } else if (temp.X + temp.Width == r1.X + r1.Width) {
+                return Collision.Right;
+            } else {
+                return Collision.NoCollision;
+            }
 
-                    if (wy > hx) {
-                        if (wy > -hx) {
-                           result = Collision.Top;
-                        } else {
-                            result = Collision.Left;
-                        }
-                    } else {
-                        if (wy > -hx) {
-                            result = Collision.Right;
-                        } else {
-                            result = Collision.Bottom;
-                        }
-                    }
-
-                } else {
-                    result = Collision.NoCollision;
-                }
-
-            return result;
         }
 
         public static double Distance(Vector2 v1, Vector2 v2) {

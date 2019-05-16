@@ -15,5 +15,6 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/RocketLauncher.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/RocketLauncher.xnb","TextureProcessor","Texture2DContent",131,1365,0.0159909
 "C:/Users/Mihai/Desktop/Explore/Content/RocketsDrop.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/RocketsDrop.xnb","TextureProcessor","Texture2DContent",158,1109,0.0152618
 "C:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/RPG_ammo.xnb","TextureProcessor","Texture2DContent",155,597,0.0109938
+"C:/Users/Mihai/Desktop/Explore/Content/Shield.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Shield.xnb","TextureProcessor","Texture2DContent",249,4181,0.8332574
 "C:/Users/Mihai/Desktop/Explore/Content/Ship.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Ship.xnb","TextureProcessor","Texture2DContent",344,4181,0.0149901
 "C:/Users/Mihai/Desktop/Explore/Content/Square.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Square.xnb","TextureProcessor","Texture2DContent",86,1109,0.0709586

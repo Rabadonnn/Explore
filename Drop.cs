@@ -16,7 +16,7 @@ namespace Explore
             rand = new System.Random();
         }
 
-        public void Update() {
+        public override void Update() {
             if (1 == 1) {
                 rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), (int)width, (int)height);
             
@@ -35,13 +35,15 @@ namespace Explore
                     }
                 }
             }
-
-            OnPlayerPickup();
+            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
+                OnPlayerPickup();
+                isDead = true;
+            }
         }
 
         protected abstract void OnPlayerPickup();
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
     }
@@ -58,10 +60,7 @@ namespace Explore
         }
 
         protected override void OnPlayerPickup() {
-            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
-                GameManager.player.GiveHealth(healthToGive);
-                isDead = true;
-            }
+            GameManager.player.GiveHealth(healthToGive);
         }
     }
 
@@ -77,10 +76,7 @@ namespace Explore
         }
 
         protected override void OnPlayerPickup() {
-            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
-                GameManager.player.GiveHandGunAmmo(ammoToGive);
-                isDead = true;
-            }
+            GameManager.player.GiveHandGunAmmo(ammoToGive);
         }
     }
 
@@ -96,10 +92,7 @@ namespace Explore
         }
 
         protected override void OnPlayerPickup() {
-            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
-                GameManager.player.GiveMines(minesToGive);
-                isDead = true;
-            }
+            GameManager.player.GiveMines(minesToGive);
         }
     }
 
@@ -115,10 +108,23 @@ namespace Explore
         }
 
         protected override void OnPlayerPickup() {
-            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
-                GameManager.player.GiveRockets(rocketsToGive);
-                isDead = true;
-            }
+            GameManager.player.GiveRockets(rocketsToGive);
+        }
+    }
+
+    public class ShieldDrop : Drop {
+
+        public ShieldDrop(Vector2 _position) : base(_position) {
+            width = 32;
+            height = 32;
+        }
+
+        public void SetTexture() {
+            texture = GameManager.Assets["shield"];
+        }
+
+        protected override void OnPlayerPickup() {
+            GameManager.player.GiveShield();
         }
     }
 
@@ -126,23 +132,21 @@ namespace Explore
 
         private static System.Random rand;
 
-        private static List<HealthDrop> healthDrops;
-        private static List<AmmoDrop> ammoDrops;
-        private static List<MinesDrop> minesDrops;
-        private static List<RocketsDrop> rocketsDrops;
+        private static List<Drop> drops;
 
         private static float initialDropCooldown = 15f;
         private static float dropCooldown;
 
+        private static float initialShieldDropCooldown = 20f;
+        private static float shieldDropCooldown = 0;
+
         public static void Initialize() {
-            healthDrops = new List<HealthDrop>();
-            ammoDrops = new List<AmmoDrop>();
-            minesDrops = new List<MinesDrop>();
-            rocketsDrops = new List<RocketsDrop>();
+            drops = new List<Drop>();
 
             rand = new System.Random();
 
             dropCooldown = initialDropCooldown;
+            shieldDropCooldown = initialShieldDropCooldown;
         }
 
         public static void Update() {
@@ -156,19 +160,19 @@ namespace Explore
                 if (randInt < 25) {
                     MinesDrop md = new MinesDrop(positionToDrop);
                     md.SetTexture();
-                    minesDrops.Add(md);
+                    drops.Add(md);
                 } else if (randInt < 50) {
                     RocketsDrop rd = new RocketsDrop(positionToDrop);
                     rd.SetTexture();
-                    rocketsDrops.Add(rd);
+                    drops.Add(rd);
                 } else if (randInt < 75) {
                     HealthDrop hd = new HealthDrop(positionToDrop);
                     hd.SetTexture();
-                    healthDrops.Add(hd);
+                    drops.Add(hd);
                 } else {
                     AmmoDrop d = new AmmoDrop(positionToDrop);
                     d.SetTexture();
-                    ammoDrops.Add(d);
+                    drops.Add(d);
                 }
                 
                 dropCooldown = initialDropCooldown;
@@ -177,35 +181,23 @@ namespace Explore
                 dropCooldown -= GameManager.DeltaTime;
             }
 
-            for (int i = 0; i < healthDrops.Count; i++) {
-                if (healthDrops[i].isDead) {
-                    healthDrops.RemoveAt(i);
-                } else {
-                    healthDrops[i].Update();
-                }
+            if (shieldDropCooldown <= 0) {
+                Vector2 positionToDrop = NewDropPosition();
+
+                ShieldDrop s = new ShieldDrop(positionToDrop);
+                s.SetTexture();
+                drops.Add(s);
+
+                shieldDropCooldown = initialShieldDropCooldown;
+            } else {
+                shieldDropCooldown -= GameManager.DeltaTime;
             }
 
-            for (int i = 0; i < ammoDrops.Count; i++) {
-                if (ammoDrops[i].isDead) {
-                    ammoDrops.RemoveAt(i);
+            for (int i = 0; i < drops.Count; i++) {
+                if (drops[i].isDead) {
+                    drops.RemoveAt(i);
                 } else {
-                    ammoDrops[i].Update();
-                }
-            }
-
-            for (int  i = 0; i < rocketsDrops.Count; i++) {
-                if (rocketsDrops[i].isDead) {
-                    rocketsDrops.RemoveAt(i);
-                } else {
-                    rocketsDrops[i].Update();
-                }
-            }
-
-            for (int i = 0; i < minesDrops.Count; i++) {
-                if (minesDrops[i].isDead) {
-                    minesDrops.RemoveAt(i);
-                } else {
-                    minesDrops[i].Update();
+                    drops[i].Update();
                 }
             }
         }
@@ -215,25 +207,31 @@ namespace Explore
 
             MinesDrop md = new MinesDrop(positionToDrop);
             md.SetTexture();
-            minesDrops.Add(md);
+            drops.Add(md);
 
             positionToDrop = NewDropPosition();
 
             RocketsDrop rd = new RocketsDrop(positionToDrop);
             rd.SetTexture();
-            rocketsDrops.Add(rd);
+            drops.Add(rd);
 
             positionToDrop = NewDropPosition();
 
             HealthDrop hd = new HealthDrop(positionToDrop);
             hd.SetTexture();
-            healthDrops.Add(hd);
+            drops.Add(hd);
 
             positionToDrop = NewDropPosition();
         
             AmmoDrop d = new AmmoDrop(positionToDrop);
             d.SetTexture();
-            ammoDrops.Add(d);
+            drops.Add(d);
+
+            positionToDrop = NewDropPosition();
+
+            ShieldDrop s = new ShieldDrop(positionToDrop);
+            s.SetTexture();
+            drops.Add(s);
         }
 
         private static Vector2 NewDropPosition() {
@@ -256,20 +254,8 @@ namespace Explore
         }
 
         public static void Draw(SpriteBatch spriteBatch) {
-            for (int i = 0; i < healthDrops.Count; i++) {
-                healthDrops[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < ammoDrops.Count; i++) {
-                ammoDrops[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < rocketsDrops.Count; i++) {
-                rocketsDrops[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < minesDrops.Count; i++) {
-                minesDrops[i].Draw(spriteBatch);
+            for (int i = 0; i < drops.Count; i++) {
+                drops[i].Draw(spriteBatch);
             }
         }
     }

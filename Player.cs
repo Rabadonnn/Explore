@@ -131,10 +131,44 @@ namespace Explore
 
         private int mineCount;
 
+        // Shield
+
+        private int shieldStrength = 10;
+        private float shieldLifeTime = 10f;
+
+        private Shield shield = new Shield();
+
         #endregion
 
         public Player() : base("player") {
             Reset();
+        }
+
+        public void Reset() {
+            rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
+            halfWidth = width / 2;
+            halfHeight = height / 2;
+
+            bullets = new List<Bullet>();
+
+            rockets = new List<Rocket>();
+
+            mines = new List<Mine>();
+
+            position = new Vector2(0, 0);
+            velocity = new Vector2(0, 0);
+            handGunAmmo = 100;
+            health = 5;
+            rocketsCount = 10;
+            mineCount = 5;
+
+            enemiesKilled = 0;
+            shipsDestroyed = 0;
+
+            shield.Strength = shieldStrength;
+            shield.Lifetime = shieldLifeTime;
+
+            isDead = false;
         }
 
         // Create all animations from spritesheet
@@ -147,6 +181,8 @@ namespace Explore
             gunTexture = GameManager.Assets["gun2"];
 
             rocketLauncherTexture = GameManager.Assets["launcher"];
+
+            shield.SetTexture();
 
             Texture2D spriteSheetTexture = GameManager.Assets["mamba"];
             spriteSheet = new Spritesheet.Spritesheet(spriteSheetTexture).WithGrid((16, 16));
@@ -170,7 +206,8 @@ namespace Explore
 
         #endregion
 
-        public void Update() {
+
+        public override void Update() {
             if (health < 1) {
                 isDead = true;
             }
@@ -178,6 +215,12 @@ namespace Explore
             PerformMovement();
 
             UpdateGuns();
+    
+            shield.Update(new Vector2(position.X, position.Y - 8));
+
+            if (!shield.Active) {
+                shield.Start();
+            }
 
             Vector2 cameraDesiredPosition = new Vector2(position.X, position.Y - 170);
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
@@ -387,7 +430,11 @@ namespace Explore
         #endregion
 
         public void Hit(int damage) {
-            health -= damage;
+            if (shield.Active) {
+                shield.Damage(damage);
+            } else {
+                health -= damage;
+            }
         }
 
         public void KilledEnemy() {
@@ -413,9 +460,17 @@ namespace Explore
             rocketsCount += amount;
         }
 
+        public void GiveShield() {
+            if (!shield.Active) {
+                shield.Start();
+            } else {
+                shield.AddLifetime(shieldLifeTime);
+            }
+        }
+
         #region  Draw
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             Vector2 scale = new Vector2(scaleFactor, scaleFactor);
             
             if (jumping) {
@@ -451,6 +506,8 @@ namespace Explore
 
             spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
 
+            shield.Draw(spriteBatch);
+
             if (currentGun == Gun.HandGun) {
                 spriteBatch.Draw(gunTexture, gunPosition, null, Color.White, gunAngle, gunOrigin, gunScale, gunSpriteEffect, 0);
             } else if (currentGun == Gun.Launcher) {
@@ -478,29 +535,5 @@ namespace Explore
         }
 
         #endregion
-
-        public void Reset() {
-            rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
-            halfWidth = width / 2;
-            halfHeight = height / 2;
-
-            bullets = new List<Bullet>();
-
-            rockets = new List<Rocket>();
-
-            mines = new List<Mine>();
-
-            position = new Vector2(0, 0);
-            velocity = new Vector2(0, 0);
-            handGunAmmo = 100;
-            health = 5;
-            rocketsCount = 10;
-            mineCount = 5;
-
-            enemiesKilled = 0;
-            shipsDestroyed = 0;
-
-            isDead = false;
-        }
     }
 }

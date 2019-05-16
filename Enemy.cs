@@ -32,10 +32,6 @@ namespace Explore
 
         public abstract void SetAnimations();
 
-        public abstract void Update();
-
-        public abstract void Draw(SpriteBatch spriteBatch);
-
         protected void CheckCollisions() {
             List<Platform> platforms = GameManager.platforms;
 

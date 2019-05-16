@@ -17,11 +17,7 @@ namespace Explore
 
         private static bool firstWave;
 
-        private static List<BaseShip> baseShips;
-
-        private static List<BaseEnemy> baseEnemies;
-
-        private static List<BombShip> bombShips;
+        private static List<GameObject> enemies;
 
         private static Random rand;
 
@@ -31,9 +27,7 @@ namespace Explore
         public static void Init() {
             waveNumber = 0;
             firstWave = true;
-            baseShips = new List<BaseShip>();
-            baseEnemies = new List<BaseEnemy>();
-            bombShips = new List<BombShip>();
+            enemies = new List<GameObject>();
             rand = new Random();
         }
 
@@ -46,27 +40,11 @@ namespace Explore
                 firstWave = false;
             }
 
-            for (int i = 0; i < baseShips.Count; i++) {
-                if (baseShips[i].isDead) {
-                    baseShips.RemoveAt(i);
+            for (int i = 0; i < enemies.Count; i++) {
+                if (enemies[i].isDead) {
+                    enemies.RemoveAt(i);
                 } else {
-                    baseShips[i].Update();
-                }
-            }
-
-            for (int i = 0; i < baseEnemies.Count; i++) {
-                if (baseEnemies[i].isDead) {
-                    baseEnemies.RemoveAt(i);
-                } else {
-                    baseEnemies[i].Update();
-                }
-            }
-
-            for (int i = 0; i < bombShips.Count; i++) {
-                if (bombShips[i].isDead) {
-                    bombShips.RemoveAt(i);
-                } else {
-                    bombShips[i].Update();
+                    enemies[i].Update();
                 }
             }
 
@@ -74,7 +52,7 @@ namespace Explore
         }
 
         private static void UpdateWaves() {
-            if (baseShips.Count == 0) {
+            if (enemies.Count == 0) {
                 waveNumber++;
                 for (int i = 0; i < 3 + rand.Next(waveNumber); i++) {
                     NewShip();
@@ -92,33 +70,25 @@ namespace Explore
 
         public static void Draw(SpriteBatch spriteBatch) {
 
-            for (int i = 0; i < baseShips.Count; i++) {
-                baseShips[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < baseEnemies.Count; i++) {
-                baseEnemies[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < bombShips.Count; i++) {
-                bombShips[i].Draw(spriteBatch);
+            for (int i = 0; i < enemies.Count; i++) {
+                enemies[i].Draw(spriteBatch);
             }
         }
 
         public static void AddBaseEnemy(BaseEnemy e) {
-            baseEnemies.Add(e);
+            enemies.Add(e);
         }
         
         private static void NewShip() {
             BaseShip s = new BaseShip(new Vector2(rand.Next(-300, 300), 0));
             s.SetTexture();
-            baseShips.Add(s);
+            enemies.Add(s);
         }
 
         private static void NewBombShip() {
             BombShip b = new BombShip(new Vector2(rand.Next(-300, 300), 0));
             b.SetTexture();
-            bombShips.Add(b);
+            enemies.Add(b);
         }
     }
 }

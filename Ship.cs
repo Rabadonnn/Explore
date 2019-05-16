@@ -28,7 +28,7 @@ namespace Explore
             texture = GameManager.Assets["dropship"];
         }
 
-        public virtual void Update() {
+        public override void Update() {
             if (Helper.Distance(position, checkPoint) < 25) {
                 checkPoint = MakeNewCheckPoint();
 
@@ -81,7 +81,7 @@ namespace Explore
             rectangle = new Rectangle(rectangleX, rectangleY, rectangleH, rectangleH);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
         }
 
@@ -130,17 +130,15 @@ namespace Explore
 
         private List<Bomb> bombs;
 
-        private int speed;
-        private int direction;
+        private float lifetime;
 
         public BombShip(Vector2 _position) : base(_position) {
             health = 2;
             position = _position;
             rand = new Random();
             bombs = new List<Bomb>();
-            speed = 600;
-            direction = 0;
             checkPoint = MakeNewCheckPoint();
+            lifetime = rand.Next(5, 10);
         }
 
         public override void SetTexture() {
@@ -149,9 +147,13 @@ namespace Explore
 
         public override void Update() {
             if (!isDead) {
-                
+
                 if (Helper.Distance(position, checkPoint) < 30) {
                     checkPoint = new Vector2(GameManager.player.Position.X, rand.Next(-GameManager.ScreenHeight, 0));
+                }
+
+                if (lifetime <= 0) {
+                    checkPoint = new Vector2(rand.Next(GameManager.LeftBound, GameManager.RightBound), -500);
                 }
 
                 position = Vector2.Lerp(position, checkPoint, 0.02f);
@@ -169,14 +171,21 @@ namespace Explore
             
                 CheckCollisions();
                 CheckLife();
+
+                if (position.Y < -500) {
+                    isDead = true;
+                }
             }
 
             for (int i = 0; i < bombs.Count; i++) {
-                bombs[i].Update();
-
-                if (Helper.RectRect(GameManager.player.rectangle, bombs[i].rectangle)) {
-                    GameManager.player.Hit(rand.Next(2, 4));
-                    bombs[i].isDead = true;
+                if (bombs[i].isDead) {
+                    bombs.RemoveAt(i);
+                } else {
+                    bombs[i].Update();
+                    if (Helper.RectRect(GameManager.player.rectangle, bombs[i].rectangle)) {
+                        GameManager.player.Hit(rand.Next(2, 4));
+                        bombs[i].isDead = true;
+                    }
                 }
             }
         }
