@@ -13,15 +13,19 @@ namespace Explore
         protected Random rand;
         protected Vector2 scale = new Vector2(2, 2);
 
-        protected int baseEnemyDropChance = 50;
+        protected int baseEnemyDropChance;
+
+        protected float lerpSpeed;
 
         public BaseShip(Vector2 _position) {
 
-            health = 10;
+            health = Config.BaseShip["health"].IntValue;
+            baseEnemyDropChance = Config.BaseShip["baseEnemyDropChance"].IntValue;
 
             position = _position;
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
+            lerpSpeed = Config.BaseShip["lerpSpeed"].FloatValue;
         }
 
         public virtual void SetTexture() {
@@ -37,7 +41,7 @@ namespace Explore
                 }
 
             } else {
-                position = Vector2.Lerp(position, checkPoint, 0.01f);
+                position = Vector2.Lerp(position, checkPoint, lerpSpeed);
             }
 
             UpdateRectangle();
@@ -60,7 +64,7 @@ namespace Explore
 
             for (int i = 0; i < rockets.Count; i++) {
                 if (Helper.RectRect(rectangle, rockets[i].rectangle)) {
-                    health -= 5;
+                    health -= rockets[i].Damage;
                     Explosions.BigExplosion(position);
                     rockets[i].isDead = true;
                 }
@@ -68,7 +72,7 @@ namespace Explore
 
             for (int i = 0; i < GameManager.player.Bullets.Count; i++) {
                 if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
-                    health -= 2;
+                    health -= GameManager.player.Bullets[i].Damage;
                     Explosions.BigExplosion(position);
                     GameManager.player.Bullets[i].isDead = true;
                 }
@@ -125,7 +129,7 @@ namespace Explore
 
     public class BombShip : BaseShip {
         
-        private float initialDropCooldown = 5f;
+        private float initialDropCooldown = 3f;
         private float dropCooldown = 0;
         private int width = 62;
         private int height = 48;
@@ -141,6 +145,7 @@ namespace Explore
             bombs = new List<Bomb>();
             checkPoint = MakeNewCheckPoint();
             lifetime = rand.Next(5, 10);
+            lerpSpeed = 0.03f;
         }
 
         public override void SetTexture() {
@@ -158,7 +163,7 @@ namespace Explore
                     checkPoint = new Vector2(rand.Next(GameManager.LeftBound, GameManager.RightBound), -500);
                 }
 
-                position = Vector2.Lerp(position, checkPoint, 0.02f);
+                position = Vector2.Lerp(position, checkPoint, lerpSpeed);
 
                 if (dropCooldown <= 0) {
                     if (Helper.Distance(position, GameManager.player.Position) < 70) {
@@ -185,7 +190,7 @@ namespace Explore
                 } else {
                     bombs[i].Update();
                     if (Helper.RectRect(GameManager.player.rectangle, bombs[i].rectangle)) {
-                        GameManager.player.Hit(rand.Next(2, 4));
+                        GameManager.player.Hit(bombs[i].Damage);
                         bombs[i].isDead = true;
                     }
                 }

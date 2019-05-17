@@ -41,11 +41,11 @@ namespace Explore
         private int halfHeight;
 
         private int scaleFactor = 4;
-        private int speed = 350;
+        private int speed;
         private Vector2 velocity;
         private int direction;
-        private int jumpForce = -800;
-        private int gravity = 30;
+        private int jumpForce;
+        private int gravity;
 
         private bool isGrounded = false;
         private bool jumping = false;
@@ -81,7 +81,7 @@ namespace Explore
             }
         }
 
-        private float handGunInitialShootingCooldown = 0.1f;
+        private float handGunCooldown;
         private float handGunShootingCooldown;
 
         private Texture2D gunTexture;
@@ -108,7 +108,7 @@ namespace Explore
 
         private Vector2 rocketLauncherPosition;
 
-        private float rocketInitialCooldown = 1f;
+        private float rocketInitialCooldown;
         private float rocketCooldown;
 
         private Texture2D rocketLauncherTexture;
@@ -126,15 +126,15 @@ namespace Explore
             }
         }
 
-        private float initialMineCooldown = 2f;
+        private float initialMineCooldown;
         private float mineCooldown;
 
         private int mineCount;
 
         // Shield
 
-        private int shieldStrength = 4;
-        private float shieldLifeTime = 5f;
+        private int shieldStrength;
+        private float shieldLifeTime;
 
         private Shield shield = new Shield();
 
@@ -157,17 +157,28 @@ namespace Explore
 
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
-            handGunAmmo = 100;
-            health = 5;
-            rocketsCount = 10;
-            mineCount = 5;
 
-            enemiesKilled = 0;
-            shipsDestroyed = 0;
+            speed = Config.Player["speed"].IntValue;
+            jumpForce = Config.Player["jumpforce"].IntValue;
+            gravity = Config.Player["gravity"].IntValue;
+
+            handGunAmmo = Config.Player["ammo"].IntValue;
+            health = Config.Player["hp"].IntValue;
+            rocketsCount = Config.Player["rockets"].IntValue;
+            mineCount = Config.Player["mines"].IntValue;
+
+            handGunCooldown = Config.Player["handGunCooldown"].FloatValue;
+            rocketInitialCooldown = Config.Player["rocketLauncherCooldown"].FloatValue;
+            initialMineCooldown = Config.Player["mineCooldown"].FloatValue;
+
+            shieldStrength = Config.Player["shieldStrength"].IntValue;
+            shieldLifeTime = Config.Player["shieldLifeTime"].FloatValue;
 
             shield.Strength = shieldStrength;
             shield.Lifetime = shieldLifeTime;
 
+            enemiesKilled = 0;
+            shipsDestroyed = 0;
             isDead = false;
         }
 
@@ -337,7 +348,7 @@ namespace Explore
             if (Input.Space && currentGun == Gun.HandGun && handGunShootingCooldown <= 0 && handGunAmmo > 0) {
                 ShootHandGun();
                 SoundManager.Shoot();
-                handGunShootingCooldown = handGunInitialShootingCooldown;
+                handGunShootingCooldown = handGunCooldown;
             } else {
                 handGunShootingCooldown -= GameManager.DeltaTime;
             }

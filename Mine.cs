@@ -26,6 +26,11 @@ namespace Explore
 
         private int speed = 350;
 
+        public int Damage {
+            get;
+            private set;
+        }
+
         private Spritesheet.Spritesheet spritesheet;
 
         private Animation animation;
@@ -34,6 +39,8 @@ namespace Explore
             position = _position;
 
             velocity = new Vector2(speed * direction, 0);
+
+            Damage = Config.Bullet["mineDamage"].IntValue;
 
             placed = false;
         } 

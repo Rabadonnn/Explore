@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "826d04ed1b412c10a6b6a8d238bde507845865ef"
+    "signature": "210d3072320e4baea9e9ceadf87bb90c02879651"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,7 +11,8 @@
           "Comora": "0.5.0",
           "MonoGame.Content.Builder": "3.7.0.9",
           "MonoGame.Framework.DesktopGL.Core": "3.7.0.7",
-          "Spritesheet": "1.0.1"
+          "Spritesheet": "1.0.1",
+          "sharpconfig": "3.2.8"
         },
         "runtime": {
           "Explore.dll": {}
@@ -86,6 +87,14 @@
           }
         }
       },
+      "sharpconfig/3.2.8": {
+        "runtime": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {
+            "assemblyVersion": "3.2.8.0",
+            "fileVersion": "3.2.8.0"
+          }
+        }
+      },
       "Spritesheet/1.0.1": {
         "runtime": {
           "lib/portable-net45+win8+wpa81+monoandroid+monotouch+xamarinios+monomac+xamarinmac/Spritesheet.dll": {
@@ -122,6 +131,13 @@
       "sha512": "sha512-juPb6yv+N362liHMbYQavmlhLzufpGGvNQqcpDGEs4BzRiycBXXjhZjCwpUekx0ozLfQ+kjirnuA3/M2lc4tMQ==",
       "path": "monogame.framework.desktopgl.core/3.7.0.7",
       "hashPath": "monogame.framework.desktopgl.core.3.7.0.7.nupkg.sha512"
+    },
+    "sharpconfig/3.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IBH5OTbsVMnzDB8OqRs+QmJ4fXz3PNca4TcrqQQdCl6TZwod03tZyvrRgxicARWy5PyyL8xE8c6EFEoJwOdfzQ==",
+      "path": "sharpconfig/3.2.8",
+      "hashPath": "sharpconfig.3.2.8.nupkg.sha512"
     },
     "Spritesheet/1.0.1": {
       "type": "package",

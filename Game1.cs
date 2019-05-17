@@ -14,6 +14,7 @@ namespace Explore
 
         public Game1()
         {
+            Config.Load();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;

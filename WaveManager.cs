@@ -54,7 +54,7 @@ namespace Explore
         private static void UpdateWaves() {
             if (enemies.Count == 0) {
                 waveNumber++;
-                for (int i = 0; i < 3 + rand.Next(waveNumber); i++) {
+                for (int i = 0; i < rand.Next(3, 3 + waveNumber); i++) {
                     NewShip();
                 }
                 DropManager.EndOfWaveDrop();

@@ -15,6 +15,14 @@ namespace Explore
 
         protected float lifetime = 1;
 
+        protected int damage;
+
+        public int Damage {
+            get {
+                return damage;
+            }
+        }
+
         protected string tag;
 
         protected Random rand = new Random();
@@ -23,11 +31,13 @@ namespace Explore
             position = _position;
             speed *= direction;
             tag = _tag;
+            damage = Config.Bullet["damage"].IntValue;
         }
 
         public Bullet(Vector2 _position, string _tag) : base("bullet") {
             position = _position;
             tag = _tag;
+            damage = Config.Bullet["damage"].IntValue;
         }
 
         public override void Update() {
@@ -79,6 +89,8 @@ public class Rocket : Bullet {
 
             width = 12;
             height = 20;
+
+            damage = Config.Bullet["rocketDamage"].IntValue;
 
             fx = new ParticleSystem(new Settings() {
                 number_per_frame = rand.Next(5),
@@ -134,6 +146,7 @@ public class Rocket : Bullet {
             speed = 850;
             width = 32;
             height = 32;
+            damage = Config.Bullet["bombDamage"].IntValue;
         }
 
         public void SetTexture() {

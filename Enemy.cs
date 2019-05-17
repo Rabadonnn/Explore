@@ -12,8 +12,6 @@ namespace Explore
         protected int health;
         protected int scoreValue;
 
-        protected Color color = Color.White;
-
         // Movement
 
         protected int width;
@@ -124,8 +122,8 @@ namespace Explore
 
     public class BaseEnemy : Enemy
     {
-        private int damage = 1;
-        private int range = 350;
+        private int damage;
+        private int range;
 
         private Vector2 target;
 
@@ -140,7 +138,7 @@ namespace Explore
 
         private Vector2 scale = new Vector2(3, 3);
 
-        private int jumpForce = -300;
+        private int jumpForce;
 
         private int previousHealth;
 
@@ -148,19 +146,22 @@ namespace Explore
             position = _position;
             rectangle = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);
 
-            health = 3;
-            previousHealth = health;
-
             width = 32;
             height = 48;
-            speed = 150;
+
+            health = Config.BaseEnemy["health"].IntValue;
+
+            damage = Config.BaseEnemy["damage"].IntValue;
+            range = Config.BaseEnemy["range"].IntValue;
+
+            speed = Config.BaseEnemy["speed"].IntValue;
             direction = 0;
-            gravity = 10;
-            scoreValue = 20;
+            gravity = Config.BaseEnemy["gravity"].IntValue;
+            jumpForce = Config.BaseEnemy["jumpforce"].IntValue;
 
             bullets = new List<Bullet>();
 
-            initialShootingCooldown = 0.6f;
+            initialShootingCooldown = Config.BaseEnemy["shootingCooldown"].FloatValue;
             shootingCooldown = initialShootingCooldown;
         }
 
@@ -225,12 +226,12 @@ namespace Explore
             UpdateBullets();
 
             if (CollisionWithPlayerBullet()) {
-                health--;
+                health -= GameManager.player.Bullets[0].Damage;
                 ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
             }
 
             if (CollisionWithMine()) {
-                isDead = true;
+                health -= GameManager.player.Mines[0].Damage;
             }
 
             currentAnimation.Update(GameManager.gameTime);
@@ -240,12 +241,6 @@ namespace Explore
                     GameManager.player.Hit(damage);
                     bullets[i].isDead = true;
                 }
-            }
-
-            if (previousHealth < health) {
-                color = Color.Red;
-            } else {
-                color = Color.White;
             }
         }
 
@@ -271,7 +266,7 @@ namespace Explore
                 currentAnimation = runAnim_Left;
             }
 
-            spriteBatch.Draw(currentAnimation, position, color, 0, scale, 0);
+            spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
 
             DrawBullets(spriteBatch);
         }

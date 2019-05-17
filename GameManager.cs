@@ -94,6 +94,7 @@ namespace Explore
         private static Button resumeButton;
         private static Button backButton;
         private static Button replayButton;
+        private static Button reloadConfigButton;
 
         private static Dictionary<string, Button> resolutionButtons;
         private static Dictionary<string, Point> resolutions;
@@ -137,6 +138,9 @@ namespace Explore
                 },
                 {
                     "options", new Rectangle(width / 2 - buttonWidth, height / 2, 200, buttonWidth / 2)
+                },
+                {
+                    "reload", new Rectangle(width / 2 - buttonWidth / 2, height / 2 + 200, buttonWidth, 50)
                 }
             };
         }
@@ -158,6 +162,7 @@ namespace Explore
             backButton = new Button(buttonRectangles["back"], "Back");
             optionsButton = new Button(buttonRectangles["options"], "Options");
             replayButton = new Button(buttonRectangles["play"], "Replay");
+            reloadConfigButton = new Button(buttonRectangles["reload"], "Reload");
 
             resolutionButtons = new Dictionary<string, Button>() {
                 {
@@ -171,12 +176,6 @@ namespace Explore
                 }, 
                 {
                     "1280x720", new Button(new Rectangle(100, height / 2 + 50, 100, 50), "1280x720")
-                },
-                {
-                    "1024x768", new Button(new Rectangle(100, height / 2 + 100, 100, 50), "1024x768")
-                },
-                {
-                    "800x600", new Button(new Rectangle(100, height / 2 + 150, 100, 50), "800x600")
                 }
             };
 
@@ -189,12 +188,6 @@ namespace Explore
                 },
                 {
                     "1280x720", new Point(1280, 720)
-                },
-                {
-                    "1024x768", new Point(1024, 768)
-                },
-                {
-                    "800x600", new Point(800, 600)
                 }
             };
 
@@ -209,13 +202,13 @@ namespace Explore
             int minX = LeftBound;
             int maxX = RightBound;
 
-            int platformHeight = 15;
+            int platformHeight = Config.MapGeneration["platformHeight"].IntValue;
 
-            int minPlatformWidth = 500;
-            int maxPlatformWidth = 800;
+            int minPlatformWidth = Config.MapGeneration["minPlatformWidth"].IntValue;
+            int maxPlatformWidth = Config.MapGeneration["maxPlatformWidth"].IntValue;
 
-            int minHeight = 150;
-            int maxHeight = 250;
+            int minHeight = Config.MapGeneration["minHeightToPlacePlatform"].IntValue;
+            int maxHeight = Config.MapGeneration["maxHeightToPlacePlatform"].IntValue;
 
             int heightBefore = 21021;
 
@@ -234,7 +227,7 @@ namespace Explore
                 
                 result.Add(platformToAdd);
 
-                i += rand.Next(75, 100);
+                i += rand.Next(Config.MapGeneration["minSpaceBetweenPlatforms"].IntValue, Config.MapGeneration["maxSpaceBetweenPlatforms"].IntValue);
                 
 
                 i += platformWidth / 2;
@@ -283,6 +276,7 @@ namespace Explore
             optionsButton.SetFonts();
             backButton.SetFonts();
             replayButton.SetFonts();
+            reloadConfigButton.SetFonts();
 
             foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
                 entry.Value.SetFonts();
@@ -312,15 +306,21 @@ namespace Explore
             playButton.Update();
             optionsButton.Update();
             exitButton.Update();
+            reloadConfigButton.Update();
 
             if (playButton.Clicked()) {
                 exitButton.active = false;
+                playButton.active = false;
+                optionsButton.active = false;
+                reloadConfigButton.active = false;
 
                 currentScreen = Screens.GameScreen;
             }
 
             if (optionsButton.Clicked()) {
                 exitButton.active = false;
+                playButton.active = false;
+                reloadConfigButton.active = false;
 
                 foreach (KeyValuePair<string, Button> entry in resolutionButtons) {
                     entry.Value.active = true;
@@ -328,6 +328,10 @@ namespace Explore
 
                 backButton.active = true;
                 currentScreen = Screens.OptionsScreen;
+            }
+
+            if (reloadConfigButton.Clicked()) {
+                Config.Load();
             }
         }
 
@@ -362,6 +366,9 @@ namespace Explore
                     isPaused = false;
                     currentScreen = Screens.MainScreen;
                     exitButton.active = true;
+                    playButton.active = true;
+                    optionsButton.active = true;
+                    reloadConfigButton.active = true;
                 }
 
                 if (resumeButton.Clicked()) {
@@ -393,6 +400,9 @@ namespace Explore
                     entry.Value.active = false;
                 }
                 exitButton.active = true;
+                playButton.active = true;
+                optionsButton.active = true;
+                reloadConfigButton.active = true;
                 currentScreen = Screens.MainScreen;
             }
         }
@@ -428,6 +438,7 @@ namespace Explore
             playButton.Draw(spriteBatch);
             optionsButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
+            reloadConfigButton.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -487,7 +498,8 @@ namespace Explore
             spriteBatch.DrawString(consolasFont, 
             "A - Left, D - Right, W - Jump \n" + 
             "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
-            "V -  Place Mine \n" +
+            "V -  Place Mine \n\n" +
+            "Reload Button should be used to reload the config.cfg file \n that can be found in project's folder\n\n" +
             "With the HandGun you hit ground enemies and with the RPG UFOs. \n\n\n" + 
             "Facut pentru Explore-IT 2019 - Mihai Solomon", 
             new Vector2(width / 2 - 300, height / 2 - 150), Color.White);
@@ -554,6 +566,7 @@ namespace Explore
                 optionsButton.UpdateRectangle(buttonRectangles["options"]);
                 backButton.UpdateRectangle(buttonRectangles["back"]);
                 replayButton.UpdateRectangle(buttonRectangles["play"]);
+                reloadConfigButton.UpdateRectangle(buttonRectangles["reload"]);
                 
                 graphics.ApplyChanges();
             }

@@ -266,6 +266,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "sharpconfig/3.2.8": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {}
+        }
+      },
       "Spritesheet/1.0.1": {
         "type": "package",
         "compile": {
@@ -749,6 +758,15 @@
         },
         "native": {
           "runtimes/win-x86/native/hostfxr.dll": {}
+        }
+      },
+      "sharpconfig/3.2.8": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {}
         }
       },
       "Spritesheet/1.0.1": {
@@ -1599,6 +1617,23 @@
         "version.txt"
       ]
     },
+    "sharpconfig/3.2.8": {
+      "sha512": "IBH5OTbsVMnzDB8OqRs+QmJ4fXz3PNca4TcrqQQdCl6TZwod03tZyvrRgxicARWy5PyyL8xE8c6EFEoJwOdfzQ==",
+      "type": "package",
+      "path": "sharpconfig/3.2.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/SharpConfig.dll",
+        "lib/net20/SharpConfig.xml",
+        "lib/netcoreapp2.0/SharpConfig.deps.json",
+        "lib/netcoreapp2.0/SharpConfig.dll",
+        "lib/netcoreapp2.0/SharpConfig.pdb",
+        "lib/netcoreapp2.0/SharpConfig.xml",
+        "sharpconfig.3.2.8.nupkg.sha512",
+        "sharpconfig.nuspec"
+      ]
+    },
     "Spritesheet/1.0.1": {
       "sha512": "HaWPrtIXw29yN/w1u1kGG0qsqvTeHf/LSb1NvpGJXYUWe0LKtz5RekAM7Fuwse1Z9Zle7i2CP8G4IAwNhxZ+XA==",
       "type": "package",
@@ -1618,7 +1653,8 @@
       "Microsoft.NETCore.App >= 2.0.9",
       "MonoGame.Content.Builder >= 3.7.0.9",
       "MonoGame.Framework.DesktopGL.Core >= 3.7.0.7",
-      "Spritesheet >= 1.0.1"
+      "Spritesheet >= 1.0.1",
+      "sharpconfig >= 3.2.8"
     ]
   },
   "packageFolders": {
@@ -1684,6 +1720,10 @@
           "Spritesheet": {
             "target": "Package",
             "version": "[1.0.1, )"
+          },
+          "sharpconfig": {
+            "target": "Package",
+            "version": "[3.2.8, )"
           }
         },
         "imports": [

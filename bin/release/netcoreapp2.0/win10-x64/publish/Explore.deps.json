@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0/win10-x64",
-    "signature": "f13aced58e926d3a63a782d6f061ffb316f83eac"
+    "signature": "24b44b6c11f214f3fa09b424d703f353ff12d822"
   },
   "compilationOptions": {},
   "targets": {
@@ -13,7 +13,8 @@
           "Microsoft.NETCore.App": "2.0.9",
           "MonoGame.Content.Builder": "3.7.0.9",
           "MonoGame.Framework.DesktopGL.Core": "3.7.0.7",
-          "Spritesheet": "1.0.1"
+          "Spritesheet": "1.0.1",
+          "sharpconfig": "3.2.8"
         },
         "runtime": {
           "Explore.dll": {}
@@ -886,6 +887,14 @@
           }
         }
       },
+      "sharpconfig/3.2.8": {
+        "runtime": {
+          "lib/netcoreapp2.0/SharpConfig.dll": {
+            "assemblyVersion": "3.2.8.0",
+            "fileVersion": "3.2.8.0"
+          }
+        }
+      },
       "Spritesheet/1.0.1": {
         "runtime": {
           "lib/portable-net45+win8+wpa81+monoandroid+monotouch+xamarinios+monomac+xamarinmac/Spritesheet.dll": {
@@ -992,6 +1001,13 @@
       "sha512": "sha512-LD8h0P3rQ8CsfgJT2djkYdcAQvzMNux00fIgoFbetbXToINcvKDoxO9u3EKv2KWJg89Ohj6bAx8AQI+mZRO8SQ==",
       "path": "runtime.win-x64.microsoft.netcore.dotnethostresolver/2.0.9",
       "hashPath": "runtime.win-x64.microsoft.netcore.dotnethostresolver.2.0.9.nupkg.sha512"
+    },
+    "sharpconfig/3.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IBH5OTbsVMnzDB8OqRs+QmJ4fXz3PNca4TcrqQQdCl6TZwod03tZyvrRgxicARWy5PyyL8xE8c6EFEoJwOdfzQ==",
+      "path": "sharpconfig/3.2.8",
+      "hashPath": "sharpconfig.3.2.8.nupkg.sha512"
     },
     "Spritesheet/1.0.1": {
       "type": "package",
