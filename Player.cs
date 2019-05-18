@@ -118,7 +118,7 @@ namespace Explore
         private float initialMineCooldown;
         private float mineCooldown;
 
-        private int mineCount;
+        private int minesCount;
 
         // Shield
 
@@ -126,6 +126,24 @@ namespace Explore
         private float shieldLifeTime;
 
         private Shield shield = new Shield();
+
+        // count
+
+        public int AmmoCount {
+            get {
+                return handGunAmmo;
+            }
+        }
+        public int RocketsCount {
+            get {
+                return rocketsCount;
+            }
+        }
+        public int MinesCount {
+            get {
+                return minesCount;
+            }
+        }
 
         #endregion
 
@@ -150,7 +168,7 @@ namespace Explore
             handGunAmmo = Config.Player["ammo"].IntValue;
             health = Config.Player["hp"].IntValue;
             rocketsCount = Config.Player["rockets"].IntValue;
-            mineCount = Config.Player["mines"].IntValue;
+            minesCount = Config.Player["mines"].IntValue;
 
             handGunCooldown = Config.Player["handGunCooldown"].FloatValue;
             rocketInitialCooldown = Config.Player["rocketLauncherCooldown"].FloatValue;
@@ -328,7 +346,7 @@ namespace Explore
                 rocketCooldown -= GameManager.DeltaTime;
             }
 
-            if (Input.V && mineCooldown <= 0 && mineCount > 0) {
+            if (Input.V && mineCooldown <= 0 && minesCount > 0) {
                 ThrowMine();
                 mineCooldown = initialMineCooldown;
             } else {
@@ -355,7 +373,7 @@ namespace Explore
             Mine m = new Mine(new Vector2(position.X, rectangle.Top), currentGunDirection);
             m.SetAnimations();
             projectiles.Add(m);
-            mineCount--;
+            minesCount--;
         }
 
         private void UpdateHandGun() {
@@ -431,7 +449,7 @@ namespace Explore
         }
 
         public void GiveMines(int amount) {
-            mineCount += amount;
+            minesCount += amount;
         }
 
         public void GiveRockets(int amount) {
@@ -500,7 +518,7 @@ namespace Explore
         public void DrawUI(SpriteBatch spriteBatch) {
             spriteBatch.DrawString(GameManager.consolasFont, "Bullets: " + handGunAmmo.ToString(), new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(GameManager.consolasFont, "Rockets: " + rocketsCount.ToString(), new Vector2(10, 30), Color.White);
-            spriteBatch.DrawString(GameManager.consolasFont, "Mines: " + mineCount.ToString(), new Vector2(10, 50), Color.White);
+            spriteBatch.DrawString(GameManager.consolasFont, "Mines: " + minesCount.ToString(), new Vector2(10, 50), Color.White);
             spriteBatch.DrawString(GameManager.consolasFont, "HP: " + health.ToString(), new Vector2(10, 70), Color.White);
         }
 

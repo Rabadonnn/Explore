@@ -70,7 +70,6 @@ namespace Explore
                     Explosions.BigExplosion(position);
                     p.isDead = true;
                 }
-                
             }
         }
 

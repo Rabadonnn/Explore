@@ -132,8 +132,6 @@ namespace Explore
 
         private int jumpForce;
 
-        private int previousHealth;
-
         public BaseEnemy(Vector2 _position){
             position = _position;
             rectangle = new Rectangle((int)position.X - width / 2, (int)position.Y - height / 2, width, height);

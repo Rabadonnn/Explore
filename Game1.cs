@@ -19,8 +19,8 @@ namespace Explore
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             //graphics.IsFullScreen = true;
-            //IsFixedTimeStep = false;
-            graphics.SynchronizeWithVerticalRetrace = true;
+            IsFixedTimeStep = Config.Game["fixedTimeStep"].BoolValue;
+            graphics.SynchronizeWithVerticalRetrace = Config.Game["vsync"].BoolValue;
             graphics.PreferredBackBufferWidth = GameManager.ScreenWidth;
             graphics.PreferredBackBufferHeight = GameManager.ScreenHeight;
             //graphics.ApplyChanges();

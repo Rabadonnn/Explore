@@ -158,21 +158,13 @@ namespace Explore
                 int randInt = rand.Next(100);
 
                 if (randInt < 25) {
-                    MinesDrop md = new MinesDrop(positionToDrop);
-                    md.SetTexture();
-                    drops.Add(md);
+                    NewDrop<MinesDrop>(positionToDrop);
                 } else if (randInt < 50) {
-                    RocketsDrop rd = new RocketsDrop(positionToDrop);
-                    rd.SetTexture();
-                    drops.Add(rd);
+                    NewDrop<RocketsDrop>(positionToDrop);
                 } else if (randInt < 75) {
-                    HealthDrop hd = new HealthDrop(positionToDrop);
-                    hd.SetTexture();
-                    drops.Add(hd);
+                    NewDrop<HealthDrop>(positionToDrop);
                 } else {
-                    AmmoDrop d = new AmmoDrop(positionToDrop);
-                    d.SetTexture();
-                    drops.Add(d);
+                    NewDrop<AmmoDrop>(positionToDrop);
                 }
                 
                 dropCooldown = initialDropCooldown;
@@ -184,9 +176,7 @@ namespace Explore
             if (shieldDropCooldown <= 0) {
                 Vector2 positionToDrop = NewDropPosition();
 
-                ShieldDrop s = new ShieldDrop(positionToDrop);
-                s.SetTexture();
-                drops.Add(s);
+               NewDrop<ShieldDrop>(positionToDrop);
 
                 shieldDropCooldown = initialShieldDropCooldown;
             } else {
@@ -205,33 +195,50 @@ namespace Explore
         public static void EndOfWaveDrop() {
             Vector2 positionToDrop = NewDropPosition();
 
-            MinesDrop md = new MinesDrop(positionToDrop);
-            md.SetTexture();
-            drops.Add(md);
+            NewDrop<MinesDrop>(positionToDrop);
 
             positionToDrop = NewDropPosition();
 
-            RocketsDrop rd = new RocketsDrop(positionToDrop);
-            rd.SetTexture();
-            drops.Add(rd);
+            NewDrop<RocketsDrop>(positionToDrop);
 
             positionToDrop = NewDropPosition();
 
-            HealthDrop hd = new HealthDrop(positionToDrop);
-            hd.SetTexture();
-            drops.Add(hd);
+            NewDrop<HealthDrop>(positionToDrop);
 
             positionToDrop = NewDropPosition();
         
-            AmmoDrop d = new AmmoDrop(positionToDrop);
-            d.SetTexture();
-            drops.Add(d);
+            NewDrop<AmmoDrop>(positionToDrop);
 
             positionToDrop = NewDropPosition();
 
-            ShieldDrop s = new ShieldDrop(positionToDrop);
-            s.SetTexture();
-            drops.Add(s);
+            NewDrop<ShieldDrop>(positionToDrop);
+        }
+
+        private static Drop NewDrop<T>(Vector2 position) {
+            Drop d;
+
+            if (typeof(T) == typeof(MinesDrop)) {
+                d = new MinesDrop(position);
+                (d as MinesDrop).SetTexture();
+            } else if (typeof(T) == typeof(RocketsDrop)) {
+                d = new RocketsDrop(position);
+                (d as RocketsDrop).SetTexture();
+            } else if (typeof(T) == typeof(AmmoDrop)) {
+                d = new AmmoDrop(position);
+                (d as AmmoDrop).SetTexture();
+            } else if (typeof(T) == typeof(HealthDrop)) {
+                d = new HealthDrop(position);
+                (d as HealthDrop).SetTexture();
+            } else if (typeof(T) == typeof(ShieldDrop)) {
+                d = new ShieldDrop(position);
+                (d as ShieldDrop).SetTexture();
+            } else {
+                d = null;
+            }
+            
+            drops.Add(d);
+
+            return d;
         }
 
         private static Vector2 NewDropPosition() {
