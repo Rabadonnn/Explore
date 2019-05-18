@@ -80,7 +80,7 @@ namespace Explore.Particles
         public void Draw(SpriteBatch spriteBatch) {
             if (enabled) {
                 for (int i = 0; i < particles.Count; i++) {
-                    spriteBatch.Draw(texture, destinationRectangle: particles[i].rectangle, color: particles[i].color);
+                    spriteBatch.Draw(texture, destinationRectangle: particles[i].rectangle, color: particles[i].color * particles[i].Alpha);
                 }
             }
         }

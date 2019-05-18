@@ -34,7 +34,7 @@ namespace Explore
                 accY = baseAcc,
                 color = colors,
                 size = new Point(3, 7),
-                number_per_frame = 3,
+                number_per_frame = 6,
                 lifespan = 0.06f,
                 speed = 700,
                 oneTime = true
@@ -63,6 +63,20 @@ namespace Explore
                 color = colors,
                 size = new Point(1, 10),
                 number_per_frame = 15,
+                lifespan = 0.12f,
+                speed = 650,
+                oneTime = true
+            };
+            AddFX(settings, position);
+        }
+
+        public static void RocketLaunch(Vector2 position) {
+            Settings settings = new Settings() {
+                accX = new Vector2(-1, 1),
+                accY = new Vector2(-7, -2),
+                color = new List<Color>() { Color.Red, Color.Yellow, Color.Orange },
+                size = new Point(1, 10),
+                number_per_frame = 12,
                 lifespan = 0.12f,
                 speed = 650,
                 oneTime = true

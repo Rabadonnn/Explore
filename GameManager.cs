@@ -42,15 +42,18 @@ namespace Explore
             }
         }
 
+        private static int leftBound;
+        private static int rightBound;
+
         public static int LeftBound {
             get {
-                return -2000;
+                return leftBound;
             }
         }
 
         public static int RightBound {
             get {
-                return 2000;
+                return rightBound;
             }
         }
 
@@ -146,6 +149,10 @@ namespace Explore
         }
 
         public static void Initialize() {
+
+            leftBound = Config.MapGeneration["leftBound"].IntValue;
+            rightBound = Config.MapGeneration["rightBound"].IntValue;
+
             assets = new Dictionary<string, Texture2D>();
 
             player = new Player();
@@ -194,6 +201,8 @@ namespace Explore
             platforms = GenerateRandomMap();
 
             DropManager.Initialize();
+
+            Game1.camera.Zoom = Helper.MapValue(width, 1280, 1920, 0.9f, 1.2f);
         }
 
         private static List<Platform> GenerateRandomMap() {
@@ -567,6 +576,8 @@ namespace Explore
                 backButton.UpdateRectangle(buttonRectangles["back"]);
                 replayButton.UpdateRectangle(buttonRectangles["play"]);
                 reloadConfigButton.UpdateRectangle(buttonRectangles["reload"]);
+
+                Game1.camera.Zoom = Helper.MapValue(width, 1280, 1920, 0.9f, 1.2f);
                 
                 graphics.ApplyChanges();
             }

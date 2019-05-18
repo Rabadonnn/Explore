@@ -71,34 +71,24 @@ namespace Explore
             return false;
         }
 
-        protected bool CollisionWithPlayerBullet() {
+        protected void CheckCollisionWithPlayerProjectiles() {
 
-            for (int i = 0; i < GameManager.player.Bullets.Count; i++) {
-                
-                if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
-                    GameManager.player.Bullets[i].isDead = true;
-                    Explosions.Explosion(position);
-                    return true;
+            foreach (var p in GameManager.player.Projectiles) {
+                if (Helper.RectRect(rectangle, p.rectangle)) {
+                    if (p is Mine) {
+                        health -= (p as Mine).Damage;
+                    } else if (p is Bullet) {
+                        health -= (p as Bullet).Damage;
+                        ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
+                    }
+
+                    p.isDead = true;
                 }
             }
-            return false;
         }
 
         protected void ApplyKnockBack(Vector2 knockBack) {
             velocity = knockBack;
-        }
-
-        protected bool CollisionWithMine() {
-            List<Mine> mines = GameManager.player.Mines;
-            for (int i = 0; i < mines.Count; i++) {
-                if (Helper.RectRect(rectangle, mines[i].rectangle) && mines[i].IsPlaced ) {
-                    mines[i].Explode();
-                    return true;
-                } else if (Helper.Distance(new Vector2(mines[i].rectangle.Center.X, mines[i].rectangle.Center.Y), position) < 75 && mines[i].exploded) {
-                    return true;
-                }
-            }
-            return false;
         }
         protected void UpdateBullets() {
             for (int i = 0; i < bullets.Count; i++) {
@@ -224,15 +214,6 @@ namespace Explore
             CheckForShooting();
 
             UpdateBullets();
-
-            if (CollisionWithPlayerBullet()) {
-                health -= GameManager.player.Bullets[0].Damage;
-                ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
-            }
-
-            if (CollisionWithMine()) {
-                health -= GameManager.player.Mines[0].Damage;
-            }
 
             currentAnimation.Update(GameManager.gameTime);
 

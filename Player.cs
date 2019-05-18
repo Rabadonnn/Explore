@@ -72,14 +72,16 @@ namespace Explore
 
         private int currentGunDirection = 1;
 
-        // HandGun
+        private List<GameObject> projectiles;
 
-        private List<Bullet> bullets;
-        public List<Bullet> Bullets {
+        public List<GameObject> Projectiles {
             get {
-                return bullets;
+                return projectiles;
             }
         }
+
+        // HandGun
+
 
         private float handGunCooldown;
         private float handGunShootingCooldown;
@@ -99,13 +101,6 @@ namespace Explore
 
         // Rocket
 
-        private List<Rocket> rockets;
-        public List<Rocket> Rockets {
-            get {
-                return rockets;
-            }
-        }
-
         private Vector2 rocketLauncherPosition;
 
         private float rocketInitialCooldown;
@@ -119,12 +114,6 @@ namespace Explore
 
         // Mines
 
-        private List<Mine> mines;
-        public List<Mine> Mines {
-            get {
-                return mines;
-            }
-        }
 
         private float initialMineCooldown;
         private float mineCooldown;
@@ -149,11 +138,7 @@ namespace Explore
             halfWidth = width / 2;
             halfHeight = height / 2;
 
-            bullets = new List<Bullet>();
-
-            rockets = new List<Rocket>();
-
-            mines = new List<Mine>();
+            projectiles = new List<GameObject>();
 
             position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
@@ -317,32 +302,14 @@ namespace Explore
                 UpdateRocketLauncher();
             }
 
-            for (int i = 0; i < bullets.Count; i++) {
-                if (bullets[i].isDead) {
-                    bullets.RemoveAt(i);
+            foreach (var b in projectiles) {
+                if (b.isDead) {
+                    projectiles.Remove(b);
                 } else {
-                    bullets[i].Update();
+                    b.Update();
                 }
             }
-
-            for (int i = 0; i < rockets.Count; i++) {
-                if (rockets[i].isDead) {
-                    rockets.RemoveAt(i);
-                } else {
-                    rockets[i].Update();
-                }
-            }
-
-            for (int i = 0; i < mines.Count; i++) {
-                if (mines[i].isDead) {
-                    mines.RemoveAt(i);
-                } else {
-                    mines[i].Update();
-                }
-            }
-
         }
-
 
         private void CheckForShooting() {
             if (Input.Space && currentGun == Gun.HandGun && handGunShootingCooldown <= 0 && handGunAmmo > 0) {
@@ -372,21 +339,22 @@ namespace Explore
         private void ShootHandGun() {
             Bullet b = new Bullet(gunShootPoint, currentGunDirection, "player");
             b.SetTexture(GameManager.Assets["bullet"]);
-            bullets.Add(b);
+            projectiles.Add(b);
             handGunAmmo--;
         }
 
         private void LaunchRocket() {
             Rocket r = new Rocket(rocketLauncherShootPoint, "player");
             r.SetTexture(GameManager.Assets["rpg_ammo"]);
-            rockets.Add(r);
+            projectiles.Add(r);
             rocketsCount--;
+            Explosions.RocketLaunch(rocketLauncherShootPoint);
         }
 
         private void ThrowMine() {
             Mine m = new Mine(new Vector2(position.X, rectangle.Top), currentGunDirection);
             m.SetAnimations();
-            mines.Add(m);
+            projectiles.Add(m);
             mineCount--;
         }
 
@@ -524,16 +492,8 @@ namespace Explore
                 spriteBatch.Draw(rocketLauncherTexture, rocketLauncherPosition, null, Color.White, 0, new Vector2(rocketLauncherTexture.Width / 2, rocketLauncherTexture.Height / 2), rocketLauncherScale, SpriteEffects.None, 0);
             }
       
-            for (int i = 0; i < bullets.Count; i++) {
-                bullets[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < rockets.Count; i++) {
-                rockets[i].Draw(spriteBatch);
-            }
-
-            for (int i = 0; i < mines.Count; i++) {
-                mines[i].Draw(spriteBatch);
+            foreach (var b in projectiles) {
+                b.Draw(spriteBatch);
             }
         }
 

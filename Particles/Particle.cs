@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Explore;
 
 namespace Explore.Particles
 {
@@ -16,6 +17,12 @@ namespace Explore.Particles
         private float lifespan;
         public Color color;
         private int size;
+
+        public float Alpha {
+            get;
+            private set;
+        }
+
         public bool IsDead {
             get {
                 return lifespan <= 0;
@@ -34,6 +41,7 @@ namespace Explore.Particles
             color = settings.color[rand.Next(settings.color.Count)];
             size = rand.Next((int)settings.size.X, (int)settings.size.Y);
             gravity = settings.gravity;
+            Alpha = 1;
         }
 
         public void Update() {
@@ -43,6 +51,7 @@ namespace Explore.Particles
             position += velocity * GameManager.DeltaTime * speed;
             rectangle = new Rectangle((int)(position.X - size / 2), (int)(position.Y - size / 2), size, size);
             lifespan -= GameManager.DeltaTime;
+            Alpha = Helper.MapValue(lifespan, settings.lifespan, 0, 1, 0);
         }
     }
 }

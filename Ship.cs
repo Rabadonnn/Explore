@@ -60,22 +60,14 @@ namespace Explore
         
 
         protected void CheckCollisions() {
-            List<Rocket> rockets = GameManager.player.Rockets;
-
-            for (int i = 0; i < rockets.Count; i++) {
-                if (Helper.RectRect(rectangle, rockets[i].rectangle)) {
-                    health -= rockets[i].Damage;
-                    Explosions.BigExplosion(position);
-                    rockets[i].isDead = true;
+            foreach (var p in GameManager.player.Projectiles) {
+                if (p is Rocket) {
+                    health -= (p as Rocket).Damage;
+                } else if (p is Bullet) {
+                    health -= (p as Bullet).Damage;
                 }
-            }
-
-            for (int i = 0; i < GameManager.player.Bullets.Count; i++) {
-                if (Helper.RectRect(rectangle, GameManager.player.Bullets[i].rectangle)) {
-                    health -= GameManager.player.Bullets[i].Damage;
-                    Explosions.BigExplosion(position);
-                    GameManager.player.Bullets[i].isDead = true;
-                }
+                Explosions.BigExplosion(position);
+                p.isDead = true;
             }
         }
 
