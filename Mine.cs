@@ -64,12 +64,12 @@ namespace Explore
                 List<Platform> platforms = GameManager.platforms;
 
                 for (int i = 0; i < platforms.Count; i++) {
-                    Helper.Collision collision = Helper.RectangleCollision(rectangle, platforms[i].rectangle);
+                    Helper.Collision collision = Helper.RectangleCollision(rectangle, platforms[i].Rectangle);
 
                     if (collision == Helper.Collision.Bottom) {
                         velocity.Y = 0;
                         placed = true;
-                        position.Y = platforms[i].rectangle.Top - height / 2;
+                        position.Y = platforms[i].Rectangle.Top - height / 2;
                     }
                 }
             }

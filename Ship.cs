@@ -61,13 +61,16 @@ namespace Explore
 
         protected void CheckCollisions() {
             foreach (var p in GameManager.player.Projectiles) {
-                if (p is Rocket) {
-                    health -= (p as Rocket).Damage;
-                } else if (p is Bullet) {
-                    health -= (p as Bullet).Damage;
+                if (Helper.RectRect(rectangle, p.Rectangle)) {
+                    if (p is Rocket) {
+                        health -= (p as Rocket).Damage;
+                    } else if (p is Bullet) {
+                        health -= (p as Bullet).Damage;
+                    }
+                    Explosions.BigExplosion(position);
+                    p.isDead = true;
                 }
-                Explosions.BigExplosion(position);
-                p.isDead = true;
+                
             }
         }
 
@@ -102,9 +105,9 @@ namespace Explore
                 if (result) {
                     break;
                 } else {
-                    if (position.X > platforms[i].rectangle.Left &&
-                        position.X < platforms[i].rectangle.Right && 
-                        position.Y < platforms[i].rectangle.Top) {
+                    if (position.X > platforms[i].Rectangle.Left &&
+                        position.X < platforms[i].Rectangle.Right && 
+                        position.Y < platforms[i].Rectangle.Top) {
                             result = true;
                         }
                 }
@@ -181,7 +184,7 @@ namespace Explore
                     bombs.RemoveAt(i);
                 } else {
                     bombs[i].Update();
-                    if (Helper.RectRect(GameManager.player.rectangle, bombs[i].rectangle)) {
+                    if (Helper.RectRect(GameManager.player.Rectangle, bombs[i].Rectangle)) {
                         GameManager.player.Hit(bombs[i].Damage);
                         bombs[i].isDead = true;
                     }

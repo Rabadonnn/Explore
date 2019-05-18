@@ -230,7 +230,7 @@ namespace Explore
             
             for (int i = 0; i < platforms.Count; i++) {
 
-                Rectangle obs = platforms[i].rectangle;
+                Rectangle obs = platforms[i].Rectangle;
 
                 if (Helper.RectRectExtended(rectangle, obs) != Helper.Collision.NoCollision) {
                     switch (Helper.RectRectExtended(rectangle, obs)) {
@@ -302,7 +302,7 @@ namespace Explore
                 UpdateRocketLauncher();
             }
 
-            foreach (var b in projectiles) {
+            foreach (var b in projectiles.ToArray()) {
                 if (b.isDead) {
                     projectiles.Remove(b);
                 } else {

@@ -25,7 +25,7 @@ namespace Explore
                 List<Platform> platforms = GameManager.platforms;
 
                 for (int i = 0; i < platforms.Count; i++) {
-                    Rectangle obs = platforms[i].rectangle;
+                    Rectangle obs = platforms[i].Rectangle;
 
                     Helper.Collision collision = Helper.RectRectExtended(rectangle, obs);
 
@@ -35,7 +35,7 @@ namespace Explore
                     }
                 }
             }
-            if (Helper.RectRect(rectangle, GameManager.player.rectangle)) {
+            if (Helper.RectRect(rectangle, GameManager.player.Rectangle)) {
                 OnPlayerPickup();
                 isDead = true;
             }
@@ -243,9 +243,9 @@ namespace Explore
 
             for (int i = 0; i < platforms.Count; i++) {
                 
-                if (result.X > platforms[i].rectangle.Left &&
-                    result.X < platforms[i].rectangle.Right && 
-                    result.Y < platforms[i].rectangle.Top) {
+                if (result.X > platforms[i].Rectangle.Left &&
+                    result.X < platforms[i].Rectangle.Right && 
+                    result.Y < platforms[i].Rectangle.Top) {
                         return result;
                     }
             }

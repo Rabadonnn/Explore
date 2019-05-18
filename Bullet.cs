@@ -58,7 +58,7 @@ namespace Explore
                 List<Platform> platforms = GameManager.platforms;
 
                 for (int i = 0; i < platforms.Count; i++) {
-                    if (Helper.RectRect(rectangle, platforms[i].rectangle)) {
+                    if (Helper.RectRect(rectangle, platforms[i].Rectangle)) {
                         isDead = true;
                     }
                 }
@@ -66,7 +66,7 @@ namespace Explore
         }
         protected void CheckForPlatformCollision() {
             for (int i = 0; i < GameManager.platforms.Count; i++) {
-                if (Helper.RectRect(rectangle, GameManager.platforms[i].rectangle)) {
+                if (Helper.RectRect(rectangle, GameManager.platforms[i].Rectangle)) {
                     isDead = true;
                     Explosions.Explosion(position);
                 }

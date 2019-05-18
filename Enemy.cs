@@ -34,7 +34,7 @@ namespace Explore
             List<Platform> platforms = GameManager.platforms;
 
             for (int i = 0; i < platforms.Count; i++) {
-                Rectangle obs = platforms[i].rectangle;
+                Rectangle obs = platforms[i].Rectangle;
                 
                 if (Helper.RectRectExtended(rectangle, obs) != Helper.Collision.NoCollision) {
                     switch (Helper.RectRectExtended(rectangle, obs)) {
@@ -61,9 +61,9 @@ namespace Explore
             List<Platform> platforms = GameManager.platforms;
 
             for (int i = 0; i < platforms.Count; i++) {
-                if (position.X > platforms[i].rectangle.Right - edgeSide && position.X < platforms[i].rectangle.Right) {
+                if (position.X > platforms[i].Rectangle.Right - edgeSide && position.X < platforms[i].Rectangle.Right) {
                     return true;
-                } else if (position.X > platforms[i].rectangle.Left && position.X < platforms[i].rectangle.Left + edgeSide) {
+                } else if (position.X > platforms[i].Rectangle.Left && position.X < platforms[i].Rectangle.Left + edgeSide) {
                     return true;
                 }
             }
@@ -74,12 +74,14 @@ namespace Explore
         protected void CheckCollisionWithPlayerProjectiles() {
 
             foreach (var p in GameManager.player.Projectiles) {
-                if (Helper.RectRect(rectangle, p.rectangle)) {
+                if (Helper.RectRect(rectangle, p.Rectangle)) {
                     if (p is Mine) {
                         health -= (p as Mine).Damage;
+                        Explosions.MineExplosion(position);
                     } else if (p is Bullet) {
                         health -= (p as Bullet).Damage;
                         ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
+                        Explosions.Explosion(position);
                     }
 
                     p.isDead = true;
@@ -211,6 +213,8 @@ namespace Explore
                 GameManager.player.KilledEnemy();
             } 
 
+            CheckCollisionWithPlayerProjectiles();
+
             CheckForShooting();
 
             UpdateBullets();
@@ -218,7 +222,7 @@ namespace Explore
             currentAnimation.Update(GameManager.gameTime);
 
             for (int i = 0; i < bullets.Count; i++) {
-                if (Helper.RectRect(GameManager.player.rectangle, bullets[i].rectangle)) {
+                if (Helper.RectRect(GameManager.player.Rectangle, bullets[i].Rectangle)) {
                     GameManager.player.Hit(damage);
                     bullets[i].isDead = true;
                 }

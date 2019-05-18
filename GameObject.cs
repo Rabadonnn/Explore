@@ -11,7 +11,12 @@ namespace Explore
         private static string defaultName = "undefined";
         public string Name {get;}
         protected Vector2 position;
-        public Rectangle rectangle;
+        protected Rectangle rectangle;
+        public Rectangle Rectangle {
+            get {
+                return rectangle;
+            }
+        }
         protected Texture2D texture;
         public bool isDead = false;
 
