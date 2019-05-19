@@ -10,6 +10,7 @@ namespace Explore
     {
 
         protected int health;
+        
         protected int scoreValue;
 
         // Movement
@@ -27,6 +28,8 @@ namespace Explore
         protected List<Bullet> bullets;
         protected float initialShootingCooldown;
         protected float shootingCooldown;
+
+        protected HealthBar healthBar;
 
         public abstract void SetAnimations();
 
@@ -55,6 +58,10 @@ namespace Explore
                     } 
                 }
             }
+        }
+
+        protected void UpdateHealthBar() {
+            healthBar.Update(new Vector2(position.X, position.Y - 50), Config.BaseEnemy["health"].IntValue, health);
         }
 
         protected bool IsOnPlatformEdge(int edgeSide) {
@@ -153,6 +160,8 @@ namespace Explore
 
             initialShootingCooldown = Config.BaseEnemy["shootingCooldown"].FloatValue;
             shootingCooldown = initialShootingCooldown;
+
+            healthBar = new HealthBar();
         }
 
         public override void SetAnimations() {
@@ -171,6 +180,8 @@ namespace Explore
             runAnim.Start(Repeat.Mode.Loop);
             runAnim_Left.Start(Repeat.Mode.Loop);
             currentAnimation.Start(Repeat.Mode.Loop);
+
+            healthBar.SetTexture();
         }
 
         public override void Update() {
@@ -206,7 +217,7 @@ namespace Explore
             
             position += velocity * GameManager.DeltaTime;
 
-            if (position.Y > GameManager.ScreenHeight || health < 0) {
+            if (position.Y > GameManager.ScreenHeight || health < 1) {
                 isDead = true;
                 GameManager.player.KilledEnemy();
             } 
@@ -216,6 +227,8 @@ namespace Explore
             CheckForShooting();
 
             UpdateBullets();
+
+            UpdateHealthBar();
 
             currentAnimation.Update(GameManager.gameTime);
 
@@ -252,6 +265,8 @@ namespace Explore
             spriteBatch.Draw(currentAnimation, position, Color.White, 0, scale, 0);
 
             DrawBullets(spriteBatch);
+
+            healthBar.Draw(spriteBatch);
         }
     }
 }

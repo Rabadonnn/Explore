@@ -14,6 +14,8 @@ namespace Explore
 
         private int health;
 
+        private HealthBar healthBar;
+
         private int enemiesKilled;
         public int EnemiesKilled {
             get {
@@ -149,6 +151,7 @@ namespace Explore
 
         public Player() : base() {
             Reset();
+            healthBar = new HealthBar();
         }
 
         public void Reset() {
@@ -199,6 +202,8 @@ namespace Explore
 
             shield.SetTexture();
 
+            healthBar.SetTexture();
+
             Texture2D spriteSheetTexture = GameManager.Assets["mamba"];
             spriteSheet = new Spritesheet.Spritesheet(spriteSheetTexture).WithGrid((16, 16));
 
@@ -232,6 +237,8 @@ namespace Explore
             UpdateGuns();
     
             shield.Update(new Vector2(position.X, position.Y - 8));
+
+            healthBar.Update(new Vector2(position.X, position.Y - 50), Config.Player["hp"].IntValue, health);
 
             Vector2 cameraDesiredPosition = new Vector2(position.X, position.Y - 170);
             Game1.camera.Transform.Position = Vector2.SmoothStep(Game1.camera.Transform.Position, cameraDesiredPosition, 0.15f);
@@ -319,6 +326,9 @@ namespace Explore
 
             foreach (var b in projectiles.ToArray()) {
                 if (b.isDead) {
+                    if (b is Mine) {
+                        SoundManager.ShipExplosion();
+                    }
                     projectiles.Remove(b);
                 } else {
                     b.Update();
@@ -337,7 +347,7 @@ namespace Explore
 
             if (Input.Space && currentGun == Gun.Launcher && rocketCooldown <= 0 && rocketsCount > 0) {
                 LaunchRocket();
-                //SoundManager.LaunchRocket();
+                SoundManager.LaunchRocket();
                 rocketCooldown = rocketInitialCooldown;
             } else {
                 rocketCooldown -= GameManager.DeltaTime;
@@ -434,6 +444,7 @@ namespace Explore
             } else {
                 health -= damage;
             }
+            SoundManager.GotHit();
         }
 
         public void KilledEnemy() {
@@ -445,6 +456,9 @@ namespace Explore
 
         public void GiveHealth(int amount) {
             health += amount;
+            if (health > Config.Player["hp"].IntValue) {
+                health = Config.Player["hp"].IntValue;
+            }
         }
 
         public void GiveHandGunAmmo(int amount) {
@@ -516,6 +530,8 @@ namespace Explore
             foreach (var b in projectiles) {
                 b.Draw(spriteBatch);
             }
+
+            healthBar.Draw(spriteBatch);
         }
 
         public void DrawUI(SpriteBatch spriteBatch) {

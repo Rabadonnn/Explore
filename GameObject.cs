@@ -7,7 +7,6 @@ namespace Explore
 {
     public abstract class GameObject
     {
-        public string Name {get;}
         protected Vector2 position;
         protected Rectangle rectangle;
         public Rectangle Rectangle {

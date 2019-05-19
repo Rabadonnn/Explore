@@ -17,6 +17,8 @@ namespace Explore
 
         protected float lerpSpeed;
 
+        protected HealthBar healthBar;
+
         public BaseShip(Vector2 _position) {
 
             health = Config.BaseShip["health"].IntValue;
@@ -26,10 +28,13 @@ namespace Explore
             rand = new Random();
             checkPoint = MakeNewCheckPoint();
             lerpSpeed = Config.BaseShip["lerpSpeed"].FloatValue;
+
+            healthBar = new HealthBar();
         }
 
         public virtual void SetTexture() {
             texture = GameManager.Assets["dropship"];
+            healthBar.SetTexture();
         }
 
         public override void Update() {
@@ -49,6 +54,12 @@ namespace Explore
             CheckCollisions();
 
             CheckLife();
+
+            UpdateHealthBar(Config.BaseShip["health"].IntValue);
+        }
+
+        protected void UpdateHealthBar(int maxHealth) {
+            healthBar.Update(new Vector2(position.X, position.Y - 50), maxHealth, health);
         }
 
         protected void CheckLife() {
@@ -83,6 +94,7 @@ namespace Explore
 
         public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, position, null, Color.White, 0, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 0);
+            healthBar.Draw(spriteBatch);
         }
 
         private void Drop() {
@@ -147,6 +159,7 @@ namespace Explore
 
         public override void SetTexture() {
             texture = GameManager.Assets["bombship"];
+            healthBar.SetTexture();
         }
 
         public override void Update() {
@@ -187,6 +200,8 @@ namespace Explore
                         b.Update();
                     }
                 }
+
+                UpdateHealthBar(2);
             }
         }
 
@@ -207,6 +222,8 @@ namespace Explore
             foreach (Bullet b in bullets) {
                 b.Draw(spriteBatch);
             }
+
+            healthBar.Draw(spriteBatch);
         }
     }
 }

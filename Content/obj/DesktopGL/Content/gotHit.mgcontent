@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/gotHit.wav</SourceFile>
+  <SourceTime>2019-05-19T13:53:05.5712375+03:00</SourceTime>
+  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/gotHit.xnb</DestFile>
+  <DestTime>2019-05-19T16:18:35.4265474+03:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2018-08-05T14:17:44+03:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

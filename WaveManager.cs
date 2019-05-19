@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-
 namespace Explore
 {
     public static class WaveManager
@@ -40,11 +39,14 @@ namespace Explore
                 firstWave = false;
             }
 
-            for (int i = 0; i < enemies.Count; i++) {
-                if (enemies[i].isDead) {
-                    enemies.RemoveAt(i);
+            foreach (var e in enemies.ToArray()) {
+                if (e.isDead) {
+                    if (e is BaseShip) {
+                        SoundManager.ShipExplosion();
+                    }
+                    enemies.Remove(e);
                 } else {
-                    enemies[i].Update();
+                    e.Update();
                 }
             }
 

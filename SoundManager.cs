@@ -11,6 +11,8 @@ namespace Explore
         public static void LoadSounds(ContentManager contentManager) {
             sounds.Add("shoot", contentManager.Load<SoundEffect>("Shoot"));
             sounds.Add("rocketShoot", contentManager.Load<SoundEffect>("RocketShoot"));
+            sounds.Add("shipExplosion", contentManager.Load<SoundEffect>("ShipExplosion"));
+            sounds.Add("gotHit", contentManager.Load<SoundEffect>("gotHit"));
         }
 
         public static void Shoot() {
@@ -19,6 +21,14 @@ namespace Explore
 
         public static void LaunchRocket() {
             sounds["rocketShoot"].CreateInstance().Play();
+        }
+
+        public static void ShipExplosion() {
+            sounds["shipExplosion"].CreateInstance().Play();
+        }
+
+        public static void GotHit() {
+            sounds["gotHit"].CreateInstance().Play();
         }
     }
 }

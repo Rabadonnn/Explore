@@ -12,6 +12,7 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/circle.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/gotHit.wav</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Gun2.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/HealthDrop.png</File>
@@ -24,10 +25,13 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/RPG_ammo.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Shield.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Ship.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/ShipExplosion.wav</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Shoot.wav</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

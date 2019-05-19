@@ -115,8 +115,6 @@ namespace Explore
             WaveManager.Init();
         }
 
-
-
         private static void MakeRectanglesForButtons() {
             int buttonWidth = 100;
 
@@ -317,6 +315,8 @@ namespace Explore
         public static void UpdateScreens(GameTime _gameTime) {
             gameTime = _gameTime;
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Input.UpdateGamePad();
 
             switch (currentScreen) {
                 case Screens.MainScreen:
@@ -530,8 +530,8 @@ namespace Explore
             "A - Left, D - Right, W - Jump \n" + 
             "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
             "V -  Place Mine \n\n" +
-            "Reload Button should be used to reload the config.cfg file \n that can be found in project's folder\n\n" +
             "With the HandGun you hit ground enemies and with the RPG UFOs. \n\n\n" + 
+            "Reload Button should be used to reload the config.cfg file \nthat can be found in project's folder\n\n" +
             "Facut pentru Explore-IT 2019 - Mihai Solomon", 
             new Vector2(width / 2 - 300, height / 2 - 150), Color.White);
 
