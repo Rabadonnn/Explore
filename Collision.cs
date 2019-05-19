@@ -67,6 +67,10 @@ namespace Explore
 
         }
 
+        public static Rectangle MakeRectangle(Vector2 position, int width, int height) {
+            return new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+        }
+
         public static double Distance(Vector2 v1, Vector2 v2) {
             return Math.Sqrt(Math.Pow(v2.X - v1.X, 2) + Math.Pow(v2.Y - v1.Y, 2));
         }

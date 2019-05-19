@@ -47,8 +47,8 @@ namespace Explore
                 accX = baseAcc,
                 accY = baseAcc,
                 color = colors,
-                size = new Point(1, 10),
-                number_per_frame = 7,
+                size = new Point(2, 10),
+                number_per_frame = 15,
                 lifespan = 0.12f,
                 speed = 650,
                 oneTime = true
@@ -74,11 +74,39 @@ namespace Explore
             Settings settings = new Settings() {
                 accX = new Vector2(-1, 1),
                 accY = new Vector2(-7, -2),
-                color = new List<Color>() { Color.Red, Color.Yellow, Color.Orange },
-                size = new Point(1, 10),
+                color = colors,
+                size = new Point(3, 13),
                 number_per_frame = 12,
                 lifespan = 0.12f,
                 speed = 650,
+                oneTime = true
+            };
+            AddFX(settings, position);
+        }
+
+        public static void ShootLeftExplosion(Vector2 position) {
+            Settings settings = new Settings() {
+                accX = new Vector2(26, 100),
+                accY = new Vector2(-10, 10),
+                color = colors,
+                size = new Point(1, 5),
+                number_per_frame = 8,
+                lifespan = 0.1f,
+                speed = 700,
+                oneTime = true
+            };
+            AddFX(settings, position);
+        }
+
+         public static void ShootRightExplosion(Vector2 position) {
+            Settings settings = new Settings() {
+                accX = new Vector2(-100, -50),
+                accY = new Vector2(-17, 9),
+                color = colors,
+                size = new Point(1, 5),
+                number_per_frame = 8,
+                lifespan = 0.1f,
+                speed = 700,
                 oneTime = true
             };
             AddFX(settings, position);

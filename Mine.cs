@@ -35,7 +35,7 @@ namespace Explore
 
         private Animation animation;
 
-        public Mine(Vector2 _position, int direction) : base("mine") {
+        public Mine(Vector2 _position, int direction) : base() {
             position = _position;
 
             velocity = new Vector2(speed * direction, 0);

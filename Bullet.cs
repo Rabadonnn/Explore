@@ -23,20 +23,16 @@ namespace Explore
             }
         }
 
-        protected string tag;
-
         protected Random rand = new Random();
 
-        public Bullet(Vector2 _position, int direction, string _tag) : base("bullet") {
+        public Bullet(Vector2 _position, int direction) : base(_position) {
             position = _position;
             speed *= direction;
-            tag = _tag;
             damage = Config.Bullet["damage"].IntValue;
         }
 
-        public Bullet(Vector2 _position, string _tag) : base("bullet") {
+        public Bullet(Vector2 _position) : base(_position) {
             position = _position;
-            tag = _tag;
             damage = Config.Bullet["damage"].IntValue;
         }
 
@@ -44,7 +40,7 @@ namespace Explore
 
             if (!isDead) {
 
-                rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+                rectangle = Helper.MakeRectangle(position, width, height);
                
                 position.X += speed * GameManager.DeltaTime;
 
@@ -52,15 +48,6 @@ namespace Explore
 
                 if (lifetime <= 0) {
                     isDead = true;
-                }
-
-
-                List<Platform> platforms = GameManager.platforms;
-
-                for (int i = 0; i < platforms.Count; i++) {
-                    if (Helper.RectRect(rectangle, platforms[i].Rectangle)) {
-                        isDead = true;
-                    }
                 }
             }
         }
@@ -82,9 +69,8 @@ public class Rocket : Bullet {
 
         private ParticleSystem fx;
 
-        public Rocket(Vector2 _position, string _tag) : base(_position, _tag) {
+        public Rocket(Vector2 _position) : base(_position) {
             position = _position;
-            tag = _tag;
             speed = 1000;
 
             width = 12;
@@ -116,7 +102,7 @@ public class Rocket : Bullet {
         public override void Update() {
             if (!isDead) {
 
-                rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+                rectangle = Helper.MakeRectangle(position, width, height);
                
                 position.Y -= speed * GameManager.DeltaTime;
 
@@ -140,34 +126,30 @@ public class Rocket : Bullet {
         }
     }
 
-    public class Bomb : Bullet {
-        public Bomb(Vector2 _position) : base(_position, "ship") {
-            position = _position;
-            speed = 850;
-            width = 32;
-            height = 32;
-            damage = Config.Bullet["bombDamage"].IntValue;
-        }
-
-        public void SetTexture() {
-            texture = GameManager.Assets["bomb"];
+    public class RedBullet : Bullet {
+        private Color color;
+        public RedBullet(Vector2 position) : base(position) {
+            width = 8;
+            height = 16;
+            speed = 1000;
+            damage = Config.Bullet["damage"].IntValue;
+            color = Color.Red;
         }
 
         public override void Update() {
             if (!isDead) {
-
-                rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
-               
                 position.Y += speed * GameManager.DeltaTime;
-
+                rectangle = Helper.MakeRectangle(position, width, height);
+                CheckForPlatformCollision();
                 lifetime -= GameManager.DeltaTime;
-
                 if (lifetime <= 0) {
                     isDead = true;
                 }
-
-                CheckForPlatformCollision();
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(texture, position, null, color, MathHelper.PiOver2, new Vector2(texture.Width / 2, texture.Width / 2), new Vector2(1, 1), SpriteEffects.None, 0);
         }
     }
 }

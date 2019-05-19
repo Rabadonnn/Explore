@@ -221,8 +221,7 @@ namespace Explore
 
             int heightBefore = 21021;
 
-            for (int i = minX; i < maxX; i += 0) {
-
+            for (int i = 350; i < maxX; i += 0) {
                 int platformWidth = rand.Next(minPlatformWidth, maxPlatformWidth);
 
                 i += platformWidth / 2;
@@ -242,6 +241,28 @@ namespace Explore
                 i += platformWidth / 2;
             }
 
+            result.Add(new Platform(new Vector2(0, rand.Next(minHeight, maxHeight)), new Vector2(600, platformHeight)));
+
+            for (int i = -350; i > minX; i += 0) {
+                int platformWidth = rand.Next(minPlatformWidth, maxPlatformWidth);
+
+                i -= platformWidth / 2;
+
+                int heightToPlacePlatform = rand.Next(minHeight, maxHeight);
+
+                if (Math.Abs(heightToPlacePlatform - heightBefore) < 20) {
+                    heightToPlacePlatform = heightBefore;
+                } 
+                Platform platformToAdd = new Platform(new Vector2(i, heightToPlacePlatform), new Vector2(platformWidth, platformHeight));
+                
+                result.Add(platformToAdd);
+
+                i -= rand.Next(Config.MapGeneration["minSpaceBetweenPlatforms"].IntValue, Config.MapGeneration["maxSpaceBetweenPlatforms"].IntValue);
+                
+
+                i -= platformWidth / 2;
+            }
+
             return result;
         }
 
@@ -251,6 +272,7 @@ namespace Explore
             consolasFontBig = contentManager.Load<SpriteFont>("ConsolasBig");
 
             assets.Add("square", contentManager.Load<Texture2D>("Square"));
+            assets.Add("circle", contentManager.Load<Texture2D>("circle"));
             assets.Add("mamba", contentManager.Load<Texture2D>("Mamba"));
             assets.Add("background_variant", contentManager.Load<Texture2D>("BackgroundVariant"));
             assets.Add("guard", contentManager.Load<Texture2D>("Guard"));
@@ -346,9 +368,9 @@ namespace Explore
 
         private static void UpdateGameScreen() {
             if (!isPaused) {
-                GameObject.UpdateList();
         
                 if (player.isDead) {
+
                     replayButton.active = true;
                     replayButton.Update();
 

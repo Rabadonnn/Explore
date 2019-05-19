@@ -123,23 +123,26 @@ namespace Explore
 
     public class BombShip : BaseShip {
         
-        private float initialDropCooldown = 3f;
-        private float dropCooldown = 0;
+        private float initialShootCooldown = 0.3f;
+        private float shootCooldown = 0;
         private int width = 62;
         private int height = 48;
 
-        private List<Bomb> bombs;
-
         private float lifetime;
+
+        private List<Bullet> bullets;
+
+        private int shootCount = 0;
+        private bool canShoot = true;
 
         public BombShip(Vector2 _position) : base(_position) {
             health = 2;
             position = _position;
             rand = new Random();
-            bombs = new List<Bomb>();
             checkPoint = MakeNewCheckPoint();
             lifetime = rand.Next(5, 10);
             lerpSpeed = 0.03f;
+            bullets = new List<Bullet>();
         }
 
         public override void SetTexture() {
@@ -151,6 +154,7 @@ namespace Explore
 
                 if (Helper.Distance(position, checkPoint) < 30) {
                     checkPoint = new Vector2(GameManager.player.Position.X, rand.Next(-GameManager.ScreenHeight, 0));
+                    canShoot = true;
                 }
 
                 if (lifetime <= 0) {
@@ -159,13 +163,12 @@ namespace Explore
 
                 position = Vector2.Lerp(position, checkPoint, lerpSpeed);
 
-                if (dropCooldown <= 0) {
-                    if (Helper.Distance(position, GameManager.player.Position) < 70) {
-                        DropBomb();
-                        dropCooldown = initialDropCooldown;
+                if (Helper.Distance(position, GameManager.player.Position) < 70 && canShoot) {
+                    Shoot();
+                    shootCount++;
+                    if (shootCount > 5) {
+                        canShoot = false;
                     }
-                } else {
-                    dropCooldown -= GameManager.DeltaTime;
                 }
 
                 rectangle = new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
@@ -176,32 +179,33 @@ namespace Explore
                 if (position.Y < -500) {
                     isDead = true;
                 }
-            }
 
-            for (int i = 0; i < bombs.Count; i++) {
-                if (bombs[i].isDead) {
-                    bombs.RemoveAt(i);
-                } else {
-                    bombs[i].Update();
-                    if (Helper.RectRect(GameManager.player.Rectangle, bombs[i].Rectangle)) {
-                        GameManager.player.Hit(bombs[i].Damage);
-                        bombs[i].isDead = true;
+                foreach (var b in bullets.ToArray()) {
+                    if (b.isDead) {
+                        bullets.Remove(b);
+                    } else {
+                        b.Update();
                     }
                 }
             }
         }
 
-        private void DropBomb() {
-            Bomb b = new Bomb(position);
-            b.SetTexture();
-            bombs.Add(b);
+        private void Shoot() {
+            if (shootCooldown <= 0) {
+                RedBullet r = new RedBullet(position);
+                r.SetTexture(GameManager.Assets["bullet"]);
+                bullets.Add(r);
+                shootCooldown = initialShootCooldown;
+            } else {
+                shootCooldown -= GameManager.DeltaTime;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
             spriteBatch.Draw(texture, rectangle, Color.White);
-        
-            for (int i = 0; i < bombs.Count; i++) {
-                bombs[i].Draw(spriteBatch);
+
+            foreach (Bullet b in bullets) {
+                b.Draw(spriteBatch);
             }
         }
     }

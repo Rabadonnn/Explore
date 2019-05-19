@@ -230,7 +230,7 @@ namespace Explore
         private void CheckForShooting() {
             if (shootingCooldown <= 0 && isGrounded && Helper.Distance(target, position) < range) {
                 
-                Bullet b = new Bullet(position, direction, "enemy");
+                Bullet b = new Bullet(position, direction);
                 b.SetTexture(GameManager.Assets["bullet"]);
                 bullets.Add(b);
 

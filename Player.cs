@@ -147,7 +147,7 @@ namespace Explore
 
         #endregion
 
-        public Player() : base("player") {
+        public Player() : base() {
             Reset();
         }
 
@@ -158,7 +158,8 @@ namespace Explore
 
             projectiles = new List<GameObject>();
 
-            position = new Vector2(0, 0);
+            position = Vector2.Zero;
+
             velocity = new Vector2(0, 0);
 
             speed = Config.Player["speed"].IntValue;
@@ -222,7 +223,7 @@ namespace Explore
 
 
         public override void Update() {
-            if (health < 1) {
+            if (health < 1 || position.Y > 350) {
                 isDead = true;
             }
 
@@ -294,10 +295,6 @@ namespace Explore
             shield.Update(position);
 
             rectangle = new Rectangle((int)position.X - halfWidth, (int)position.Y - halfHeight, width, height);
-
-            if (position.Y > 350) {
-                isDead = true;
-            }
         }
 
         #endregion
@@ -355,14 +352,20 @@ namespace Explore
         }
 
         private void ShootHandGun() {
-            Bullet b = new Bullet(gunShootPoint, currentGunDirection, "player");
+            Bullet b = new Bullet(gunShootPoint, currentGunDirection);
             b.SetTexture(GameManager.Assets["bullet"]);
             projectiles.Add(b);
             handGunAmmo--;
+
+            if (currentGunDirection == 1) {
+                Explosions.ShootLeftExplosion(gunShootPoint);
+            } else if (currentGunDirection == -1) {
+                Explosions.ShootRightExplosion(gunShootPoint);
+            }
         }
 
         private void LaunchRocket() {
-            Rocket r = new Rocket(rocketLauncherShootPoint, "player");
+            Rocket r = new Rocket(rocketLauncherShootPoint);
             r.SetTexture(GameManager.Assets["rpg_ammo"]);
             projectiles.Add(r);
             rocketsCount--;

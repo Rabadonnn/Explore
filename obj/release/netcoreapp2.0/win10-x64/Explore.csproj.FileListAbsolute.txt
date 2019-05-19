@@ -33,3 +33,4 @@ C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\BombS
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\Shield.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\RocketShoot.xnb
 C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\Shoot.xnb
+C:\Users\Mihai\Desktop\Explore\bin\release\netcoreapp2.0\win10-x64\Content\circle.xnb

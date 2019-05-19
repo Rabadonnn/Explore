@@ -74,7 +74,7 @@ namespace Explore.Particles
         }
 
         public void SetTexture() {
-            texture = GameManager.Assets["square"];
+            texture = GameManager.Assets["circle"];
         }
 
         public void Draw(SpriteBatch spriteBatch) {

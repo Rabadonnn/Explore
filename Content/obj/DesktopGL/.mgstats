@@ -4,6 +4,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Mihai/Desktop/Explore/Content/Bomb.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Bomb.xnb","TextureProcessor","Texture2DContent",534,4181,0.0159917
 "C:/Users/Mihai/Desktop/Explore/Content/BombShip.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/BombShip.xnb","TextureProcessor","Texture2DContent",1139,11989,0.0489906
 "C:/Users/Mihai/Desktop/Explore/Content/Bullet.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Bullet.xnb","TextureProcessor","Texture2DContent",135,597,0.0159936
+"C:/Users/Mihai/Desktop/Explore/Content/circle.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/circle.xnb","TextureProcessor","Texture2DContent",204,4181,1.111937
 "C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Consolas.xnb","FontDescriptionProcessor","SpriteFontContent",2011,21521,1.326138
 "C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/ConsolasBig.xnb","FontDescriptionProcessor","SpriteFontContent",2011,70673,0.1379194
 "C:/Users/Mihai/Desktop/Explore/Content/Guard.png","C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Guard.xnb","TextureProcessor","Texture2DContent",687,12373,0.0279827

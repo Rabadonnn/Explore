@@ -9,6 +9,7 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/Bomb.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/BombShip.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Bullet.png</File>
+    <File>C:/Users/Mihai/Desktop/Explore/Content/circle.png</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Consolas.spritefont</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/ConsolasBig.spritefont</File>
     <File>C:/Users/Mihai/Desktop/Explore/Content/Guard.png</File>
@@ -27,6 +28,7 @@
     <File>C:/Users/Mihai/Desktop/Explore/Content/Square.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

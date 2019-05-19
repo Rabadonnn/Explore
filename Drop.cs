@@ -11,8 +11,7 @@ namespace Explore
         protected int gravity = 10;
         protected bool isGrounded = false;
         protected System.Random rand;
-        public Drop(Vector2 _position) : base("drop") {
-            position = _position;
+        public Drop(Vector2 _position) : base(_position) {
             rand = new System.Random();
         }
 
@@ -41,6 +40,8 @@ namespace Explore
             }
         }
 
+        public abstract void SetTexture();
+
         protected abstract void OnPlayerPickup();
 
         public override void Draw(SpriteBatch spriteBatch) {
@@ -55,7 +56,7 @@ namespace Explore
             healthToGive = rand.Next(3, 6);
         }
         
-        public void SetTexture() {
+        public override void SetTexture() {
             texture = GameManager.Assets["health_drop"];
         }
 
@@ -71,7 +72,7 @@ namespace Explore
             ammoToGive = rand.Next(15, 45);
         }
 
-        public void SetTexture() {
+        public override void SetTexture() {
             texture = GameManager.Assets["ammo_drop"];
         }
 
@@ -87,7 +88,7 @@ namespace Explore
             minesToGive = rand.Next(2, 5);
         }
 
-        public void SetTexture() {
+        public override void SetTexture() {
             texture = GameManager.Assets["mines_drop"];
         }
 
@@ -103,7 +104,7 @@ namespace Explore
             rocketsToGive = rand.Next(4, 6);
         }
 
-        public void SetTexture() {
+        public override void SetTexture() {
             texture = GameManager.Assets["rockets_drop"];
         }
 
@@ -119,7 +120,7 @@ namespace Explore
             height = 32;
         }
 
-        public void SetTexture() {
+        public override void SetTexture() {
             texture = GameManager.Assets["shield"];
         }
 
@@ -219,22 +220,19 @@ namespace Explore
 
             if (typeof(T) == typeof(MinesDrop)) {
                 d = new MinesDrop(position);
-                (d as MinesDrop).SetTexture();
             } else if (typeof(T) == typeof(RocketsDrop)) {
                 d = new RocketsDrop(position);
-                (d as RocketsDrop).SetTexture();
             } else if (typeof(T) == typeof(AmmoDrop)) {
                 d = new AmmoDrop(position);
-                (d as AmmoDrop).SetTexture();
             } else if (typeof(T) == typeof(HealthDrop)) {
                 d = new HealthDrop(position);
-                (d as HealthDrop).SetTexture();
             } else if (typeof(T) == typeof(ShieldDrop)) {
                 d = new ShieldDrop(position);
-                (d as ShieldDrop).SetTexture();
             } else {
                 d = null;
             }
+
+            d.SetTexture();
             
             drops.Add(d);
 

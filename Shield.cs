@@ -34,8 +34,7 @@ namespace Explore
             }
         }
 
-
-        public Shield() : base("shield") {
+        public Shield() : base() {
 
         }
 
