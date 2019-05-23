@@ -6,6 +6,9 @@ using Explore.Particles;
 
 namespace Explore.Bullets
 {
+    // Defineste explozibilul folosit de jucator ce poate fi pus pe jos, iar la coliziunea cu un inamic explodeaza
+    // De asemenea explodeaza si dupa ce durata de viata a acestuia scade sub 0
+
     public class Mine : GameObject
     {
         private int width = 32;

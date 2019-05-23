@@ -56,7 +56,7 @@ namespace Explore
         private static List<Color> colors = new List<Color>() { Color.Red, Color.Orange, Color.Yellow };
 
         public static void Explosion(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = baseAcc,
                 accY = baseAcc,
                 color = colors,
@@ -70,7 +70,7 @@ namespace Explore
         }
 
         public static void BigExplosion(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = baseAcc,
                 accY = baseAcc,
                 color = colors,
@@ -84,7 +84,7 @@ namespace Explore
         }
 
         public static void MineExplosion(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = baseAcc,
                 accY = baseAcc,
                 color = colors,
@@ -98,7 +98,7 @@ namespace Explore
         }
 
         public static void RocketLaunch(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = new Vector2(-1, 1),
                 accY = new Vector2(-7, -2),
                 color = colors,
@@ -112,7 +112,7 @@ namespace Explore
         }
 
         public static void ShootLeftExplosion(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = new Vector2(26, 100),
                 accY = new Vector2(-10, 10),
                 color = colors,
@@ -126,7 +126,7 @@ namespace Explore
         }
 
          public static void ShootRightExplosion(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = new Vector2(-100, -50),
                 accY = new Vector2(-17, 9),
                 color = colors,
@@ -140,7 +140,7 @@ namespace Explore
         }
 
         private static void MouseEffect(Vector2 position) {
-            Settings settings = new Settings() {
+            particleSettings settings = new particleSettings() {
                 accX = baseAcc,
                 accY = baseAcc,
                 velocity = Vector2.Zero,
@@ -153,7 +153,7 @@ namespace Explore
             AddFX(settings, position, mouseEffects);
         }
 
-        private static void AddFX(Settings settings, Vector2 position, List<ParticleSystem> list) {
+        private static void AddFX(particleSettings settings, Vector2 position, List<ParticleSystem> list) {
             ParticleSystem fx = new ParticleSystem(settings, new Rectangle((int)(position.X - 10), (int)(position.Y - 10), 20, 20));
             fx.SetTexture();
             list.Add(fx);

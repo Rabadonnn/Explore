@@ -7,7 +7,7 @@ namespace Explore.Particles
 {
     public class Particle
     {
-        private Settings settings;
+        private particleSettings settings;
         public Rectangle rectangle;
         private Vector2 position;
         private Vector2 acceleration;
@@ -31,7 +31,7 @@ namespace Explore.Particles
         
         private Random rand = new Random();
 
-        public Particle (Settings _settings, Vector2 _position) {
+        public Particle (particleSettings _settings, Vector2 _position) {
             settings = _settings;
             position = _position;
             acceleration = new Vector2(rand.Next((int)settings.accX.X, (int)settings.accX.Y), rand.Next((int)settings.accY.X, (int)settings.accY.Y));

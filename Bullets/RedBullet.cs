@@ -6,6 +6,8 @@ using System;
 
 namespace Explore.Bullets
 {
+    // La fel ca un glont normal doar ca are o nuanta de rosu, este indreptat in jos si este folosit doar de un tip de nava
+
     public class RedBullet : Bullet {
         private Color color;
         public RedBullet(Vector2 position) : base(position) {

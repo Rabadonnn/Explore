@@ -6,6 +6,11 @@ using System;
 
 namespace Explore.Bullets
 {
+    /*
+
+    Contine clasa de baza pentru fiecare tip de munitie din joc
+
+    */
     public class Bullet : GameObject
     {
         protected int width = 16;
@@ -55,6 +60,9 @@ namespace Explore.Bullets
                 }
             }
         }
+
+        // Verifica interesctia dintre dreptungiul corespunzator glontului si platformele din joc
+
         protected void CheckForPlatformCollision() {
             for (int i = 0; i < GameManager.platforms.Count; i++) {
                 if (Helper.RectRect(rectangle, GameManager.platforms[i].Rectangle)) {

@@ -8,7 +8,7 @@ namespace Explore.Particles
     public class ParticleSystem
     {
         public bool enabled = true;
-        public Settings settings;
+        public particleSettings settings;
         public Rectangle rectangle;
         private Texture2D texture;
         private List<Particle> particles;
@@ -17,7 +17,7 @@ namespace Explore.Particles
         private bool oneTime = false;
         private float lifetime;
 
-        public ParticleSystem(Settings _settings, Rectangle _rectangle) {
+        public ParticleSystem(particleSettings _settings, Rectangle _rectangle) {
             settings = _settings;
             rectangle = _rectangle;
             particles = new List<Particle>();

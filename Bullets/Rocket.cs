@@ -6,6 +6,8 @@ using System;
 
 namespace Explore.Bullets
 {
+    // Rachetele folosite de lansatorul de rachete al jucatorului
+
     public class Rocket : Bullet {
 
         private ParticleSystem fx;
@@ -19,7 +21,7 @@ namespace Explore.Bullets
 
             damage = Config.Bullet["rocketDamage"].IntValue;
 
-            fx = new ParticleSystem(new Settings() {
+            fx = new ParticleSystem(new particleSettings() {
                 number_per_frame = rand.Next(5),
                 size = new Point(2, 5),
                 speed = 600,

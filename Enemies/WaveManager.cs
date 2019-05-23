@@ -65,8 +65,16 @@ namespace Explore.Enemies
             }
 
             if (bombShipCooldown <= 0) {
-                NewBombShip();
-                bombShipCooldown = rand.Next(3, 10);
+                int bombShipCount = 0;
+                for (int i = 0; i < enemies.Count; i++) {
+                    if (enemies[i] is Bombship) {
+                        bombShipCount++;
+                    }
+                }
+                if (bombShipCount < 4) {
+                    NewBombShip();
+                    bombShipCooldown = rand.Next(3, 10);
+                }
             } else {
                 bombShipCooldown -= GameManager.DeltaTime;
             }

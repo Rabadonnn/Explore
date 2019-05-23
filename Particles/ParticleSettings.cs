@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Explore.Particles
 {
-    public class Settings
+    public class particleSettings
     {
-        public Settings() {}
+        public particleSettings() {}
         public int number_per_frame = 10;
         public Point size = new Point(10, 10);
         public int speed = 15;
