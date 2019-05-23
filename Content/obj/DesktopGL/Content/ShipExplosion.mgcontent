@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Mihai/Desktop/Explore/Content/ShipExplosion.wav</SourceFile>
+  <SourceFile>c:/Users/Mihai/Desktop/Explore/Content/ShipExplosion.wav</SourceFile>
   <SourceTime>2019-05-19T13:47:58.7483859+03:00</SourceTime>
-  <DestFile>C:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/ShipExplosion.xnb</DestFile>
-  <DestTime>2019-05-19T16:18:37.7436998+03:00</DestTime>
+  <DestFile>c:/Users/Mihai/Desktop/Explore/Content/bin/DesktopGL/Content/ShipExplosion.xnb</DestFile>
+  <DestTime>2019-05-21T18:24:39.2113819+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2018-08-05T14:17:44+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

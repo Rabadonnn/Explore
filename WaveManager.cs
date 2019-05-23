@@ -63,7 +63,6 @@ namespace Explore
             }
 
             if (bombShipCooldown <= 0) {
-                NewBombShip();
                 bombShipCooldown = initalBombShipCooldown;
             } else {
                 bombShipCooldown -= GameManager.DeltaTime;
@@ -85,12 +84,6 @@ namespace Explore
             BaseShip s = new BaseShip(new Vector2(rand.Next(-300, 300), 0));
             s.SetTexture();
             enemies.Add(s);
-        }
-
-        private static void NewBombShip() {
-            BombShip b = new BombShip(new Vector2(rand.Next(-300, 300), 0));
-            b.SetTexture();
-            enemies.Add(b);
         }
     }
 }

@@ -31,12 +31,6 @@ namespace Explore
 
         // Movement
 
-        public Vector2 Position {
-            get {
-                return position;
-            }
-        }
-
         private int width = 32;
         private int height = 64;
         private int halfWidth;
@@ -327,6 +321,7 @@ namespace Explore
             foreach (var b in projectiles.ToArray()) {
                 if (b.isDead) {
                     if (b is Mine) {
+                        Effects.MineExplosion((b as GameObject).Position);
                         SoundManager.ShipExplosion();
                     }
                     projectiles.Remove(b);
@@ -368,9 +363,9 @@ namespace Explore
             handGunAmmo--;
 
             if (currentGunDirection == 1) {
-                Explosions.ShootLeftExplosion(gunShootPoint);
+                Effects.ShootLeftExplosion(gunShootPoint);
             } else if (currentGunDirection == -1) {
-                Explosions.ShootRightExplosion(gunShootPoint);
+                Effects.ShootRightExplosion(gunShootPoint);
             }
         }
 
@@ -379,7 +374,7 @@ namespace Explore
             r.SetTexture(GameManager.Assets["rpg_ammo"]);
             projectiles.Add(r);
             rocketsCount--;
-            Explosions.RocketLaunch(rocketLauncherShootPoint);
+            Effects.RocketLaunch(rocketLauncherShootPoint);
         }
 
         private void ThrowMine() {

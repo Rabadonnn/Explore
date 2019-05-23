@@ -55,7 +55,7 @@ namespace Explore
             for (int i = 0; i < GameManager.platforms.Count; i++) {
                 if (Helper.RectRect(rectangle, GameManager.platforms[i].Rectangle)) {
                     isDead = true;
-                    Explosions.Explosion(position);
+                    Effects.Explosion(position);
                 }
             }
         }

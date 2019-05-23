@@ -30,6 +30,7 @@ namespace Explore
         {
             camera = new Camera(graphics.GraphicsDevice);
             GameManager.Initialize();
+
             base.Initialize();
         }
 

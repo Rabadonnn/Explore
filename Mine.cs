@@ -11,8 +11,6 @@ namespace Explore
         private int width = 32;
         private int height = 20;
 
-        public bool exploded = false;
-
         private Vector2 velocity;
 
         private bool placed;
@@ -31,6 +29,8 @@ namespace Explore
             private set;
         }
 
+        private float lifetime;
+
         private Spritesheet.Spritesheet spritesheet;
 
         private Animation animation;
@@ -41,6 +41,8 @@ namespace Explore
             velocity = new Vector2(speed * direction, 0);
 
             Damage = Config.Bullet["mineDamage"].IntValue;
+
+            lifetime = Config.Bullet["mineLifetime"].IntValue;
 
             placed = false;
         } 
@@ -74,13 +76,17 @@ namespace Explore
                 }
             }
 
+            lifetime -= GameManager.DeltaTime;
+
+            if (lifetime <= 0) {
+                isDead = true;
+            }
+
             animation.Update(GameManager.gameTime);
         }
 
         public void Explode() {
             isDead = true;
-            exploded = true;
-            Explosions.MineExplosion(position);
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

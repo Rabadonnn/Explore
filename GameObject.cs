@@ -8,6 +8,11 @@ namespace Explore
     public abstract class GameObject
     {
         protected Vector2 position;
+        public Vector2 Position {
+            get {
+                return position;
+            }
+        }
         protected Rectangle rectangle;
         public Rectangle Rectangle {
             get {

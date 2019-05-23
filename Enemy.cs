@@ -84,11 +84,11 @@ namespace Explore
                 if (Helper.RectRect(rectangle, p.Rectangle)) {
                     if (p is Mine) {
                         health -= (p as Mine).Damage;
-                        Explosions.MineExplosion(position);
+                        Effects.MineExplosion(position);
                     } else if (p is Bullet) {
                         health -= (p as Bullet).Damage;
                         ApplyKnockBack(new Vector2(-direction * speed * 1.5f, velocity.Y));
-                        Explosions.Explosion(position);
+                        Effects.Explosion(position);
                     }
 
                     p.isDead = true;

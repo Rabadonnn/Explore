@@ -154,7 +154,7 @@ namespace Explore
             assets = new Dictionary<string, Texture2D>();
 
             player = new Player();
-
+            
             WaveManager.Init();
 
             MakeRectanglesForButtons();
@@ -318,6 +318,8 @@ namespace Explore
 
             Input.UpdateGamePad();
 
+            Effects.UpdateMouseEffect();
+
             switch (currentScreen) {
                 case Screens.MainScreen:
                     UpdateMainScreen();
@@ -385,7 +387,7 @@ namespace Explore
 
                     WaveManager.Update();
 
-                    Explosions.Update();
+                    Effects.Update();
 
                     DebugUpdate();
                 }
@@ -488,7 +490,7 @@ namespace Explore
 
             WaveManager.Draw(spriteBatch);
 
-            Explosions.Draw(spriteBatch);
+            Effects.Draw(spriteBatch);
 
             spriteBatch.End();
 
@@ -531,8 +533,10 @@ namespace Explore
             "Q - HandGun, E - Rocket Launcher, Space - Shoot \n" + 
             "V -  Place Mine \n\n" +
             "With the HandGun you hit ground enemies and with the RPG UFOs. \n\n\n" + 
-            "Reload Button should be used to reload the config.cfg file \nthat can be found in project's folder\n\n" +
-            "Facut pentru Explore-IT 2019 - Mihai Solomon", 
+            "Reload Button should be used to reload the config.cfg file \nthat can be found in project's folder\n\n" 
+            // +
+            //"Facut pentru Explore-IT 2019 - Mihai Solomon"
+            , 
             new Vector2(width / 2 - 300, height / 2 - 150), Color.White);
 
             backButton.Draw(spriteBatch);
@@ -545,6 +549,8 @@ namespace Explore
            
             spriteBatch.Draw(assets["background_variant"], destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight), color: Color.White);
            
+            Effects.DrawMouseEffect(spriteBatch);
+
             spriteBatch.End();
         }
 
