@@ -2,8 +2,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using Explore.Bullets;
 
-namespace Explore
+namespace Explore.Enemies
 {
     public class BaseShip : GameObject {
 
@@ -127,9 +128,9 @@ namespace Explore
             return result;
         }
 
-        protected Vector2 MakeNewCheckPoint() {
+        protected virtual Vector2 MakeNewCheckPoint() {
             float x = rand.Next((int)GameManager.player.Position.X - 500, (int)GameManager.player.Position.X + 500);
-            return new Vector2(x, rand.Next(-GameManager.ScreenHeight, 0));
+            return new Vector2(x, rand.Next(-GameManager.ScreenHeight, 100));
         }
     }
 }

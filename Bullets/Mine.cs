@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Spritesheet;
 using Explore.Particles;
 
-namespace Explore
+namespace Explore.Bullets
 {
     public class Mine : GameObject
     {

@@ -36,6 +36,11 @@ namespace Explore
             private set;
         }
 
+        public static Section BombShip {
+            get;
+            private set;
+        }
+
         public static void Load() {
             config = Configuration.LoadFromFile("config.cfg");
 
@@ -45,6 +50,7 @@ namespace Explore
             Bullet = config["Bullets"];
             MapGeneration = config["MapGeneration"];
             Game = config["Game"];
+            BombShip = config["BombShip"];
         }
     }
 }

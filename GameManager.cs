@@ -4,7 +4,7 @@
 publish: 
 ----  dotnet publish -c release -r win10-x64
 
-Just Win MotherFucker
+Nobody cares about your efforts, just your results
 
 */
 
@@ -16,6 +16,8 @@ using Microsoft.Xna.Framework.Audio;
 using Comora;
 using System;
 using System.Collections.Generic;
+using Explore.Drops;
+using Explore.Enemies;
 
 namespace Explore
 {

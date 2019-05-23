@@ -15,20 +15,12 @@ namespace Explore
             sounds.Add("gotHit", contentManager.Load<SoundEffect>("gotHit"));
         }
 
-        public static void Shoot() {
-            sounds["shoot"].CreateInstance().Play();
-        }
+        public static void Shoot() => sounds["shoot"].CreateInstance().Play();
 
-        public static void LaunchRocket() {
-            sounds["rocketShoot"].CreateInstance().Play();
-        }
+        public static void LaunchRocket() => sounds["rocketShoot"].CreateInstance().Play();
 
-        public static void ShipExplosion() {
-            sounds["shipExplosion"].CreateInstance().Play();
-        }
+        public static void ShipExplosion() => sounds["shipExplosion"].CreateInstance().Play();
 
-        public static void GotHit() {
-            sounds["gotHit"].CreateInstance().Play();
-        }
+        public static void GotHit() => sounds["gotHit"].CreateInstance().Play();
     }
 }

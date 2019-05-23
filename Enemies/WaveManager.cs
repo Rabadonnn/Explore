@@ -2,8 +2,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using Explore.Drops;
 
-namespace Explore
+namespace Explore.Enemies
 {
     public static class WaveManager
     {
@@ -20,14 +21,15 @@ namespace Explore
 
         private static Random rand;
 
-        private static float initalBombShipCooldown = 10f;
-        private static float bombShipCooldown = 5f;
+        private static float initalBombShipCooldown;
+        private static float bombShipCooldown;
 
         public static void Init() {
             waveNumber = 0;
             firstWave = true;
             enemies = new List<GameObject>();
             rand = new Random();
+            initalBombShipCooldown = rand.Next(3, 10);
         }
 
         public static void Update() {
@@ -63,7 +65,8 @@ namespace Explore
             }
 
             if (bombShipCooldown <= 0) {
-                bombShipCooldown = initalBombShipCooldown;
+                NewBombShip();
+                bombShipCooldown = rand.Next(3, 10);
             } else {
                 bombShipCooldown -= GameManager.DeltaTime;
             }
@@ -84,6 +87,12 @@ namespace Explore
             BaseShip s = new BaseShip(new Vector2(rand.Next(-300, 300), 0));
             s.SetTexture();
             enemies.Add(s);
+        }
+
+        private static void NewBombShip() {
+            BaseShip b = new Bombship(new Vector2(rand.Next((int)GameManager.player.Position.X - 400, (int)GameManager.player.Position.X + 400), rand.Next(-300, -100)));
+            (b as Bombship).SetTexture();
+            enemies.Add(b);
         }
     }
 }

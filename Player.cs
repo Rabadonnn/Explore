@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Spritesheet;
 using Explore.Particles;
+using Explore.Bullets;
 
 namespace Explore
 {
@@ -358,7 +359,7 @@ namespace Explore
 
         private void ShootHandGun() {
             Bullet b = new Bullet(gunShootPoint, currentGunDirection);
-            b.SetTexture(GameManager.Assets["bullet"]);
+            b.SetTexture();
             projectiles.Add(b);
             handGunAmmo--;
 
@@ -371,7 +372,7 @@ namespace Explore
 
         private void LaunchRocket() {
             Rocket r = new Rocket(rocketLauncherShootPoint);
-            r.SetTexture(GameManager.Assets["rpg_ammo"]);
+            r.SetTexture();
             projectiles.Add(r);
             rocketsCount--;
             Effects.RocketLaunch(rocketLauncherShootPoint);
